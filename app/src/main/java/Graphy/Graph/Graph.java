@@ -11,7 +11,12 @@ public class Graph{
     boolean isWeighted = false; //if any of the weights is not equal to 0
     private final Map<Node, Set<Edge>> adjacencySet = new HashMap<>();
 
+    public Graph(){
+
+    }
     public Graph(File file) throws FileNotFoundException, IOException {
+        //TODO node without edges cannot be read with this implementation. Extend or change it.
+
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
             isUndirected = scan.nextInt() != 0;
@@ -33,12 +38,40 @@ public class Graph{
             Node startNode = new Node(start);
             Node endNode = new Node(end);
             Edge edge = new Edge(startNode,endNode,weight);
-            if (!adjacencySet.containsKey(startNode)){
-                adjacencySet.put(startNode, new HashSet<>());
+            addEdge(edge);
+
+            if (isUndirected){
+                addEdge(new Edge(endNode,startNode,weight));
             }
-            adjacencySet.get(startNode).add(edge);
+
         }
         scan.close();
+
+    }
+
+    void addEdge(Edge edge){
+        if (edge==null) throw new IllegalArgumentException("Edge is null");
+        if (!adjacencySet.containsKey(edge.getStart())){
+            adjacencySet.put(edge.getStart(), new HashSet<>());
+        }
+        adjacencySet.get(edge.getStart()).add(edge);
+    }
+
+    void removeEdge(Edge edge){
+        if (edge==null) throw new IllegalArgumentException("Edge is null");
+        if (adjacencySet.containsKey(edge.getStart())){
+            adjacencySet.get(edge.getStart()).remove(edge);
+        }
+    }
+
+    void addNode(Node node){
+        adjacencySet.put(node,new HashSet<>());
+    }
+
+    void removeNode(Node node) {
+        adjacencySet.remove(node);
+       //TODO iterate over all entries and delete every edge that has the node as start or endpoint.
+
 
     }
 
