@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class Graph <T>{
+public class Graph{
     boolean isUndirected;
     boolean hasNegativeWeights = false;
     boolean isWeighted = false; //if any of the weights is not equal to 0
@@ -15,7 +15,9 @@ public class Graph <T>{
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
             isUndirected = scan.nextInt() != 0;
+            scan.nextLine();
         }
+
         else {
             throw new IOException("File has not the correct format");
         }
