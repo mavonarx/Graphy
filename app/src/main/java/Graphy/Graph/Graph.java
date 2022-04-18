@@ -23,7 +23,6 @@ public class Graph{
      * @throws IOException if the file has not the correct format
      */
     public Graph(File file) throws FileNotFoundException, IOException {
-        //TODO node without edges cannot be read with this implementation. Extend or change it.
 
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
@@ -36,7 +35,15 @@ public class Graph{
         }
         while(scan.hasNextLine()){
             String scannedLine = scan.nextLine();
-            String [] edgeArray = scannedLine.split(",");
+            String [] edgeArray = scannedLine.split(",",3);
+
+            //only a node is added to the graph
+            if (edgeArray.length == 1){
+                addNode(new Node(edgeArray[0]));
+                continue;
+            }
+
+            //an edge is added to the graph
             if (edgeArray.length!=3) throw new IOException("File has not the correct format");
             String start = edgeArray[0].strip();
             String end = edgeArray[1].strip();
