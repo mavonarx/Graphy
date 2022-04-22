@@ -3,11 +3,11 @@ package Graphy.Graph;
 
 import java.util.Objects;
 
-public class Node {
+public class Vertex {
 
     String value;
 
-    public Node(String value){
+    public Vertex(String value){
         this.value=value;
 
     }
@@ -15,8 +15,8 @@ public class Node {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Node node = (Node) o;
-        return Objects.equals(value, node.value);
+        Vertex vertex = (Vertex) o;
+        return Objects.equals(value, vertex.value);
     }
 
     public String getValue() {
