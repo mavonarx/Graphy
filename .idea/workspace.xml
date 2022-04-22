@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c70f8e8b-3842-4355-8dac-e8d23e803551" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Vertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/Graphy/Graph/NodeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/Graphy/Graph/VertexTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,23 +58,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/Graphy/Graph" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/java/Graphy/Graph" />
@@ -111,6 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1650147570819</updated>
       <workItem from="1650147572252" duration="16300000" />
+      <workItem from="1650639300330" duration="387000" />
     </task>
     <servers />
   </component>

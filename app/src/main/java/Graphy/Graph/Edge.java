@@ -3,20 +3,20 @@ package Graphy.Graph;
 import java.util.Objects;
 
 public class Edge implements Comparable<Edge>{
-    private final Node start;
-    private final Node  end;
+    private final Vertex start;
+    private final Vertex end;
     private final int weight;
     private static final int DEFAULT_WEIGHT = 0;
 
 
-    public Edge(Node start, Node  end, int weight){
+    public Edge(Vertex start, Vertex end, int weight){
         if (end ==null || start ==null) throw new IllegalArgumentException("Endnote cannot be null");
         this.start = start;
         this.end = end;
         this.weight = weight;
     }
 
-    public Edge(Node start, Node end){
+    public Edge(Vertex start, Vertex end){
         this( start, end, DEFAULT_WEIGHT);
     }
 
@@ -25,11 +25,11 @@ public class Edge implements Comparable<Edge>{
         return weight;
     }
 
-    public Node getEnd() {
+    public Vertex getEnd() {
         return end;
     }
 
-    public Node getStart() {
+    public Vertex getStart() {
         return start;
     }
 
