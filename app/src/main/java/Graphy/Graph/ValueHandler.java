@@ -48,12 +48,12 @@ public class ValueHandler {
                 public void changed(ObservableValue<? extends ObservableSet<Edge>> observable, ObservableSet<Edge> oldValue, ObservableSet<Edge> newValue) {
                     graph.put(vertex,null);
                     graph.put(vertex,new SimpleSetProperty<>(newValue));
-                    System.out.println("set changed" +counter);
                 }
             });
             graph.put(vertex, setProperty);
         }
     }
+
     public void removeEdge(Edge edge){
         if (edge==null) throw new IllegalArgumentException("Edge is null");
         if (graph.containsKey(edge.getStart())){

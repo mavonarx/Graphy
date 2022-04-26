@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c70f8e8b-3842-4355-8dac-e8d23e803551" name="Changes" comment="">
+    <list default="true" id="ae37ddd7-b1a3-4644-a610-ce6989d6597d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/Graphy/Graph/NodeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/Graphy/Graph/VertexTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/ValueHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/Graphy/Graph/ValueHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +44,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Graph_Implementation" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -58,15 +59,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/java/Graphy/Graph" />
