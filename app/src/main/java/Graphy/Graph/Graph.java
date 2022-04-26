@@ -1,5 +1,7 @@
 package Graphy.Graph;
 
+import javafx.beans.property.MapProperty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
