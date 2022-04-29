@@ -7,9 +7,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This class represents the graph. The values of the graph are stored inside the valueHandler-class.
+ * A graph can be directed or undirected. There are different ways of creating a graph.
+ * 1. Creating a completely empty Graph
+ * 2. With a properly filled out Graph-file
+ * 3. With a list of edges.
+ * For every
+ */
 public class Graph{
-    boolean isUndirected;
-    private final Map<Vertex, Set<Edge>> adjacencySet = new HashMap<>();
+    boolean isDirected;
+    ValueHandler valueHandler = new ValueHandler();
 
     /**
      * creates an empty graph
@@ -18,8 +26,9 @@ public class Graph{
     }
 
     /**
-     * creates a graph from a input file
-     * @param file where an adjacencyList is represented. First line tells whether it's a directed or undirected graph
+     * creates a graph from an input file
+     * @param file where an adjacencyList is represented. First line tells whether
+     *             it's a directed (!=0) or undirected (=0) graph
      *             any further line represents an edge (vertex, vertex, weight)
      * @throws FileNotFoundException if the file cannot be found
      * @throws IOException if the file has not the correct format
@@ -28,7 +37,7 @@ public class Graph{
 
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
-            isUndirected = scan.nextInt() != 0;
+            isDirected = scan.nextInt() != 0;
             scan.nextLine();
         }
 
@@ -41,7 +50,7 @@ public class Graph{
 
             //only a node is added to the graph
             if (edgeArray.length == 1){
-                addVertex(new Vertex(edgeArray[0]));
+                valueHandler.addVertex(new Vertex(edgeArray[0]));
                 continue;
             }
 
@@ -54,10 +63,10 @@ public class Graph{
             Vertex startVertex = new Vertex(start);
             Vertex endVertex = new Vertex(end);
             Edge edge = new Edge(startVertex, endVertex,weight);
-            addEdge(edge);
+            valueHandler.addEdge(edge);
 
-            if (isUndirected){
-                addEdge(new Edge(endVertex, startVertex,weight));
+            if (!isDirected){
+                valueHandler.addEdge(new Edge(endVertex, startVertex,weight));
             }
 
         }
@@ -66,50 +75,22 @@ public class Graph{
 
     public Graph(List<Edge> edges){
         for (Edge edge : edges){
-            addEdge(edge);
+            valueHandler.addEdge(edge);
         }
     }
 
-    void addEdge(Edge edge){
-        if (edge==null) throw new IllegalArgumentException("Edge is null");
-        if (!adjacencySet.containsKey(edge.getStart())){
-            adjacencySet.put(edge.getStart(), new HashSet<>());
-        }
-
-        adjacencySet.get(edge.getStart()).add(edge);
+    public boolean isWeighted(){
+       for (Vertex vertex : valueHandler.graph.keySet()){
+           for (Edge edge : valueHandler.graph.get(vertex)){
+               if (edge.getWeight()!=0){
+                   return true;
+               }
+           }
+       }
+       return false;
     }
 
-    void removeEdge(Edge edge){
-        if (edge==null) throw new IllegalArgumentException("Edge is null");
-        if (adjacencySet.containsKey(edge.getStart())){
-            adjacencySet.get(edge.getStart()).remove(edge);
-        }
+    public ValueHandler getValueHandler() {
+        return valueHandler;
     }
-
-    void addVertex(Vertex vertex){
-        adjacencySet.put(vertex,new HashSet<>());
-    }
-
-    void removeVertex(Vertex vertex) {
-        adjacencySet.remove(vertex);
-        throw new UnsupportedOperationException();
-       //TODO iterate over all entries and delete every edge that has the node as start or endpoint.
-
-
-    }
-
-    public Map<Vertex, Set<Edge>> getAdjacencySet() {
-        return adjacencySet;
-    }
-
-    public boolean isWeighted() {
-        for (Set<Edge> adjacentEdges : getAdjacencySet().values()){
-            for (Edge edge : adjacentEdges){
-                if (edge.getWeight()!=0) return true;
-            }
-        }
-        return false;
-    }
-
-
 }

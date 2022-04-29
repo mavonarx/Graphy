@@ -8,14 +8,8 @@ import Graphy.Graph.ValueHandler;
 import Graphy.Graph.Vertex;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        ValueHandler v  = new ValueHandler();
-        v.addEdge(new Edge(new Vertex("1"), new Vertex("2")));
-        v.addEdge(new Edge(new Vertex("2"), new Vertex("2")));
-        v.addEdge(new Edge(new Vertex("1"), new Vertex("3")));
+
     }
 }
