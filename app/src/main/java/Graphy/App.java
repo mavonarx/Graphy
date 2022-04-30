@@ -3,12 +3,13 @@
  */
 package Graphy;
 
+import Graphy.Graph.Edge;
+import Graphy.Graph.ValueHandler;
+import Graphy.Graph.Vertex;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
     }
 }
