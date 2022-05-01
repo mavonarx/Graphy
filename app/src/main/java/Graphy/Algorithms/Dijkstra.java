@@ -23,9 +23,9 @@ public class Dijkstra extends  Algorithm{
      * @param graph
      * @param startVertex
      */
-    public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex endVertex){
+    public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex finalVertex){
 
-        // initializing all vertecies with a distance of -1 (represent infinite distance)
+        // initializing all vertices with a distance of -1 (represent infinite distance)
         for (Vertex vertex: graph.getValueHandler().getGraph().keySet()){
             distances.put(vertex, -1);
         }
@@ -44,7 +44,7 @@ public class Dijkstra extends  Algorithm{
 
             Vertex currentEnd = currentEdge.getEnd();
             Vertex currentStart = currentEdge.getStart();
-            if (visited.contains(currentStart)) continue;
+            if (visited.contains(currentEnd)) continue;
 
             // add edge to finalized list (visited)
             visited.add(currentEdge.getEnd());
@@ -62,7 +62,7 @@ public class Dijkstra extends  Algorithm{
             }
 
             // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
-            if(currentEnd.equals(endVertex) && (this.endVertex == null || distances.get(this.endVertex)>distances.get(currentEnd))){
+            if(currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex)>distances.get(currentEnd))){
                 this.endVertex = currentEnd;
             }
             prioQueue.addAll(graph.getValueHandler().getGraph().get(currentStart));
@@ -72,7 +72,7 @@ public class Dijkstra extends  Algorithm{
         // fill the list with all predecessors to the endpoint
         Vertex pointer = this.endVertex;
         while (pointer !=null){
-            resultPath.addFirst(this.endVertex);
+            resultPath.addFirst(pointer);
             pointer = predecessors.get(pointer);
         }
 

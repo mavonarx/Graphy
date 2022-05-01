@@ -10,7 +10,7 @@ public class Edge implements Comparable<Edge>{
 
 
     public Edge(Vertex start, Vertex end, int weight){
-        if (end ==null || start ==null) throw new IllegalArgumentException("Endnote cannot be null");
+        if (end ==null || start ==null) throw new IllegalArgumentException("EndVertex cannot be null");
         this.start = start;
         this.end = end;
         this.weight = weight;
