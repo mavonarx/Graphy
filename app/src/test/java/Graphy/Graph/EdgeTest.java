@@ -15,15 +15,20 @@ class EdgeTest {
 
     @Mock
     private Vertex start;
+    @Mock
     private Vertex end;
+    @Mock
     private Vertex end2;
 
-    Edge edge1 = new Edge(start,  end, 5);
-    Edge edge2 = new Edge(start, end2, 1);
+    Edge edge1;
+    Edge edge2;
+
 
     @BeforeEach
-    private void setUp(){
+    public void init(){
         MockitoAnnotations.openMocks(this);
+        edge2 = new Edge(start, end2, 1);
+        edge1 = new Edge(start, end, 5);
     }
 
     @Test
