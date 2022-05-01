@@ -44,12 +44,12 @@ public class Dijkstra extends  Algorithm{
 
             Vertex currentEnd = currentEdge.getEnd();
             Vertex currentStart = currentEdge.getStart();
-            if (visited.contains(currentEnd)) continue;
+            if (visited.contains(currentStart)) continue;
 
             // add edge to finalized list (visited)
-            visited.add(currentEdge.getEnd());
+            visited.add(currentStart);
 
-            for (Edge edge: graph.getValueHandler().getGraph().get(currentEnd)){
+            for (Edge edge : graph.getValueHandler().getGraph().get(currentStart)){
 
                 /*
                 if the distance is infinite or the distance stored is higher than the
@@ -65,7 +65,7 @@ public class Dijkstra extends  Algorithm{
             if(currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex)>distances.get(currentEnd))){
                 this.endVertex = currentEnd;
             }
-            prioQueue.addAll(graph.getValueHandler().getGraph().get(currentStart));
+            prioQueue.addAll(graph.getValueHandler().getGraph().get(currentEnd));
 
         }
 

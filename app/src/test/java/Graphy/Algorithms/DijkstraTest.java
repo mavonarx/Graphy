@@ -52,6 +52,9 @@ class DijkstraTest{
         graph.getValueHandler().addVertex(vertex4);
 
         expected.add(vertex1);
+        expected.add(vertex4);
+        expected.add(vertex2);
+        expected.add(vertex3);
 
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
