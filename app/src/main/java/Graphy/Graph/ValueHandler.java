@@ -84,4 +84,8 @@ public class ValueHandler {
         throw new UnsupportedOperationException();
     }
 
+
+    public ObservableMap<Vertex, SimpleSetProperty<Edge>> getGraph() {
+        return graph.get();
+    }
 }
