@@ -39,6 +39,7 @@ public class BreadthFirstSearch {
             //add all adjacent vertices to the queue
             for (Vertex end : graph.getValueHandler().adjacentVertices(current)){
                 if (!visited.contains(end)){
+
                     predecessor.put(end,current);
                     queue.add(end);
                     visited.add(end);
