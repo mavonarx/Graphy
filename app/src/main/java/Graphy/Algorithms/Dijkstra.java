@@ -37,29 +37,29 @@ public class Dijkstra extends  Algorithm{
         // first add source to PriorityQueue
         prioQueue.addAll(graph.getValueHandler().getGraph().get(startVertex));
 
-        while (!prioQueue.isEmpty()) {
+            while (!prioQueue.isEmpty()) {
 
-            // currentEdge is removed from PriorityQueue and has min distance
-            Edge currentEdge = prioQueue.poll();
+                // currentEdge is removed from PriorityQueue and has min distance
+                Edge currentEdge = prioQueue.poll();
 
-            Vertex currentEnd = currentEdge.getEnd();
-            Vertex currentStart = currentEdge.getStart();
-            if (visited.contains(currentStart)) continue;
+                Vertex currentEnd = currentEdge.getEnd();
+                Vertex currentStart = currentEdge.getStart();
+                if (visited.contains(currentStart)) continue;
 
-            // add edge to finalized list (visited)
-            visited.add(currentStart);
+                // add edge to finalized list (visited)
+                visited.add(currentStart);
 
-            for (Edge edge : graph.getValueHandler().getGraph().get(currentStart)){
+                for (Edge edge : graph.getValueHandler().getGraph().get(currentStart)) {
 
                 /*
                 if the distance is infinite or the distance stored is higher than the
                 new calculated distance update the distance and predecessor
                 */
-                if (distances.get(currentEnd)==-1 || distances.get(currentEnd)>distances.get(currentStart)+ edge.getWeight()) {
-                    distances.put(edge.getEnd(), edge.getWeight() + distances.get(currentStart));
-                    predecessors.put(currentEnd,currentStart);
+                    if (distances.get(currentEnd) == -1 || distances.get(currentEnd) > distances.get(currentStart) + edge.getWeight()) {
+                        distances.put(edge.getEnd(), edge.getWeight() + distances.get(currentStart));
+                        predecessors.put(currentEnd, currentStart);
+                    }
                 }
-            }
 
             // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
             if(currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex)>distances.get(currentEnd))){
@@ -67,7 +67,7 @@ public class Dijkstra extends  Algorithm{
             }
             prioQueue.addAll(graph.getValueHandler().getGraph().get(currentEnd));
 
-        }
+
 
         // fill the list with all predecessors to the endpoint
         Vertex pointer = this.endVertex;
