@@ -100,10 +100,7 @@ public class ValueHandler {
         List<Vertex> adjacentList = new ArrayList<>();
 
         for (Edge edge : graph.get(vertex)){
-            if (edge.getEnd().equals(vertex)) {
-                adjacentList.add(edge.getStart());
-            }else {adjacentList.add(edge.getEnd());
-        }
+            adjacentList.add(edge.getEnd());
     }
         return adjacentList;
     }

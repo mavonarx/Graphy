@@ -5,20 +5,18 @@ import Graphy.Graph.Graph;
 import Graphy.Graph.ValueHandler;
 import Graphy.Graph.Vertex;
 import javafx.beans.property.MapProperty;
-import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 import static org.mockito.Mockito.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.FileHandler;
 
 
 class DijkstraTest{
@@ -36,13 +34,13 @@ class DijkstraTest{
     @Mock
     private Vertex mockVertex5;
     @Mock
-    private Edge mockEdge1;
+    private Edge mockEdge13;
     @Mock
-    private Edge mockEdge2;
+    private Edge mockEdge14;
     @Mock
-    private Edge mockEdge3;
+    private Edge mockEdge42;
     @Mock
-    private Edge mockEdge4;
+    private Edge mockEdge23;
     @Mock
     private ValueHandler mockHandler;
 
@@ -54,41 +52,70 @@ class DijkstraTest{
 
         //Implementing a mockMap to work with
         mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
-        mockMap.get(mockVertex1).add(mockEdge1);
-        mockMap.get(mockVertex1).add(mockEdge2);
+        mockMap.get(mockVertex1).add(mockEdge13);
+        mockMap.get(mockVertex1).add(mockEdge14);
         mockMap.put(mockVertex4, new SimpleSetProperty<>(FXCollections.observableSet()));
-        mockMap.get(mockVertex4).add(mockEdge2);
-        mockMap.get(mockVertex4).add(mockEdge3);
+        mockMap.get(mockVertex4).add(mockEdge14);
+        mockMap.get(mockVertex4).add(mockEdge42);
         mockMap.put(mockVertex2, new SimpleSetProperty<>(FXCollections.observableSet()));
-        mockMap.get(mockVertex2).add(mockEdge3);
-        mockMap.get(mockVertex2).add(mockEdge4);
+        mockMap.get(mockVertex2).add(mockEdge42);
+        mockMap.get(mockVertex2).add(mockEdge23);
         mockMap.put(mockVertex3, new SimpleSetProperty<>(FXCollections.observableSet()));
-        mockMap.get(mockVertex3).add(mockEdge1);
-        mockMap.get(mockVertex3).add(mockEdge4);
+        mockMap.get(mockVertex3).add(mockEdge13);
+        mockMap.get(mockVertex3).add(mockEdge23);
         mockMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
 
         //SetUp mockEdges
-        when(mockEdge1.getWeight()).thenReturn(6);
-        when(mockEdge2.getWeight()).thenReturn(1);
-        when(mockEdge3.getWeight()).thenReturn(1);
-        when(mockEdge4.getWeight()).thenReturn(1);
+        when(mockEdge13.getWeight()).thenReturn(6);
+        when(mockEdge14.getWeight()).thenReturn(1);
+        when(mockEdge42.getWeight()).thenReturn(1);
+        when(mockEdge23.getWeight()).thenReturn(1);
 
-        when(mockEdge1.getStart()).thenReturn(mockVertex1);
-        when(mockEdge1.getEnd()).thenReturn(mockVertex3);
-        when(mockEdge2.getStart()).thenReturn(mockVertex1);
-        when(mockEdge2.getEnd()).thenReturn(mockVertex4);
-        when(mockEdge3.getStart()).thenReturn(mockVertex4);
-        when(mockEdge3.getEnd()).thenReturn(mockVertex2);
-        when(mockEdge4.getStart()).thenReturn(mockVertex2);
-        when(mockEdge4.getEnd()).thenReturn(mockVertex3);
+
+
+
+        when(mockEdge13.getStart()).thenReturn(mockVertex1);
+        when(mockEdge13.getEnd()).thenReturn(mockVertex3);
+        when(mockEdge14.getStart()).thenReturn(mockVertex1);
+        when(mockEdge14.getEnd()).thenReturn(mockVertex4);
+        when(mockEdge42.getStart()).thenReturn(mockVertex4);
+        when(mockEdge42.getEnd()).thenReturn(mockVertex2);
+        when(mockEdge23.getStart()).thenReturn(mockVertex2);
+        when(mockEdge23.getEnd()).thenReturn(mockVertex3);
+
+        when(mockEdge14.compareTo(mockEdge13)).thenReturn(-1);
+        when(mockEdge23.compareTo(mockEdge13)).thenReturn(-1);
+        when(mockEdge42.compareTo(mockEdge13)).thenReturn(-1);
+        when(mockEdge13.compareTo(any())).thenReturn(1);
+
+
+
+
+
+
+
 
         //Setup mockHandler
         when(mockHandler.getGraph()).thenReturn(mockMap);
 
         //Setup mockGraph
         when(mockGraph.getValueHandler()).thenReturn(mockHandler);
-
     }
+
+    @Test
+    void dijkstraMockedTest(){
+        Dijkstra dijkstra = new Dijkstra();
+        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex3);
+
+        LinkedList<Vertex> testResult = new LinkedList<>();
+        testResult.add(mockVertex1);
+        testResult.add(mockVertex4);
+        testResult.add(mockVertex2);
+        testResult.add(mockVertex3);
+
+        assertEquals(testResult, result);
+    }
+
 
     @Test
     void executeDijkstraTest() throws IOException {  //TODO this isnt stubbed/mocked to be removed before deploy
@@ -122,19 +149,7 @@ class DijkstraTest{
         assertEquals(expected, result);
     }
 
-    @Test
-    void dijkstraMockedTest(){
-        Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex3);
 
-        LinkedList<Vertex> testResult = new LinkedList<>();
-        testResult.add(mockVertex1);
-        testResult.add(mockVertex4);
-        testResult.add(mockVertex2);
-        testResult.add(mockVertex3);
-
-        assertEquals(testResult, result);
-    }
 
     @Test
     void verticesNotConnected(){
