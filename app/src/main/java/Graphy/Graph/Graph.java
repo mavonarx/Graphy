@@ -18,6 +18,7 @@ import java.util.*;
 public class Graph{
     boolean isDirected;
     ValueHandler valueHandler = new ValueHandler();
+    Map<Vertex, List<Vertex>> adjacentVertices = new HashMap<>();
 
     /**
      * creates an empty graph
