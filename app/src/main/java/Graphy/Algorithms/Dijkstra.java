@@ -23,7 +23,7 @@ public class Dijkstra extends  Algorithm{
      * @param graph
      * @param startVertex
      */
-    public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex finalVertex){
+    public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
 
         // initializing all vertices with a distance of -1 (represent infinite distance)
         for (Vertex vertex: graph.getValueHandler().getGraph().keySet()){
