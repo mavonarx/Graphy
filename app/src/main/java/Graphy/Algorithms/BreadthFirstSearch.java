@@ -38,6 +38,7 @@ public class BreadthFirstSearch {
             // Get all adjacent vertices of the dequeued vertex s
             // If a adjacent has not been visited, then mark it
             // visited and enqueue it
+            /*
             Iterator<Vertex> i = adj[source].listIterator();
             while (i.hasNext())
             {
@@ -47,7 +48,7 @@ public class BreadthFirstSearch {
                     visited.put(next, true);
                     queue.add(next);
                 }
-            }
+            }*/
         }
     }
 }

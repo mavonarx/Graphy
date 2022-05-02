@@ -25,6 +25,11 @@ public class Dijkstra extends  Algorithm{
      */
     public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
 
+        if (startVertex.equals(finalVertex)){
+            resultPath.add(startVertex);
+            return resultPath;
+        }
+
         // initializing all vertices with a distance of -1 (represent infinite distance)
         for (Vertex vertex: graph.getValueHandler().getGraph().keySet()){
             distances.put(vertex, -1);
@@ -61,12 +66,12 @@ public class Dijkstra extends  Algorithm{
                     }
                 }
 
-            // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
-            if(currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex)>distances.get(currentEnd))){
-                this.endVertex = currentEnd;
+                // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
+                if (currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex) > distances.get(currentEnd))) {
+                    this.endVertex = currentEnd;
+                }
+                prioQueue.addAll(graph.getValueHandler().getGraph().get(currentEnd));
             }
-            prioQueue.addAll(graph.getValueHandler().getGraph().get(currentEnd));
-
 
 
         // fill the list with all predecessors to the endpoint
@@ -76,6 +81,10 @@ public class Dijkstra extends  Algorithm{
             pointer = predecessors.get(pointer);
         }
 
+        if (resultPath.isEmpty()){
+            throw new IllegalArgumentException("The given vertices are not connected");
+        }
         return resultPath;
     }
 }
+

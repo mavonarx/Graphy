@@ -137,7 +137,7 @@ class DijkstraTest{
     }
 
     @Test
-    void vertexNotConnected(){
+    void verticesNotConnected(){
         Dijkstra dijkstra = new Dijkstra();
 
         assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex5, mockVertex1));
