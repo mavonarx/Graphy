@@ -1,5 +1,6 @@
 package Graphy.Algorithms;
 
+import Graphy.Graph.Graph;
 import Graphy.Graph.ValueHandler;
 import Graphy.Graph.Vertex;
 
@@ -14,7 +15,7 @@ public class BreadthFirstSearch {
 
 
     // prints BFS traversal from a given source s
-    void BFS(Vertex source, Vertex finalVertex) {
+    void BFS(Graph graph, Vertex source, Vertex finalVertex) {
 
         // Mark all the vertices as not visited(By default set as false)
         Map<Vertex, Boolean> visited = new HashMap<>();
@@ -38,17 +39,14 @@ public class BreadthFirstSearch {
             // Get all adjacent vertices of the dequeued vertex s
             // If a adjacent has not been visited, then mark it
             // visited and enqueue it
-            /*
-            Iterator<Vertex> i = adj[source].listIterator();
-            while (i.hasNext())
-            {
-                Vertex next = i.next();
-                if (!visited.get(next))
+
+            for (Vertex vertex : graph.getValueHandler().adjacentVertices(source)){
+                if (!visited.get(vertex))
                 {
-                    visited.put(next, true);
-                    queue.add(next);
+                    visited.put(vertex, true);
+                    queue.add(vertex);
                 }
-            }*/
+            }
         }
     }
 }

@@ -11,7 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * This class represents the values that are needed to display the application.
@@ -87,5 +89,22 @@ public class ValueHandler {
 
     public ObservableMap<Vertex, SimpleSetProperty<Edge>> getGraph() {
         return graph.get();
+    }
+
+    /**
+     * Creates a list of vertices adjacent to the given vertex
+     * @param vertex the vertex for which u want the adjacent vertices
+     * @return's a list of all adjacent vertices
+     */
+    public List<Vertex> adjacentVertices(Vertex vertex){
+        List<Vertex> adjacentList = new ArrayList<>();
+
+        for (Edge edge : graph.get(vertex)){
+            if (edge.getEnd().equals(vertex)) {
+                adjacentList.add(edge.getStart());
+            }else {adjacentList.add(edge.getEnd());
+        }
+    }
+        return adjacentList;
     }
 }
