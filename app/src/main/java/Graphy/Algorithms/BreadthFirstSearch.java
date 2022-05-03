@@ -7,10 +7,11 @@ import Graphy.Graph.Vertex;
 import java.util.*;
 
 public class BreadthFirstSearch {
+    private Map<Vertex, Vertex> visualMap = new HashMap<>();
 
 
     // prints BFS traversal from a given source s
-    public static Map<Vertex, Integer> executeBFS(Graph graph, Vertex source, Vertex finalVertex) {
+    public Map<Vertex, Integer> executeBFS(Graph graph, Vertex source) {
 
         Map<Vertex, Integer> result = new HashMap();
 
@@ -47,6 +48,11 @@ public class BreadthFirstSearch {
                 }
             }
         }
+        this.visualMap = predecessor;
         return result;
+    }
+
+    public Map<Vertex, Vertex> getVisualMap() {
+        return visualMap;
     }
 }

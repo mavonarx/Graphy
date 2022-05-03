@@ -71,9 +71,7 @@ class DijkstraTest{
         when(mockEdge42.getWeight()).thenReturn(1);
         when(mockEdge23.getWeight()).thenReturn(1);
 
-
-
-
+        //stub the edge getters
         when(mockEdge13.getStart()).thenReturn(mockVertex1);
         when(mockEdge13.getEnd()).thenReturn(mockVertex3);
         when(mockEdge14.getStart()).thenReturn(mockVertex1);
@@ -83,17 +81,11 @@ class DijkstraTest{
         when(mockEdge23.getStart()).thenReturn(mockVertex2);
         when(mockEdge23.getEnd()).thenReturn(mockVertex3);
 
+        //stub compareTo in edge
         when(mockEdge14.compareTo(mockEdge13)).thenReturn(-1);
         when(mockEdge23.compareTo(mockEdge13)).thenReturn(-1);
         when(mockEdge42.compareTo(mockEdge13)).thenReturn(-1);
         when(mockEdge13.compareTo(any())).thenReturn(1);
-
-
-
-
-
-
-
 
         //Setup mockHandler
         when(mockHandler.getGraph()).thenReturn(mockMap);
@@ -118,7 +110,7 @@ class DijkstraTest{
 
 
     @Test
-    void executeDijkstraTest() throws IOException {  //TODO this isnt stubbed/mocked to be removed before deploy
+    void executeDijkstraTest() throws IOException {  //TODO this isn't stubbed/mocked to be removed before deploy
 
         Dijkstra dijkstra = new Dijkstra();
         Graph graph = new Graph();
