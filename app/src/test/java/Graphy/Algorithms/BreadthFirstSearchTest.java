@@ -43,7 +43,6 @@ public class BreadthFirstSearchTest {
         graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
         graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
 
-
         assertEquals(expected, bfs.executeBFS(graph, vertex1));
     }
 }

@@ -15,16 +15,12 @@ public class MinimumSpanningTree {
                     "MinimumSpanningTree can only be used on fully connected graphs");
         }
 
-
         Set<Vertex> visited= new HashSet<>();
         Set<Edge> chosenEdges = new HashSet<>();
         visited.add(start);
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
 
         priorityQueue.addAll(graph.getValueHandler().getGraph().get(start));
-
-
-        //TODO check if the graph is connected.
 
         while (visited.size()< graph.getValueHandler().getGraph().size()){
             Edge current = priorityQueue.poll();
@@ -38,11 +34,7 @@ public class MinimumSpanningTree {
                     priorityQueue.add(edge);
                 }
             }
-
-
         }
-
-
         return chosenEdges;
 
     }
