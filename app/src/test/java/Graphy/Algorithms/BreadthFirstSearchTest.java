@@ -2,9 +2,11 @@ package Graphy.Algorithms;
 
 import Graphy.Graph.Edge;
 import Graphy.Graph.Graph;
-import Graphy.Graph.ValueHandler;
 import Graphy.Graph.Vertex;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.*;
+import static org.mockito.Mockito.*;
 
 import java.util.LinkedList;
 
@@ -39,6 +41,7 @@ public class BreadthFirstSearchTest {
         graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
         graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
 
-        bfs.BFS(graph, vertex1, vertex3);
+
+        assertEquals(expected, bfs.executeBFS(graph, vertex1, vertex3));
     }
 }
