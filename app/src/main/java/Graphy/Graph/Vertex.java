@@ -9,7 +9,6 @@ public class Vertex {
 
     public Vertex(String value){
         this.value=value;
-
     }
 
     public boolean equals(Object o) {
