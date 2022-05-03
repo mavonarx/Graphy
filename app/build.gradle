@@ -6,11 +6,19 @@
  * User Manual available at https://docs.gradle.org/7.4.1/userguide/building_java_projects.html
  */
 
+// Project/Module information
+
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.11'
 }
+
+description = 'Projekt2 - Graphy App'
+group = 'ch.zhaw.pm2'
+version = '2022.4'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -23,6 +31,7 @@ dependencies {
     implementation 'org.beryx:text-io:3.4.1'
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'org.mockito:mockito-core:4.5.1'
 }
 
 application {
@@ -30,9 +39,28 @@ application {
     mainClass = 'Graphy.App'
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
+// Test task configuration
+test {
+    // Use JUnit platform for unit tests
     useJUnitPlatform()
+    testLogging {
+        events "PASSED", "SKIPPED", "FAILED"
+    }
+}
+
+
+java {
+    // By default the Java version of the gradle process is used as source/target version.
+    // This can be overridden, to ensure a specific version. Enable only if required.
+     sourceCompatibility = JavaVersion.VERSION_17 // ensure Java source code compatibility
+     targetCompatibility = JavaVersion.VERSION_17 // version of the created byte-code
+
+    // Java compiler specific options
+    compileJava {
+        // source files should be UTF-8 encoded
+        options.encoding = 'UTF-8'
+        // for more options see https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
+    }
 }
 
 javafx {
