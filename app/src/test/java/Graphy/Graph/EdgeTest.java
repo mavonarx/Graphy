@@ -43,6 +43,6 @@ class EdgeTest {
 
     @Test
     void compareTo() {
-        assertEquals(-4, edge1.compareTo(edge2));
+        assertEquals(4, edge1.compareTo(edge2));
     }
 }

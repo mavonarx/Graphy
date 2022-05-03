@@ -28,7 +28,6 @@ public class ValueHandlerTest {
     @BeforeEach
     private void init(){
         MockitoAnnotations.openMocks(this);
-        ValueHandler handler = new ValueHandler();
         mockEdge1 = new Edge(mockVertex1, mockVertex2);
         mockEdge2 = new Edge(mockVertex1, mockVertex3);
     }
