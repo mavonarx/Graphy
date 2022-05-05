@@ -1,11 +1,10 @@
-package Graphy.Algorithms;
-
-import Graphy.Graph.Edge;
-import Graphy.Graph.Graph;
-import Graphy.Graph.Vertex;
-//import com.google.common.graph.Graph;
+package ch.zhaw.graphy.Algorithms;
 
 import java.util.*;
+
+import ch.zhaw.graphy.Graph.Edge;
+import ch.zhaw.graphy.Graph.Graph;
+import ch.zhaw.graphy.Graph.Vertex;
 
 public class Dijkstra extends  Algorithm{
 

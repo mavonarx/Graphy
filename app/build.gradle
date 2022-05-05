@@ -36,7 +36,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'Graphy.App'
+    mainClass = 'ch.zhaw.graphy.AppMain'
 }
 
 // Test task configuration

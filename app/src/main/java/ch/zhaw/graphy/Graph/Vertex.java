@@ -1,4 +1,4 @@
-package Graphy.Graph;
+package ch.zhaw.graphy.Graph;
 
 
 import java.util.Objects;

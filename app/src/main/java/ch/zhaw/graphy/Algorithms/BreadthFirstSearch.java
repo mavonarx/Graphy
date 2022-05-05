@@ -1,10 +1,10 @@
-package Graphy.Algorithms;
-
-import Graphy.Graph.Graph;
-import Graphy.Graph.ValueHandler;
-import Graphy.Graph.Vertex;
+package ch.zhaw.graphy.Algorithms;
 
 import java.util.*;
+
+import ch.zhaw.graphy.Graph.Graph;
+import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.Vertex;
 
 public class BreadthFirstSearch {
     private Map<Vertex, Vertex> visualMap = new HashMap<>();

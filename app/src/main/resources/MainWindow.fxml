@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Graphy.MainWindowController">
+   <children>
+      <VBox prefHeight="449.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar style="-fx-background-color: azure;" VBox.vgrow="ALWAYS">
+              <menus>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem fx:id="showHelp" mnemonicParsing="false" onAction="#showHelp" text="Show Help">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="670.0" text="GRAPHY" textFill="#1f15d7">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addEdge" mnemonicParsing="false" onAction="#addEdge" style="-fx-background-color: azure;" text="Add edge">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" style="-fx-background-color: azure;" text="Clear all">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="remove" mnemonicParsing="false" onAction="#remove" style="-fx-background-color: azure;" text="Remove">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="changeColor" mnemonicParsing="false" onAction="#changeColor" style="-fx-background-color: azure;" text="Change color">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label fx:id="selectAlgorithm" text="Select Algorithm: ">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <MenuButton mnemonicParsing="false" style="-fx-background-color: azure;" text="                       ">
+                    <items>
+                      <MenuItem fx:id="executeDijkstra" mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
+                      <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />
+                        <MenuItem fx:id="executeSpanningTree" mnemonicParsing="false" onAction="#executeSpanningTree" text="Spanning Tree" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </HBox>
+            <TextArea prefHeight="367.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <BorderPane prefHeight="85.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
+               <right>
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </right>
+               <left>
+                  <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" style="-fx-background-color: azure;" text="Print to CSV" BorderPane.alignment="CENTER" />
+               </left>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

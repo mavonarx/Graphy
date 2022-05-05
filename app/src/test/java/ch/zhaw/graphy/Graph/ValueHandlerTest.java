@@ -1,9 +1,13 @@
-package Graphy.Graph;
+package ch.zhaw.graphy.Graph;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import ch.zhaw.graphy.Graph.Edge;
+import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.Vertex;
 
 import java.util.HashSet;
 import java.util.Set;
