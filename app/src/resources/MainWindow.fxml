@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
    <children>
       <VBox prefHeight="449.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,7 +23,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Show Help">
+                    <MenuItem fx:id="showHelp" mnemonicParsing="false" onAction="#showHelp" text="Show Help">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
                            </accelerator>
@@ -42,21 +42,36 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: azure;" text="Change color">
+                  <Button fx:id="addEdge" mnemonicParsing="false" onAction="#addEdge" style="-fx-background-color: azure;" text="Add edge">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Label text="Select Algorithm: ">
+                  <Button fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" style="-fx-background-color: azure;" text="Clear all">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="remove" mnemonicParsing="false" onAction="#remove" style="-fx-background-color: azure;" text="Remove">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="changeColor" mnemonicParsing="false" onAction="#changeColor" style="-fx-background-color: azure;" text="Change color">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label fx:id="selectAlgorithm" text="Select Algorithm: ">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
                   <MenuButton mnemonicParsing="false" style="-fx-background-color: azure;" text="                       ">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Dijkstra" />
-                      <MenuItem mnemonicParsing="false" text="BFS" />
-                        <MenuItem mnemonicParsing="false" text="Spanning Tree" />
+                      <MenuItem fx:id="executeDijkstra" mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
+                      <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />
+                        <MenuItem fx:id="executeSpanningTree" mnemonicParsing="false" onAction="#executeSpanningTree" text="Spanning Tree" />
                     </items>
                   </MenuButton>
                </children>
@@ -68,14 +83,14 @@
             </TextArea>
             <BorderPane prefHeight="85.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
                <right>
-                  <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="10.0" />
                      </BorderPane.margin>
                   </Button>
                </right>
                <left>
-                  <Button mnemonicParsing="false" style="-fx-background-color: azure;" text="Print to CSV" BorderPane.alignment="CENTER" />
+                  <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" style="-fx-background-color: azure;" text="Print to CSV" BorderPane.alignment="CENTER" />
                </left>
                <VBox.margin>
                   <Insets left="10.0" />

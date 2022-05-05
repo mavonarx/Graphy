@@ -3,13 +3,40 @@
  */
 package Graphy;
 
-import Graphy.Graph.Edge;
-import Graphy.Graph.ValueHandler;
-import Graphy.Graph.Vertex;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class App {
+public class App extends Application {
 
     public static void main(String[] args) {
+        launch(args);
+    }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        openPreWindow(primaryStage);
+    }
+
+    private void openMainWindow(Stage primaryStage) {
+        try {
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void openPreWindow(Stage primaryStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PreWindow.fxml"));
+            Pane rootNode = loader.load();
+            Scene scene = new Scene(rootNode);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

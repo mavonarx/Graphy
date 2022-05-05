@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PreWindowController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,7 +20,7 @@
                <menus>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Show Help">
+                        <MenuItem fx:id="showHelp" mnemonicParsing="false" onAction="#showHelp" text="Show Help">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
                            </accelerator>
@@ -45,7 +44,7 @@
             </Label>
             <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: azure;" text="Provided graph">
+                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" style="-fx-background-color: azure;" text="Provided graph">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -53,7 +52,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: azure;" text="Draw own graph">
+                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" style="-fx-background-color: azure;" text="Draw own graph">
                      <font>
                         <Font size="14.0" />
                      </font>
