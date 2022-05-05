@@ -1,4 +1,4 @@
-package Graphy.Graph;
+package ch.zhaw.graphy.Graph;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +8,9 @@ import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import ch.zhaw.graphy.Graph.Edge;
+import ch.zhaw.graphy.Graph.Vertex;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,27 +1,28 @@
-package Graphy.Algorithms;
+package ch.zhaw.graphy.Algorithms;
 
-import Graphy.Graph.Edge;
-import Graphy.Graph.Graph;
-import Graphy.Graph.Vertex;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
-import static org.mockito.Mockito.*;
+
+import ch.zhaw.graphy.Algorithms.MinimumSpanningTree;
+import ch.zhaw.graphy.Graph.Edge;
+import ch.zhaw.graphy.Graph.Graph;
+import ch.zhaw.graphy.Graph.Vertex;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class BreadthFirstSearchTest {
+import static org.mockito.Mockito.*;
 
-
-
+public class MinimumSpanningTreeTest {
 
     @Test
-    void BFSTest(){
-        BreadthFirstSearch bfs = new BreadthFirstSearch();
+    void testMST(){
+        MinimumSpanningTree mst = new MinimumSpanningTree();
         Graph graph = new Graph();
-        Map<Vertex, Integer> expected = new HashMap<>();
+        Set<Edge> expected = new HashSet<>();
 
         Vertex vertex1 = new Vertex("1");
         Vertex vertex2 = new Vertex("2");
@@ -33,16 +34,14 @@ public class BreadthFirstSearchTest {
         graph.getValueHandler().addVertex(vertex2);
         graph.getValueHandler().addVertex(vertex3);
         graph.getValueHandler().addVertex(vertex4);
-
-        expected.put(vertex2, 2);
-        expected.put(vertex3, 1);
-        expected.put(vertex4, 1);
+        graph.getValueHandler().addVertex(vertex5);
 
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
         graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
         graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
 
-        assertEquals(expected, bfs.executeBFS(graph, vertex1));
+        assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(graph, vertex1));
+        //assertEquals(expected, mst.executeMST(graph, vertex1));
     }
 }

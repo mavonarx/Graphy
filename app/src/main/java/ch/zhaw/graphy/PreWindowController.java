@@ -1,4 +1,4 @@
-package Graphy;
+package ch.zhaw.graphy;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
