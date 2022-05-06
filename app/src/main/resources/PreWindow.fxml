@@ -6,18 +6,17 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar style="-fx-background-color: azure;">
+            <MenuBar prefHeight="22.0" prefWidth="800.0" style="-fx-background-color: azure;">
                <menus>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
@@ -30,37 +29,53 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <Label alignment="CENTER" prefHeight="74.0" prefWidth="612.0" text="Welcome to Graphy!" textFill="#382d8d" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" prefHeight="113.0" prefWidth="800.0" text="Welcome to Graphy!" textFill="#382d8d" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets top="15.0" />
+                  <Insets top="40.0" />
                </VBox.margin>
                <font>
-                  <Font size="33.0" />
+                  <Font size="48.0" />
                </font>
             </Label>
-            <TextArea fx:id="helloArea" prefHeight="94.0" prefWidth="579.0" style="-fx-background-color: lightblue;" text="With this tool u can draw graphs as easy as never before.&#10;&#10;Below you can choose between using a file or just drawing a graph.&#10;When a graph exists this tool ets u run severeal algorithms.">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextArea>
-            <Label alignment="CENTER" prefHeight="68.0" prefWidth="600.0" text="Do you want to use a provided graph or draw your own one?" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="800.0" text="With this tool u can draw graphs as easy as never before.">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="800.0" text="Below you can choose between using a file or just drawing a graph.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="800.0" text="When a graph exists this tool ets u run severeal algorithms.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="68.0" prefWidth="804.0" text="Do you want to use a provided graph or draw your own one?" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
             </Label>
             <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" style="-fx-background-color: azure;" text="Provided graph">
+                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: azure;" text="Provided graph">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" style="-fx-background-color: azure;" text="Draw own graph">
+                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: azure;" text="Draw own graph">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
                </children>

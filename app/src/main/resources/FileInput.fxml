@@ -9,39 +9,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="title" alignment="CENTER" prefHeight="33.0" prefWidth="602.0" text="Drag and drop the File here" textFill="#1f15d7">
+            <Label fx:id="title" alignment="CENTER" prefHeight="35.0" prefWidth="809.0" text="Drag and drop the File here" textFill="#1f15d7">
                <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="10.0" top="20.0" />
                </VBox.margin>
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="30.0" />
                </font>
             </Label>
             <TextArea fx:id="textArea" onDragDropped="#DragDropped" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" />
+                  <Insets bottom="5.0" left="10.0" right="10.0" />
                </VBox.margin>
             </TextArea>
-            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="590.0">
+            <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="790.0">
                <children>
 
-                  <Button fx:id="launch" mnemonicParsing="false" onAction="#launch" style="-fx-background-color: azure;" text="Launch">
+                  <Button fx:id="launch" alignment="CENTER" mnemonicParsing="false" onAction="#launch" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Launch">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font> 
                   </Button>
 
-                  <Button fx:id="goBack" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: azure;" text="Go back">
+                  <Button fx:id="goBack" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Go back">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
 
-                  <Button fx:id="close" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#close" style="-fx-background-color: azure;" text="Close" />
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Close">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
 
                </children>
                <opaqueInsets>

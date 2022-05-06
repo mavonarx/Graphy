@@ -50,7 +50,6 @@ public class FileInputController {
         });
         title.setText(PROMPT);
         textArea.setStyle("-fx-font-size: 20");
-        //textArea.setText(PROMPT);
         textArea.setEditable(false);
         launch.setDisable(true);
     }

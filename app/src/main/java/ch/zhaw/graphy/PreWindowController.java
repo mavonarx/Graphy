@@ -47,6 +47,7 @@ public class PreWindowController {
 
     @FXML
     void initialize(){
+        helloArea.setStyle("-fx-inner-background-color: green");
         helloArea.setEditable(false);
     }
 
