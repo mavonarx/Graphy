@@ -1,5 +1,6 @@
 package ch.zhaw.graphy;
 
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class MainWindowController {
+
+    GraphHandler handler;
 
     private Stage stage;
 
