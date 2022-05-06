@@ -1,5 +1,6 @@
 package ch.zhaw.graphy;
 
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class FileInputController {
@@ -46,6 +49,7 @@ public class FileInputController {
             event.consume();
         });
         title.setText(PROMPT);
+        textArea.setStyle("-fx-font-size: 20");
         //textArea.setText(PROMPT);
         textArea.setEditable(false);
         launch.setDisable(true);
@@ -86,12 +90,20 @@ public class FileInputController {
         if (files.get(0) == null){
             throw new IllegalArgumentException("The file is null");
         }
+
+
         //title.setText("The chosen file is:" + files.get(0).getPath().toUpperCase());
-        textArea.setText("The chosen file is: \n" + files.get(0).getPath().toUpperCase());
+        textArea.setText("The chosen file is: \n" + files.get(0).getPath());
         lauchFile = files.get(0);
+        try{
+            new GraphHandler(lauchFile);
+        }
+        catch (IOException  e){
+            textArea.setText("The graph-file has not the correct format!");
+            launch.setDisable(true);
+            return;
+        }
         launch.setDisable(false);
-
-
     }
 
 
