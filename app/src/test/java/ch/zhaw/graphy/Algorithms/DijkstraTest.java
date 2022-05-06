@@ -5,12 +5,10 @@ import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
-import ch.zhaw.graphy.Algorithms.Dijkstra;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.ValueHandler;
@@ -18,7 +16,6 @@ import ch.zhaw.graphy.Graph.Vertex;
 
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.*;
 
 
@@ -158,8 +155,6 @@ class DijkstraTest{
     @Test
     void backwardsRouteOnDirectedGraph(){
         Dijkstra dijkstra = new Dijkstra();
-
-        LinkedList<Vertex> expected = new LinkedList<>();
 
         assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex3, mockVertex1));
     }

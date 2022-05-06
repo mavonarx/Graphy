@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
-import ch.zhaw.graphy.Algorithms.BreadthFirstSearch;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;

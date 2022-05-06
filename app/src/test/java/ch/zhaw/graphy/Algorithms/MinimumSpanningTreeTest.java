@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
-import ch.zhaw.graphy.Algorithms.MinimumSpanningTree;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;
@@ -46,12 +45,6 @@ public class MinimumSpanningTreeTest {
     private Edge mockEdge23;
     @Mock
     private Edge mockEdge31;
-    @Mock
-    private Edge mockEdge41;
-    @Mock
-    private Edge mockEdge24;
-    @Mock
-    private Edge mockEdge32;
 
     @Mock
     private ValueHandler mockHandler;
@@ -117,7 +110,6 @@ public class MinimumSpanningTreeTest {
 
         //Setup BFS
         when(mockBFS.executeBFS(mockGraph, mockVertex1)).thenReturn(mockBFSMap);
-        //doReturn(mockBFS).when(new BreadthFirstSearch());
 
     }
 
