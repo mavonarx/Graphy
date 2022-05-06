@@ -45,6 +45,15 @@ public class MinimumSpanningTreeTest {
     @Mock
     private Edge mockEdge23;
     @Mock
+    private Edge mockEdge31;
+    @Mock
+    private Edge mockEdge41;
+    @Mock
+    private Edge mockEdge24;
+    @Mock
+    private Edge mockEdge32;
+
+    @Mock
     private ValueHandler mockHandler;
     @Mock
     private BreadthFirstSearch mockBFS;
@@ -113,33 +122,6 @@ public class MinimumSpanningTreeTest {
     }
 
     @Test
-    void testMSTUnmocked(){ //TODO: unmocked remove before deploy
-        MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
-        Graph graph = new Graph();
-        Set<Edge> expected = new HashSet<>();
-
-        Vertex vertex1 = new Vertex("1");
-        Vertex vertex2 = new Vertex("2");
-        Vertex vertex3 = new Vertex("3");
-        Vertex vertex4 = new Vertex("4");
-        Vertex vertex5 = new Vertex("5");
-
-        graph.getValueHandler().addVertex(vertex1);
-        graph.getValueHandler().addVertex(vertex2);
-        graph.getValueHandler().addVertex(vertex3);
-        graph.getValueHandler().addVertex(vertex4);
-        graph.getValueHandler().addVertex(vertex5);
-
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
-
-        assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(graph, vertex1));
-        //assertEquals(expected, mst.executeMST(graph, vertex1));
-    }
-
-    @Test
     void testMST(){
         MinimumSpanningTree mst = new MinimumSpanningTree(mockBFS);
 
@@ -158,5 +140,35 @@ public class MinimumSpanningTreeTest {
         mockGraphMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
 
         assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(mockGraph, mockVertex1));
+    }
+
+    @Test
+    void undirectedGraph(){
+        MinimumSpanningTree mst = new MinimumSpanningTree(mockBFS);
+
+        mockGraphMap.get(mockVertex1).add(mockEdge31);
+
+        when(mockEdge31.getWeight()).thenReturn(6);
+
+        when(mockEdge31.getStart()).thenReturn(mockVertex3);
+        when(mockEdge31.getEnd()).thenReturn(mockVertex1);
+
+        when(mockEdge13.compareTo(mockEdge31)).thenReturn(-1);
+
+
+        Set<Edge> expected = new HashSet<>();
+        expected.add(mockEdge14);
+        expected.add(mockEdge23);
+        expected.add(mockEdge42);
+
+        assertEquals(expected, mst.executeMST(mockGraph, mockVertex1));
+    }
+
+    @Test
+    void countCheckIfConnected(){
+        MinimumSpanningTree mst = new MinimumSpanningTree(mockBFS);
+        mst.executeMST(mockGraph, mockVertex1);
+
+        verify(mockBFS, times(1)).executeBFS(mockGraph, mockVertex1);
     }
 }

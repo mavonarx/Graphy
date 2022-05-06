@@ -42,12 +42,13 @@ public class BreadthFirstSearchTest {
     private Edge mockEdge23;
     @Mock
     private ValueHandler mockHandler;
+    MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap;
 
     @BeforeEach
     private void setUp(){
         MockitoAnnotations.openMocks(this);
 
-        MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
+        mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
         //Implementing a mockMap to work with
         mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
@@ -62,7 +63,7 @@ public class BreadthFirstSearchTest {
         mockMap.put(mockVertex3, new SimpleSetProperty<>(FXCollections.observableSet()));
         mockMap.get(mockVertex3).add(mockEdge13);
         mockMap.get(mockVertex3).add(mockEdge23);
-        mockMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
+
 
         //SetUp mockEdges
         when(mockEdge13.getWeight()).thenReturn(6);
@@ -108,36 +109,6 @@ public class BreadthFirstSearchTest {
         when(mockGraph.getValueHandler()).thenReturn(mockHandler);
     }
 
-
-    @Test
-    void BFSTestUnmocked(){  //TODO: not stubbed remove before deploy!!
-        BreadthFirstSearch bfs = new BreadthFirstSearch();
-        Graph graph = new Graph();
-        Map<Vertex, Integer> expected = new HashMap<>();
-
-        Vertex vertex1 = new Vertex("1");
-        Vertex vertex2 = new Vertex("2");
-        Vertex vertex3 = new Vertex("3");
-        Vertex vertex4 = new Vertex("4");
-        Vertex vertex5 = new Vertex("5");
-
-        graph.getValueHandler().addVertex(vertex1);
-        graph.getValueHandler().addVertex(vertex2);
-        graph.getValueHandler().addVertex(vertex3);
-        graph.getValueHandler().addVertex(vertex4);
-
-        expected.put(vertex2, 2);
-        expected.put(vertex3, 1);
-        expected.put(vertex4, 1);
-
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
-
-        assertEquals(expected, bfs.executeBFS(graph, vertex1));
-    }
-
     @Test
     void testBFS(){
         BreadthFirstSearch bfs = new BreadthFirstSearch();
@@ -175,5 +146,36 @@ public class BreadthFirstSearchTest {
         expected.put(mockVertex2, mockVertex4);
 
         assertEquals(expected, bfs.getVisualMap());
+    }
+
+    @Test
+    void withVertexNotConnected(){
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+
+        mockMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
+
+        Map<Vertex, Integer> expected = new HashMap<>();
+
+        expected.put(mockVertex2, 2);
+        expected.put(mockVertex3, 1);
+        expected.put(mockVertex4, 1);
+
+        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
+    }
+
+    @Test
+    void only1Vertex(){
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+
+        MapProperty<Vertex, SimpleSetProperty<Edge>> singleVertexMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
+        singleVertexMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
+        List<Vertex> singleVertexList = new ArrayList<>();
+
+        when(mockHandler.getGraph()).thenReturn(singleVertexMap);
+        when(mockHandler.adjacentVertices(mockVertex1)).thenReturn(singleVertexList);
+
+        Map<Vertex, Integer> expected = new HashMap<>();
+
+        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
     }
 }
