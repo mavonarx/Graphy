@@ -6,7 +6,7 @@ import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;
 
-public class Dijkstra extends  Algorithm{
+public class Dijkstra{
 
     private final Map<Vertex, Integer> distances = new HashMap<>();
     private final PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
