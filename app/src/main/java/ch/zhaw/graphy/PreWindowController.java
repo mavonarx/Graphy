@@ -24,8 +24,10 @@ public class PreWindowController {
 
     @FXML
     void providedGraph(ActionEvent event) {
-        MainWindowController mainWindowController = new MainWindowController();
-        mainWindowController.getStage().show();
+        //MainWindowController mainWindowController = new MainWindowController();
+        FileInputController fileInputController = new FileInputController();
+        fileInputController.getStage().show();
+        //mainWindowController.getStage().show();
     }
 
     @FXML
