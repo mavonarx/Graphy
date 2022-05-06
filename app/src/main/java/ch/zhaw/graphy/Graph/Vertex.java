@@ -1,6 +1,7 @@
 package ch.zhaw.graphy.Graph;
 
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,32 @@ import java.util.Objects;
  */
 public class Vertex {
 
+    public static final int VERTEX_SIZE = 5;
+
     String value;
+
+    public int getX(){
+        return position.x;
+    }
+
+    public int getY(){
+        return position.y;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    private Point position;
+
+    public Vertex(String value, Point position){
+        this.value=value;
+        this.position = position;
+    }
 
     public Vertex(String value){
         this.value=value;
