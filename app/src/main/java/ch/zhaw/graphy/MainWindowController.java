@@ -144,7 +144,15 @@ public class MainWindowController {
             drawVertex(newVertex);
         });
         paintArea.setOnMouseClicked(paintAreaClick);
+        remove.setOnMouseClicked(removeClick);
     }
+
+    private EventHandler<MouseEvent> removeClick = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            clearVertex();
+        }
+    };
 
     private EventHandler<MouseEvent> paintAreaClick = new EventHandler<MouseEvent>() {
         @Override
