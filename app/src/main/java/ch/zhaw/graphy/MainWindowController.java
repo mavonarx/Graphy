@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -131,6 +132,30 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
+        handler.convertToCSV();
+    }
+
+    @FXML
+    void csvMousePressed(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: white");
+
+    }
+
+    @FXML
+    void csvMouseReleased(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
+
+    }
+
+    @FXML
+    void csvMouseEntered(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: #dee8e8");
+
+    }
+
+    @FXML
+    void csvMouseExited(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
 
     }
 

@@ -9,9 +9,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +25,7 @@ import java.util.Scanner;
 public class GraphHandler {
 
     boolean isDirected;
+    private static final String DELIMITER = ",";
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
 
@@ -74,6 +77,7 @@ public class GraphHandler {
         scan.close();
     }
 
+    //Todo can be removed if not used
     public GraphHandler(List<Edge> edges){
         for (Edge edge : edges){
             addEdge(edge);
@@ -159,6 +163,34 @@ public class GraphHandler {
             }
         }
         return false;
+    }
+
+    public void convertToCSV() {
+
+        if (graph.isEmpty()) return;
+        File output = new File("app/src/output");
+        output.mkdir();
+        File file = new File("app/src/output/csvGraph.csv");
+
+
+        try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
+            file.createNewFile();
+
+            br.write("0");
+            br.write(System.lineSeparator());
+
+            for (Vertex vertex : graph.keySet()) {
+                for (Edge e : graph.get(vertex)) {
+                    br.write(String.join(DELIMITER, List.of(
+                            String.valueOf(e.getStart()),
+                            String.valueOf(e.getEnd()),
+                            String.valueOf(e.getWeight()))));
+                    br.write(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
