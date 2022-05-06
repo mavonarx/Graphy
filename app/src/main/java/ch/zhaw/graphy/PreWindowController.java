@@ -18,17 +18,21 @@ public class PreWindowController {
 
     @FXML
     void drawOwnGraph(ActionEvent event) {
-
+        MainWindowController mainWindowController = new MainWindowController();
+        mainWindowController.getStage().show();
     }
 
     @FXML
     void providedGraph(ActionEvent event) {
-
+        MainWindowController mainWindowController = new MainWindowController();
+        mainWindowController.getStage().show();
     }
 
     @FXML
     void showHelp(ActionEvent event) {
-
+        HelpWindowController helpWindowController = new HelpWindowController(true);
+        helpWindowController.getStage().show();
+        
     }
 
 }

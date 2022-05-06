@@ -14,25 +14,19 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        openPreWindow(primaryStage);
+    public void start(Stage preStage) throws Exception{
+        openPreWindow(preStage);
     }
 
-    private void openMainWindow(Stage primaryStage) {
-        try {
-
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void openPreWindow(Stage primaryStage) {
+    private void openPreWindow(Stage preStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
             Pane rootNode = loader.load();
             Scene scene = new Scene(rootNode);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            preStage.setScene(scene);
+            preStage.setMinWidth(280);
+			preStage.setMinHeight(250);
+            preStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
