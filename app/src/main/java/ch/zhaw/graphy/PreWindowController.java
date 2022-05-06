@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class PreWindowController {
 
@@ -15,6 +17,14 @@ public class PreWindowController {
 
     @FXML
     private MenuItem showHelp;
+
+    @FXML
+    private TextArea helloArea;
+
+    @FXML
+    void initialize(){
+        helloArea.setEditable(false);
+    }
 
     @FXML
     void drawOwnGraph(ActionEvent event) {

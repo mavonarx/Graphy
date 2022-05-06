@@ -1,5 +1,6 @@
 package ch.zhaw.graphy;
 
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,14 +12,19 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class MainWindowController {
+
+    GraphHandler handler;
 
     private Stage stage;
 
     public MainWindowController(){
         try{
 			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
-			mainLoader.setController(this);
+            handler = new GraphHandler();
+            mainLoader.setController(this);
 			Stage mainStage = new Stage();
 			Pane rootNode = mainLoader.load();
 			Scene scene = new Scene(rootNode);
@@ -30,6 +36,24 @@ public class MainWindowController {
 		} catch(Exception e){
 		   e.printStackTrace();
 		}
+    }
+
+    public MainWindowController(File file){
+        try{
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            handler = new GraphHandler(file);
+            mainLoader.setController(this);
+            Stage mainStage = new Stage();
+            Pane rootNode = mainLoader.load();
+            Scene scene = new Scene(rootNode);
+            mainStage.setScene(scene);
+            mainStage.setMinWidth(280);
+            mainStage.setMinHeight(250);
+            this.stage = mainStage;
+            mainStage.show();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Stage getStage(){
