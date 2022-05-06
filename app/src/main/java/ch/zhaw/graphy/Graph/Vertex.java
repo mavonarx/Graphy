@@ -1,13 +1,11 @@
 package ch.zhaw.graphy.Graph;
 
 
-import java.awt.*;
 import java.util.Objects;
 
 public class Vertex {
 
     String value;
-    Point position = new Point(0,0);
 
     public Vertex(String value){
         this.value=value;
@@ -22,21 +20,6 @@ public class Vertex {
 
     public String getValue() {
         return value;
-    }
-
-    public int getX(){
-        return position.x;
-    }
-    public int getY(){
-        return position.y;
-    }
-
-    public Point getPosition(){
-        return this.position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
     }
 
     @Override

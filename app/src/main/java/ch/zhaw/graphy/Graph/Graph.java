@@ -19,9 +19,6 @@ public class Graph{
     boolean isDirected;
     ValueHandler valueHandler = new ValueHandler();
     Map<Vertex, List<Vertex>> adjacentVertices = new HashMap<>();
-    List<Vertex> nodes = new ArrayList<>();
-    List<Edge> edges = new ArrayList<>();
-
 
     /**
      * creates an empty graph

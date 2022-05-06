@@ -2,8 +2,8 @@ package ch.zhaw.graphy.Algorithms;
 
 import java.util.*;
 
-import ch.zhaw.graphy.Graph.Graph;
-import ch.zhaw.graphy.Graph.ValueHandler;
+
+import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 public class BreadthFirstSearch {
@@ -11,7 +11,7 @@ public class BreadthFirstSearch {
 
 
     // prints BFS traversal from a given source s
-    public Map<Vertex, Integer> executeBFS(Graph graph, Vertex source) {
+    public Map<Vertex, Integer> executeBFS(GraphHandler graph, Vertex source) {
 
         Map<Vertex, Integer> result = new HashMap();
 
@@ -20,7 +20,7 @@ public class BreadthFirstSearch {
         Map<Vertex, Integer> distances = new HashMap<>();
         Map<Vertex,Vertex> predecessor = new HashMap<>(); //TODO remove or use for visualisation!
 
-        for (Vertex v : graph.getValueHandler().getGraph().keySet()){
+        for (Vertex v : graph.getGraph().keySet()){
             distances.put(v,-1);
         }
 
@@ -37,7 +37,7 @@ public class BreadthFirstSearch {
             Vertex current  = queue.poll();
 
             //add all adjacent vertices to the queue
-            for (Vertex end : graph.getValueHandler().adjacentVertices(current)){
+            for (Vertex end : graph.adjacentVertices(current)){
                 if (!visited.contains(end)){
 
                     predecessor.put(end,current);

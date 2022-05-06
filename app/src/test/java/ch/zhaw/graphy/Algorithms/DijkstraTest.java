@@ -5,27 +5,21 @@ import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
-import ch.zhaw.graphy.Algorithms.Dijkstra;
 import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.Graph;
-import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.*;
 
 
 class DijkstraTest{
 
-    @Mock
-    private Graph mockGraph;
     @Mock
     private Vertex mockVertex1;
     @Mock
@@ -45,13 +39,15 @@ class DijkstraTest{
     @Mock
     private Edge mockEdge23;
     @Mock
-    private ValueHandler mockHandler;
+    private GraphHandler mockHandler;
+
+    MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap;
 
     @BeforeEach
     private void setUp(){
         MockitoAnnotations.openMocks(this);
 
-        MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
+        mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
         //Implementing a mockMap to work with
         mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
@@ -92,75 +88,68 @@ class DijkstraTest{
 
         //Setup mockHandler
         when(mockHandler.getGraph()).thenReturn(mockMap);
-
-        //Setup mockGraph
-        when(mockGraph.getValueHandler()).thenReturn(mockHandler);
     }
 
     @Test
     void dijkstraMockedTest(){
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex3);
 
-        LinkedList<Vertex> testResult = new LinkedList<>();
-        testResult.add(mockVertex1);
-        testResult.add(mockVertex4);
-        testResult.add(mockVertex2);
-        testResult.add(mockVertex3);
-
-        assertEquals(testResult, result);
-    }
-
-
-    @Test
-    void executeDijkstraTest() throws IOException {  //TODO this isn't stubbed/mocked to be removed before deploy
-
-        Dijkstra dijkstra = new Dijkstra();
-        Graph graph = new Graph();
         LinkedList<Vertex> expected = new LinkedList<>();
+        expected.add(mockVertex1);
+        expected.add(mockVertex4);
+        expected.add(mockVertex2);
+        expected.add(mockVertex3);
 
-        Vertex vertex1 = new Vertex("1");
-        Vertex vertex2 = new Vertex("2");
-        Vertex vertex3 = new Vertex("3");
-        Vertex vertex4 = new Vertex("4");
-
-        graph.getValueHandler().addVertex(vertex1);
-        graph.getValueHandler().addVertex(vertex2);
-        graph.getValueHandler().addVertex(vertex3);
-        graph.getValueHandler().addVertex(vertex4);
-
-        expected.add(vertex1);
-        expected.add(vertex4);
-        expected.add(vertex2);
-        expected.add(vertex3);
-
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
-        graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
-        graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
-
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(graph, vertex1, vertex3);
-
-        assertEquals(expected, result);
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex3));
     }
-
-
 
     @Test
     void verticesNotConnected(){
         Dijkstra dijkstra = new Dijkstra();
 
-        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex5, mockVertex1));
+        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockHandler, mockVertex5, mockVertex1));
     }
 
     @Test
     void startEqualsEndVertex(){
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex1);
 
-        LinkedList<Vertex> testResult = new LinkedList<>();
-        testResult.add(mockVertex1);
+        LinkedList<Vertex> expected = new LinkedList<>();
+        expected.add(mockVertex1);
 
-        assertEquals(testResult, result);
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
+    }
+
+    @Test
+    void singleVertexTest(){
+        Dijkstra dijkstra = new Dijkstra();
+
+        MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
+        mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
+
+        LinkedList<Vertex> expected = new LinkedList<>();
+        expected.add(mockVertex1);
+
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
+    }
+
+    @Test
+    void disconnectedGraph(){
+        Dijkstra dijkstra = new Dijkstra();
+
+        MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
+        mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
+        mockMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
+
+        LinkedList<Vertex> expected = new LinkedList<>();
+        expected.add(mockVertex1);
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
+    }
+
+    @Test
+    void backwardsRouteOnDirectedGraph(){
+        Dijkstra dijkstra = new Dijkstra();
+
+        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockHandler, mockVertex3, mockVertex1));
     }
 }

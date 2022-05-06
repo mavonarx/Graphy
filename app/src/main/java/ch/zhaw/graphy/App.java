@@ -3,6 +3,8 @@
  */
 package ch.zhaw.graphy;
 
+import java.net.URLClassLoader;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,7 +28,7 @@ public class App extends Application {
 
     private void openPreWindow(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/PreWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
             Pane rootNode = loader.load();
             Scene scene = new Scene(rootNode);
             primaryStage.setScene(scene);
