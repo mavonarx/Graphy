@@ -13,7 +13,7 @@ public class BreadthFirstSearch {
     // prints BFS traversal from a given source s
     public Map<Vertex, Integer> executeBFS(GraphHandler graph, Vertex source) {
 
-        Map<Vertex, Integer> result = new HashMap();
+        Map<Vertex, Integer> result = new HashMap<>();
 
         // Mark all the vertices as not visited(By default set as false)
         Set<Vertex> visited = new HashSet<>();
