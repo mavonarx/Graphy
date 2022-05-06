@@ -90,77 +90,94 @@ class DijkstraTest{
         when(mockEdge42.compareTo(mockEdge13)).thenReturn(-1);
         when(mockEdge13.compareTo(any())).thenReturn(1);
 
-        //Setup mockHandler
+        //MockLists used for adjacentVertex method
+        List<Vertex> mockList1 = new ArrayList<>();
+        List<Vertex> mockList2 = new ArrayList<>();
+        List<Vertex> mockList3 = new ArrayList<>();
+        List<Vertex> mockList4 = new ArrayList<>();
+        mockList1.add(mockVertex3);
+        mockList1.add(mockVertex4);
+        mockList2.add(mockVertex3);
+        mockList4.add(mockVertex2);
+
+        //Setup mockHandler getGraph method
         when(mockHandler.getGraph()).thenReturn(mockMap);
+
+        //Setup mockHandler adjacentVertex method
+        when(mockHandler.adjacentVertices(mockVertex1)).thenReturn(mockList1);
+        when(mockHandler.adjacentVertices(mockVertex2)).thenReturn(mockList2);
+        when(mockHandler.adjacentVertices(mockVertex4)).thenReturn(mockList4);
 
         //Setup mockGraph
         when(mockGraph.getValueHandler()).thenReturn(mockHandler);
     }
 
-    @Test
-    void dijkstraMockedTest(){
-        Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex3);
-
-        LinkedList<Vertex> testResult = new LinkedList<>();
-        testResult.add(mockVertex1);
-        testResult.add(mockVertex4);
-        testResult.add(mockVertex2);
-        testResult.add(mockVertex3);
-
-        assertEquals(testResult, result);
-    }
-
 
     @Test
-    void executeDijkstraTest() throws IOException {  //TODO this isn't stubbed/mocked to be removed before deploy
-
-        Dijkstra dijkstra = new Dijkstra();
+    void BFSTestUnmocked(){  //TODO: not stubbed remove before deploy!!
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
         Graph graph = new Graph();
-        LinkedList<Vertex> expected = new LinkedList<>();
+        Map<Vertex, Integer> expected = new HashMap<>();
 
         Vertex vertex1 = new Vertex("1");
         Vertex vertex2 = new Vertex("2");
         Vertex vertex3 = new Vertex("3");
         Vertex vertex4 = new Vertex("4");
+        Vertex vertex5 = new Vertex("5");
 
         graph.getValueHandler().addVertex(vertex1);
         graph.getValueHandler().addVertex(vertex2);
         graph.getValueHandler().addVertex(vertex3);
         graph.getValueHandler().addVertex(vertex4);
 
-        expected.add(vertex1);
-        expected.add(vertex4);
-        expected.add(vertex2);
-        expected.add(vertex3);
+        expected.put(vertex2, 2);
+        expected.put(vertex3, 1);
+        expected.put(vertex4, 1);
 
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex3, 6));
         graph.getValueHandler().addEdge(new Edge(vertex1, vertex4, 1));
         graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
         graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
 
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(graph, vertex1, vertex3);
-
-        assertEquals(expected, result);
-    }
-
-
-
-    @Test
-    void verticesNotConnected(){
-        Dijkstra dijkstra = new Dijkstra();
-
-        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex5, mockVertex1));
+        assertEquals(expected, bfs.executeBFS(graph, vertex1));
     }
 
     @Test
-    void startEqualsEndVertex(){
-        Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> result = dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex1);
+    void testBFS(){
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
 
-        LinkedList<Vertex> testResult = new LinkedList<>();
-        testResult.add(mockVertex1);
+        Map<Vertex, Integer> expected = new HashMap<>();
 
-        assertEquals(testResult, result);
+        expected.put(mockVertex2, 2);
+        expected.put(mockVertex3, 1);
+        expected.put(mockVertex4, 1);
+
+        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
+    }
+
+    @Test
+    void countAdjacentVerticesCalls(){
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        bfs.executeBFS(mockGraph, mockVertex1);
+
+        verify(mockHandler, times(1)).adjacentVertices(mockVertex1);
+        verify(mockHandler, times(1)).adjacentVertices(mockVertex2);
+        verify(mockHandler, times(1)).adjacentVertices(mockVertex3);
+        verify(mockHandler, times(1)).adjacentVertices(mockVertex4);
+        verify(mockHandler, times(0)).adjacentVertices(mockVertex5);
+    }
+
+    @Test
+    void testResultMap(){
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        bfs.executeBFS(mockGraph, mockVertex1);
+
+        Map<Vertex, Vertex> expected = new HashMap<>();
+        expected.put(mockVertex1, null);
+        expected.put(mockVertex4, mockVertex1);
+        expected.put(mockVertex3, mockVertex1);
+        expected.put(mockVertex2, mockVertex4);
+
+        assertEquals(expected, bfs.getVisualMap());
     }
 }

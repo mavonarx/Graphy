@@ -6,14 +6,15 @@ import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;
 
-public class MinimumSpanningTree {
+public class MinimumSpanningTree extends Algorithm{
+
+    public MinimumSpanningTree(BreadthFirstSearch bfs){
+        super(bfs);
+    }
+    
     public Set<Edge> executeMST(Graph graph, Vertex start){
         //Use BFS to make sure the graph is fully connected
-        BreadthFirstSearch bfs = new BreadthFirstSearch();
-        if (bfs.executeBFS(graph, start).size() != graph.getValueHandler().getGraph().size()-1){ //TODO might run into problems when graph is only 1 Vertex
-            throw new IllegalArgumentException("The graph for this start vertex isn't fully connected. " +
-                    "MinimumSpanningTree can only be used on fully connected graphs");
-        }
+
 
         Set<Vertex> visited= new HashSet<>();
         Set<Edge> chosenEdges = new HashSet<>();
