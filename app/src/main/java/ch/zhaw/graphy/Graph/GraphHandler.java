@@ -165,9 +165,9 @@ public class GraphHandler {
         return false;
     }
 
-    public void convertToCSV() {
+    public boolean convertToCSV() throws IOException{
 
-        if (graph.isEmpty()) return;
+        if (graph.isEmpty()) return false;
         File output = new File("app/src/output");
         output.mkdir();
         File file = new File("app/src/output/csvGraph.csv");
@@ -188,9 +188,8 @@ public class GraphHandler {
                     br.write(System.lineSeparator());
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        return true;
     }
 
     /**

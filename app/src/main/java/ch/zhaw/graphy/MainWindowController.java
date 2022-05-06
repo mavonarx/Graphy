@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainWindowController {
 
@@ -66,6 +67,9 @@ public class MainWindowController {
 
     @FXML
     private Button addEdge;
+
+    @FXML
+    private Label feedBackLabel;
 
     @FXML
     private Button changeColor;
@@ -132,7 +136,21 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
-        handler.convertToCSV();
+        try {
+            giveFeedback(handler.convertToCSV());
+        }
+        catch (IOException e){
+            feedBackLabel.setText("an Exception has occurred");
+        }
+    }
+
+    private void giveFeedback(boolean isSavedAsCSV){
+        if(isSavedAsCSV){
+            feedBackLabel.setText("File has been saved in the output directory");
+        }
+       else {
+           feedBackLabel.setText("File not saved because the graph is empty");
+        }
     }
 
     @FXML
