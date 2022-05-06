@@ -67,7 +67,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <MenuButton mnemonicParsing="false" style="-fx-background-color: azure;" text="                       ">
+                  <MenuButton fx:id="algorithmSelectionMenu" minWidth="120" mnemonicParsing="false" style="-fx-background-color: azure;" text="                       ">
                     <items>
                       <MenuItem fx:id="executeDijkstra" mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
                       <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -34,6 +35,9 @@ public class MainWindowController {
     public Stage getStage(){
         return stage;
     }
+
+    @FXML
+    private MenuButton algorithmSelectionMenu;
 
     @FXML
     private Button addEdge;
@@ -88,17 +92,18 @@ public class MainWindowController {
 
     @FXML
     void executeBfs(ActionEvent event) {
+        algorithmSelectionMenu.setText("BFS");
 
     }
 
     @FXML
     void executeDijkstra(ActionEvent event) {
-
+        algorithmSelectionMenu.setText("Dijkstra");
     }
 
     @FXML
     void executeSpanningTree(ActionEvent event) {
-
+        algorithmSelectionMenu.setText("Spanning Tree");
     }
 
     @FXML
@@ -115,7 +120,6 @@ public class MainWindowController {
     void showHelp(ActionEvent event) {
         HelpWindowController helpWindowController = new HelpWindowController(false);
         helpWindowController.getStage().show();
-        
     }
 
 }
