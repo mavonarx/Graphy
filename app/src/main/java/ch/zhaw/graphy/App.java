@@ -15,7 +15,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage preStage) throws Exception{
-        openPreWindow(preStage);
+        PreWindowController preWindowController = new PreWindowController(preStage);
+        preWindowController.getStage().show();
+        //openPreWindow(preStage);
     }
 
     private void openPreWindow(Stage preStage) {

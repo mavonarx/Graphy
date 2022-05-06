@@ -50,7 +50,6 @@ public class HelpWindowController {
 
     @FXML
     void close(ActionEvent event) {
-        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 

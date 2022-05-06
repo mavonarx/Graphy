@@ -2,10 +2,34 @@ package ch.zhaw.graphy;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class PreWindowController {
+    Stage stage;
+    public PreWindowController(Stage preStage){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
+            loader.setController(this);
+            Pane rootNode = loader.load();
+            Scene scene = new Scene(rootNode);
+            preStage.setScene(scene);
+            preStage.setMinWidth(280);
+            preStage.setMinHeight(250);
+            preStage.show();
+            stage = preStage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 
     @FXML
     private Button drawGraph;
@@ -20,14 +44,15 @@ public class PreWindowController {
     void drawOwnGraph(ActionEvent event) {
         MainWindowController mainWindowController = new MainWindowController();
         mainWindowController.getStage().show();
+        stage.close();
+
     }
 
     @FXML
     void providedGraph(ActionEvent event) {
-        //MainWindowController mainWindowController = new MainWindowController();
-        FileInputController fileInputController = new FileInputController();
+        FileInputController fileInputController = new FileInputController(stage);
         fileInputController.getStage().show();
-        //mainWindowController.getStage().show();
+        stage.close();
     }
 
     @FXML

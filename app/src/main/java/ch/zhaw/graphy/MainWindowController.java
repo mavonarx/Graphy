@@ -86,7 +86,6 @@ public class MainWindowController {
 
     @FXML
     void close(ActionEvent event) {
-        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 

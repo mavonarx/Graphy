@@ -28,7 +28,21 @@
             </TextArea>
             <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="590.0">
                <children>
+
+                  <Button fx:id="launch" mnemonicParsing="false" text="Launch" style="-fx-background-color: azure;" onAction="#launch">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+
+                  <Button fx:id="goBack" mnemonicParsing="false" text="Go back" style="-fx-background-color: azure;" onAction="#goBack">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+
                   <Button fx:id="close" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#close" style="-fx-background-color: azure;" text="Close" />
+
                </children>
                <opaqueInsets>
                   <Insets />
