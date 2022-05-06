@@ -14,27 +14,8 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        openPreWindow(primaryStage);
-    }
-
-    private void openMainWindow(Stage primaryStage) {
-        try {
-
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void openPreWindow(Stage primaryStage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
-            Pane rootNode = loader.load();
-            Scene scene = new Scene(rootNode);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void start(Stage preStage) throws Exception{
+        PreWindowController preWindowController = new PreWindowController(preStage);
+        preWindowController.getStage().show();
     }
 }
