@@ -3,6 +3,9 @@ package ch.zhaw.graphy.Graph;
 
 import java.util.Objects;
 
+/**
+ *
+ */
 public class Vertex {
 
     String value;
