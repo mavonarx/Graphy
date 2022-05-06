@@ -13,7 +13,7 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" prefHeight="33.0" prefWidth="602.0" text="Drag and drop the File here" textFill="#1f15d7">
+            <Label fx:id="title" alignment="CENTER" prefHeight="33.0" prefWidth="602.0" text="Drag and drop the File here" textFill="#1f15d7">
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
@@ -29,13 +29,13 @@
             <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="590.0">
                <children>
 
-                  <Button fx:id="launch" mnemonicParsing="false" text="Launch" style="-fx-background-color: azure;" onAction="#launch">
+                  <Button fx:id="launch" mnemonicParsing="false" onAction="#launch" style="-fx-background-color: azure;" text="Launch">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
 
-                  <Button fx:id="goBack" mnemonicParsing="false" text="Go back" style="-fx-background-color: azure;" onAction="#goBack">
+                  <Button fx:id="goBack" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: azure;" text="Go back">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

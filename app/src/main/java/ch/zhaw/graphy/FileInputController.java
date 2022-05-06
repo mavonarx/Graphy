@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
@@ -18,7 +19,7 @@ public class FileInputController {
     private Stage stage;
     private Stage oldStage;
     File lauchFile;
-    private static final String PROMPT = "DRAG ONE GRAPH FILE HERE\n";
+    private static final String PROMPT = "Drag a graph file below";
 
     public FileInputController(Stage oldStage){
         this.oldStage= oldStage;
@@ -44,7 +45,8 @@ public class FileInputController {
             event.acceptTransferModes(TransferMode.ANY);
             event.consume();
         });
-        textArea.setText(PROMPT);
+        title.setText(PROMPT);
+        //textArea.setText(PROMPT);
         textArea.setEditable(false);
         launch.setDisable(true);
     }
@@ -67,6 +69,9 @@ public class FileInputController {
     private Button launch;
 
     @FXML
+    private Label title;
+
+    @FXML
     private TextArea textArea;
 
     @FXML
@@ -74,15 +79,14 @@ public class FileInputController {
         List<File> files = event.getDragboard().getFiles();
 
         if (files.size()!=1){
-
-            textArea.setText(PROMPT +  "\nYou should only provide one file");
+            textArea.setText("You should only provide one file");
             launch.setDisable(true);
             return;
-
         }
         if (files.get(0) == null){
             throw new IllegalArgumentException("The file is null");
         }
+        //title.setText("The chosen file is:" + files.get(0).getPath().toUpperCase());
         textArea.setText("The chosen file is: \n" + files.get(0).getPath().toUpperCase());
         lauchFile = files.get(0);
         launch.setDisable(false);
