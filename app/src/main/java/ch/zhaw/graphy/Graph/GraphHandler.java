@@ -1,7 +1,5 @@
 package ch.zhaw.graphy.Graph;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
@@ -11,17 +9,78 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents the values that are needed to display the application.
  * The values are represented as one map of vertices pointing to a list of edges which holds the outgoing edges.
  */
-public class ValueHandler {
+public class GraphHandler {
 
+    boolean isDirected;
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
+
+
+    /**
+     * creates a graph from an input file
+     * @param file where an adjacencyList is represented. First line tells whether
+     *             it's a directed (!=0) or undirected (=0) graph
+     *             any further line represents an edge (vertex, vertex, weight)
+     * @throws FileNotFoundException if the file cannot be found
+     * @throws IOException if the file has not the correct format
+     */
+    public GraphHandler(File file) throws FileNotFoundException, IOException {
+
+        Scanner scan = new Scanner(file);
+        if (scan.hasNextInt()){
+            isDirected = scan.nextInt() != 0;
+            scan.nextLine();
+        }
+
+        else {
+            throw new IOException("File has not the correct format");
+        }
+        while(scan.hasNextLine()){
+            String scannedLine = scan.nextLine();
+            String [] edgeArray = scannedLine.split(",",3);
+
+            //only a node is added to the graph
+            if (edgeArray.length == 1){
+                addVertex(new Vertex(edgeArray[0]));
+                continue;
+            }
+
+            //an edge is added to the graph
+            if (edgeArray.length!=3) throw new IOException("File has not the correct format");
+            String start = edgeArray[0].strip();
+            String end = edgeArray[1].strip();
+            int weight = Integer.parseInt(edgeArray[2].strip());
+
+            Vertex startVertex = new Vertex(start);
+            Vertex endVertex = new Vertex(end);
+            Edge edge = new Edge(startVertex, endVertex,weight);
+            addEdge(edge);
+
+            if (!isDirected){
+                addEdge(new Edge(endVertex, startVertex,weight));
+            }
+
+        }
+        scan.close();
+    }
+
+    public GraphHandler(List<Edge> edges){
+        for (Edge edge : edges){
+            addEdge(edge);
+        }
+    }
+
+    public GraphHandler(){}
 
     /**
      * Adds an edge to the graph. If the edge contains a vertex which is not yet part of the graph
@@ -89,6 +148,17 @@ public class ValueHandler {
 
     public ObservableMap<Vertex, SimpleSetProperty<Edge>> getGraph() {
         return graph.get();
+    }
+
+    public boolean isWeighted(){
+        for (Vertex vertex : graph.keySet()){
+            for (Edge edge : graph.get(vertex)){
+                if (edge.getWeight()!=0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
