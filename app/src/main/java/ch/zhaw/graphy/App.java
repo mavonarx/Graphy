@@ -17,20 +17,5 @@ public class App extends Application {
     public void start(Stage preStage) throws Exception{
         PreWindowController preWindowController = new PreWindowController(preStage);
         preWindowController.getStage().show();
-        //openPreWindow(preStage);
-    }
-
-    private void openPreWindow(Stage preStage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
-            Pane rootNode = loader.load();
-            Scene scene = new Scene(rootNode);
-            preStage.setScene(scene);
-            preStage.setMinWidth(280);
-			preStage.setMinHeight(250);
-            preStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
