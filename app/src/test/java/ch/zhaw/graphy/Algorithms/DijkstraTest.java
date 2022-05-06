@@ -10,8 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
 import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.Graph;
-import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 import static org.mockito.Mockito.*;
@@ -21,8 +20,6 @@ import java.util.*;
 
 class DijkstraTest{
 
-    @Mock
-    private Graph mockGraph;
     @Mock
     private Vertex mockVertex1;
     @Mock
@@ -42,7 +39,7 @@ class DijkstraTest{
     @Mock
     private Edge mockEdge23;
     @Mock
-    private ValueHandler mockHandler;
+    private GraphHandler mockHandler;
 
     MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap;
 
@@ -91,9 +88,6 @@ class DijkstraTest{
 
         //Setup mockHandler
         when(mockHandler.getGraph()).thenReturn(mockMap);
-
-        //Setup mockGraph
-        when(mockGraph.getValueHandler()).thenReturn(mockHandler);
     }
 
     @Test
@@ -106,14 +100,14 @@ class DijkstraTest{
         expected.add(mockVertex2);
         expected.add(mockVertex3);
 
-        assertEquals(expected, dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex3));
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex3));
     }
 
     @Test
     void verticesNotConnected(){
         Dijkstra dijkstra = new Dijkstra();
 
-        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex5, mockVertex1));
+        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockHandler, mockVertex5, mockVertex1));
     }
 
     @Test
@@ -123,7 +117,7 @@ class DijkstraTest{
         LinkedList<Vertex> expected = new LinkedList<>();
         expected.add(mockVertex1);
 
-        assertEquals(expected, dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex1));
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
 
     @Test
@@ -136,7 +130,7 @@ class DijkstraTest{
         LinkedList<Vertex> expected = new LinkedList<>();
         expected.add(mockVertex1);
 
-        assertEquals(expected, dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex1));
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
 
     @Test
@@ -149,13 +143,13 @@ class DijkstraTest{
 
         LinkedList<Vertex> expected = new LinkedList<>();
         expected.add(mockVertex1);
-        assertEquals(expected, dijkstra.executeDijkstra(mockGraph, mockVertex1, mockVertex1));
+        assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
 
     @Test
     void backwardsRouteOnDirectedGraph(){
         Dijkstra dijkstra = new Dijkstra();
 
-        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockGraph, mockVertex3, mockVertex1));
+        assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockHandler, mockVertex3, mockVertex1));
     }
 }

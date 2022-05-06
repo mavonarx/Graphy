@@ -1,6 +1,6 @@
 package ch.zhaw.graphy.Algorithms;
 
-import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
 import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;
 
 import static org.mockito.Mockito.*;
@@ -19,8 +18,6 @@ import static org.mockito.Mockito.*;
 import java.util.*;
 
 public class BreadthFirstSearchTest {
-    @Mock
-    private Graph mockGraph;
     @Mock
     private Vertex mockVertex1;
     @Mock
@@ -40,7 +37,7 @@ public class BreadthFirstSearchTest {
     @Mock
     private Edge mockEdge23;
     @Mock
-    private ValueHandler mockHandler;
+    private GraphHandler mockHandler;
     MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap;
 
     @BeforeEach
@@ -103,9 +100,6 @@ public class BreadthFirstSearchTest {
         when(mockHandler.adjacentVertices(mockVertex1)).thenReturn(mockList1);
         when(mockHandler.adjacentVertices(mockVertex2)).thenReturn(mockList2);
         when(mockHandler.adjacentVertices(mockVertex4)).thenReturn(mockList4);
-
-        //Setup mockGraph
-        when(mockGraph.getValueHandler()).thenReturn(mockHandler);
     }
 
     @Test
@@ -118,13 +112,13 @@ public class BreadthFirstSearchTest {
         expected.put(mockVertex3, 1);
         expected.put(mockVertex4, 1);
 
-        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
+        assertEquals(expected, bfs.executeBFS(mockHandler, mockVertex1));
     }
 
     @Test
     void countAdjacentVerticesCalls(){
         BreadthFirstSearch bfs = new BreadthFirstSearch();
-        bfs.executeBFS(mockGraph, mockVertex1);
+        bfs.executeBFS(mockHandler, mockVertex1);
 
         verify(mockHandler, times(1)).adjacentVertices(mockVertex1);
         verify(mockHandler, times(1)).adjacentVertices(mockVertex2);
@@ -136,7 +130,7 @@ public class BreadthFirstSearchTest {
     @Test
     void testResultMap(){
         BreadthFirstSearch bfs = new BreadthFirstSearch();
-        bfs.executeBFS(mockGraph, mockVertex1);
+        bfs.executeBFS(mockHandler, mockVertex1);
 
         Map<Vertex, Vertex> expected = new HashMap<>();
         expected.put(mockVertex1, null);
@@ -159,7 +153,7 @@ public class BreadthFirstSearchTest {
         expected.put(mockVertex3, 1);
         expected.put(mockVertex4, 1);
 
-        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
+        assertEquals(expected, bfs.executeBFS(mockHandler, mockVertex1));
     }
 
     @Test
@@ -175,6 +169,6 @@ public class BreadthFirstSearchTest {
 
         Map<Vertex, Integer> expected = new HashMap<>();
 
-        assertEquals(expected, bfs.executeBFS(mockGraph, mockVertex1));
+        assertEquals(expected, bfs.executeBFS(mockHandler, mockVertex1));
     }
 }

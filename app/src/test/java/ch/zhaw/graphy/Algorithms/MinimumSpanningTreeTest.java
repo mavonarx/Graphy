@@ -1,6 +1,6 @@
 package ch.zhaw.graphy.Algorithms;
 
-import ch.zhaw.graphy.Graph.ValueHandler;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.*;
 
 import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.Graph;
 import ch.zhaw.graphy.Graph.Vertex;
 
 import java.util.HashMap;
@@ -23,8 +22,6 @@ import static org.mockito.Mockito.*;
 
 public class MinimumSpanningTreeTest {
 
-    @Mock
-    private Graph mockGraph;
     @Mock
     private Vertex mockVertex1;
     @Mock
@@ -47,7 +44,7 @@ public class MinimumSpanningTreeTest {
     private Edge mockEdge31;
 
     @Mock
-    private ValueHandler mockHandler;
+    private GraphHandler mockHandler;
     @Mock
     private BreadthFirstSearch mockBFS;
 
@@ -105,11 +102,8 @@ public class MinimumSpanningTreeTest {
         //Setup mockHandler
         when(mockHandler.getGraph()).thenReturn(mockGraphMap);
 
-        //Setup mockGraph
-        when(mockGraph.getValueHandler()).thenReturn(mockHandler);
-
         //Setup BFS
-        when(mockBFS.executeBFS(mockGraph, mockVertex1)).thenReturn(mockBFSMap);
+        when(mockBFS.executeBFS(mockHandler, mockVertex1)).thenReturn(mockBFSMap);
 
     }
 
@@ -122,7 +116,7 @@ public class MinimumSpanningTreeTest {
         expected.add(mockEdge23);
         expected.add(mockEdge42);
 
-        assertEquals(expected, mst.executeMST(mockGraph, mockVertex1));
+        assertEquals(expected, mst.executeMST(mockHandler, mockVertex1));
     }
 
     @Test
@@ -131,7 +125,7 @@ public class MinimumSpanningTreeTest {
 
         mockGraphMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
 
-        assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(mockGraph, mockVertex1));
+        assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(mockHandler, mockVertex1));
     }
 
     @Test
@@ -153,14 +147,14 @@ public class MinimumSpanningTreeTest {
         expected.add(mockEdge23);
         expected.add(mockEdge42);
 
-        assertEquals(expected, mst.executeMST(mockGraph, mockVertex1));
+        assertEquals(expected, mst.executeMST(mockHandler, mockVertex1));
     }
 
     @Test
     void countCheckIfConnected(){
         MinimumSpanningTree mst = new MinimumSpanningTree(mockBFS);
-        mst.executeMST(mockGraph, mockVertex1);
+        mst.executeMST(mockHandler, mockVertex1);
 
-        verify(mockBFS, times(1)).executeBFS(mockGraph, mockVertex1);
+        verify(mockBFS, times(1)).executeBFS(mockHandler, mockVertex1);
     }
 }

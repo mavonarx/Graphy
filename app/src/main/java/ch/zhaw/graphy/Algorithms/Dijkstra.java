@@ -3,7 +3,7 @@ package ch.zhaw.graphy.Algorithms;
 import java.util.*;
 
 import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.Graph;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 public class Dijkstra{
@@ -22,7 +22,7 @@ public class Dijkstra{
      * @param graph
      * @param startVertex
      */
-    public LinkedList<Vertex> executeDijkstra(Graph graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
+    public LinkedList<Vertex> executeDijkstra(GraphHandler graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
 
         if (startVertex.equals(finalVertex)){
             resultPath.add(startVertex);
@@ -30,7 +30,7 @@ public class Dijkstra{
         }
 
         // initializing all vertices with a distance of -1 (represent infinite distance)
-        for (Vertex vertex: graph.getValueHandler().getGraph().keySet()){
+        for (Vertex vertex: graph.getGraph().keySet()){
             distances.put(vertex, -1);
         }
 
@@ -39,7 +39,7 @@ public class Dijkstra{
         predecessors.put(startVertex,null);
 
         // first add source to PriorityQueue
-        prioQueue.addAll(graph.getValueHandler().getGraph().get(startVertex));
+        prioQueue.addAll(graph.getGraph().get(startVertex));
 
             while (!prioQueue.isEmpty()) {
 
@@ -53,7 +53,7 @@ public class Dijkstra{
                 // add edge to finalized list (visited)
                 visited.add(currentStart);
 
-                for (Edge edge : graph.getValueHandler().getGraph().get(currentStart)) {
+                for (Edge edge : graph.getGraph().get(currentStart)) {
 
                 /*
                 if the distance is infinite or the distance stored is higher than the
@@ -69,7 +69,7 @@ public class Dijkstra{
                 if (currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex) > distances.get(currentEnd))) {
                     this.endVertex = currentEnd;
                 }
-                prioQueue.addAll(graph.getValueHandler().getGraph().get(currentEnd));
+                prioQueue.addAll(graph.getGraph().get(currentEnd));
             }
 
 

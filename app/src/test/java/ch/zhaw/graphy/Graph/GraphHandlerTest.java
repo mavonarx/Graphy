@@ -5,18 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ch.zhaw.graphy.Graph.Edge;
-import ch.zhaw.graphy.Graph.ValueHandler;
-import ch.zhaw.graphy.Graph.Vertex;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ValueHandlerTest {
+public class GraphHandlerTest {
 
-    ValueHandler handler = new ValueHandler();
+    GraphHandler handler = new GraphHandler();
 
     @Mock
     private Vertex mockVertex1;
