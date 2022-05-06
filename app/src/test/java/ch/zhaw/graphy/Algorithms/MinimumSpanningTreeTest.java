@@ -135,8 +135,8 @@ public class MinimumSpanningTreeTest {
         graph.getValueHandler().addEdge(new Edge(vertex4, vertex2, 1));
         graph.getValueHandler().addEdge(new Edge(vertex2, vertex3, 1));
 
-        //assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(graph, vertex1));
-        assertEquals(expected, mst.executeMST(graph, vertex1));
+        assertThrows(IllegalArgumentException.class, ()-> mst.executeMST(graph, vertex1));
+        //assertEquals(expected, mst.executeMST(graph, vertex1));
     }
 
     @Test

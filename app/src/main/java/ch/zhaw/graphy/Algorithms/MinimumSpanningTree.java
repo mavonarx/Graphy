@@ -11,10 +11,13 @@ public class MinimumSpanningTree extends Algorithm{
     public MinimumSpanningTree(BreadthFirstSearch bfs){
         super(bfs);
     }
-    
+
+
+
     public Set<Edge> executeMST(Graph graph, Vertex start){
         //Use BFS to make sure the graph is fully connected
 
+        checkIfConnected(graph, start);
 
         Set<Vertex> visited= new HashSet<>();
         Set<Edge> chosenEdges = new HashSet<>();

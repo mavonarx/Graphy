@@ -10,7 +10,8 @@ public abstract class Algorithm {
     public Algorithm(BreadthFirstSearch bfs){
         this.bfs = bfs;
     }
-    public void checkIfConnected(Graph graph, Vertex start) {
+
+    void checkIfConnected(Graph graph, Vertex start) {
 
         if (bfs.executeBFS(graph, start).size() != graph.getValueHandler().getGraph().size() - 1) { //TODO might run into problems when graph is only 1 Vertex
             throw new IllegalArgumentException("The graph for this start vertex isn't fully connected. " +
