@@ -39,6 +39,10 @@ public class GraphHandler {
      */
     public GraphHandler(File file) throws FileNotFoundException, IOException {
 
+        if (!file.getPath().endsWith(".csv")) {
+            throw new IOException("Please provide a csv file");
+        }
+
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
             isDirected = scan.nextInt() != 0;

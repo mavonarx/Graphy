@@ -98,7 +98,7 @@ public class FileInputController {
             new GraphHandler(lauchFile);
         }
         catch (IOException  e){
-            textArea.setText("The graph-file has not the correct format!");
+            textArea.setText(e.getMessage());
             launch.setDisable(true);
             return;
         }
