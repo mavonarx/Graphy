@@ -176,11 +176,20 @@ public class GraphHandler {
         try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
             file.createNewFile();
 
-            br.write("0");
+            /*the graph here is displayed as a directed graph.
+            (if it was originally undirected it contains edges in both directions)
+             */
+            br.write("1");
             br.write(System.lineSeparator());
 
             for (Vertex vertex : graph.keySet()) {
+                if (graph.get(vertex).isEmpty()){
+                    br.write((vertex + System.lineSeparator()));
+                    continue;
+                }
                 for (Edge e : graph.get(vertex)) {
+
+
                     br.write(String.join(DELIMITER, List.of(
                             String.valueOf(e.getStart()),
                             String.valueOf(e.getEnd()),
