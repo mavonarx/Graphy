@@ -1,6 +1,9 @@
 package ch.zhaw.graphy;
 
+import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
