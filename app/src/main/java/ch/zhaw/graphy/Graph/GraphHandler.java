@@ -168,10 +168,8 @@ public class GraphHandler {
     public boolean convertToCSV() throws IOException{
 
         if (graph.isEmpty()) return false;
-        File output = new File("app/src/output");
-        output.mkdir();
-        File file = new File("app/src/output/csvGraph.csv");
 
+        File file = initializeDirectoryStructure("Graph.csv");
 
         try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
             file.createNewFile();
@@ -200,6 +198,14 @@ public class GraphHandler {
         }
         return true;
     }
+
+    private File initializeDirectoryStructure(String fileName){
+        File output = new File("app/src/output");
+        output.mkdir();
+        File file = new File("app/src/output/" + fileName);
+        return file;
+    }
+
 
     /**
      * Creates a list of vertices adjacent to the given vertex
