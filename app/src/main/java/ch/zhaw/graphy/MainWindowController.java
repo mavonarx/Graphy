@@ -68,9 +68,7 @@ public class MainWindowController {
         }
     }
 
-    public Stage getStage(){
-        return stage;
-    }
+
 
     @FXML
     private Pane paintArea;
@@ -220,7 +218,7 @@ public class MainWindowController {
 
     @FXML
     public void initialize() {
-        model = new MainWindowModel();
+        model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
         paintArea.setOnMouseClicked(paintAreaClick);
         remove.setOnMouseClicked(removeClick);
@@ -285,6 +283,10 @@ public class MainWindowController {
         circle.setOnMouseClicked(vertexClick);
         paintArea.getChildren().add(circle);
         circleVertexMap.put(circle, vertex);
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 }
 
