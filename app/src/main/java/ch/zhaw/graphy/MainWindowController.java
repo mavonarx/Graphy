@@ -140,6 +140,7 @@ public class MainWindowController {
             giveFeedback(handler.convertToCSV());
         }
         catch (IOException e){
+            System.out.println(e.getMessage());
             feedBackLabel.setText("an Exception has occurred");
         }
     }

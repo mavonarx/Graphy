@@ -20,5 +20,7 @@ if the graph is directed.
 7. If a vertex is already a start or end vertex of an edge 
 it will get automatically added to the graph and does not have to be 
 provided in the csv file (but still can).
+8. Alternatively you can also create a file with
+excel. If you save it as a csv it will add the commas automatically
    
 
