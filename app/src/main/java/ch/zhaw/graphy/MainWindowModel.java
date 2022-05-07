@@ -44,6 +44,6 @@ public class MainWindowModel {
 
     interface VertexListener{
         void onAddVertex(Vertex newVertex);
-        //void onSelectVertex(Vertex selectedVertex);
+        void onSelectVertex(Vertex selectedVertex);
     }
 }

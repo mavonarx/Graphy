@@ -1,6 +1,8 @@
 package ch.zhaw.graphy;
 
 import ch.zhaw.graphy.Graph.Vertex;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -137,12 +139,27 @@ public class MainWindowController {
         helpWindowController.getStage().show();
     }
 
+    private void changeVertexColor(Vertex changeVertex, Color color){
+        Circle vertexCircle =  circleVertexMap.inverse().get(changeVertex);
+        vertexCircle.setFill(color);
+    }
+
+    private MainWindowModel.VertexListener vertexListener = new MainWindowModel.VertexListener() {
+        @Override
+        public void onAddVertex(Vertex newVertex) {
+            drawVertex(newVertex);
+        }
+
+        @Override
+        public void onSelectVertex(Vertex selectedVertex) {
+            changeVertexColor(selectedVertex, Color.BLUE);
+        }
+    };
+
     @FXML
     public void initialize() {
         model = new MainWindowModel();
-        model.registerVertexListener((Vertex newVertex) -> {
-            drawVertex(newVertex);
-        });
+        model.registerVertexListener(vertexListener);
         paintArea.setOnMouseClicked(paintAreaClick);
         remove.setOnMouseClicked(removeClick);
     }
@@ -157,14 +174,16 @@ public class MainWindowController {
     private EventHandler<MouseEvent> paintAreaClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            switch (clickAction){
-                case NoAction:
-                    break;
-                case AddVertex:
-                    createVertex("test", new Point((int)event.getX(), (int)event.getY()));
-                    break;
-                case AddEdge:
-                    break;
+            if(model.selectedVertex.isEmpty()){
+                switch (clickAction){
+                    case NoAction:
+                        break;
+                    case AddVertex:
+                        createVertex("test", new Point((int)event.getX(), (int)event.getY()));
+                        break;
+                    case AddEdge:
+                        break;
+                }
             }
         }
     };
@@ -174,7 +193,8 @@ public class MainWindowController {
         public void handle(MouseEvent event) {
             if(event.getSource() instanceof Circle){
                 Circle clickedCircle = (Circle) event.getSource();
-                clickedCircle.setFill(Color.BLUE);
+                model.addSelectedVertex(circleVertexMap.get(clickedCircle));
+                //clickedCircle.setFill(Color.BLUE);
             }
         }
     };
@@ -187,7 +207,8 @@ public class MainWindowController {
         AddEdge
 
     }
-
+    // A vertex is represented as a circle in the gui. This is the mapping of circle to vertex.
+    private BiMap<Circle, Vertex> circleVertexMap = HashBiMap.create();
     private void createVertex(String value, Point position){
         Vertex newVertex = new Vertex(value, position);
         model.addDisplayVertex(newVertex);
@@ -201,6 +222,7 @@ public class MainWindowController {
         circle.relocate(vertex.getX(), vertex.getY());
         circle.setOnMouseClicked(vertexClick);
         paintArea.getChildren().add(circle);
+        circleVertexMap.put(circle, vertex);
     }
 }
 
