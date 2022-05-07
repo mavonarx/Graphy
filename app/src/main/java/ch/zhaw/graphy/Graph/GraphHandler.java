@@ -53,7 +53,7 @@ public class GraphHandler {
                 if (startLine.startsWith(UTF8_BOM)) {
                     startLine = startLine.substring(1);
                 }
-            isDirected = Integer.parseInt(startLine.split(DELIMITER)[0])!=0;
+            isDirected = Integer.parseInt(startLine.split(DELIMITER)[0].strip())!=0;
         }
 
         catch (NumberFormatException e){
