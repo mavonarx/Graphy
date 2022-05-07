@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class MainWindowController {
 
@@ -77,6 +78,9 @@ public class MainWindowController {
 
     @FXML
     private Button addEdge;
+
+    @FXML
+    private Label feedBackLabel;
 
     @FXML
     private Button changeColor;
@@ -143,6 +147,44 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
+        try {
+            giveFeedback(handler.convertToCSV());
+        }
+        catch (IOException e){
+            feedBackLabel.setText("an Exception has occurred");
+        }
+    }
+
+    private void giveFeedback(boolean isSavedAsCSV){
+        if(isSavedAsCSV){
+            feedBackLabel.setText("File has been saved in the output directory");
+        }
+       else {
+           feedBackLabel.setText("File not saved because the graph is empty");
+        }
+    }
+
+    @FXML
+    void csvMousePressed(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: white");
+
+    }
+
+    @FXML
+    void csvMouseReleased(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
+
+    }
+
+    @FXML
+    void csvMouseEntered(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: #dee8e8");
+
+    }
+
+    @FXML
+    void csvMouseExited(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
 
     }
 
