@@ -9,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainWindowController {
 
@@ -65,6 +67,9 @@ public class MainWindowController {
 
     @FXML
     private Button addEdge;
+
+    @FXML
+    private Label feedBackLabel;
 
     @FXML
     private Button changeColor;
@@ -131,6 +136,44 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
+        try {
+            giveFeedback(handler.convertToCSV());
+        }
+        catch (IOException e){
+            feedBackLabel.setText("an Exception has occurred");
+        }
+    }
+
+    private void giveFeedback(boolean isSavedAsCSV){
+        if(isSavedAsCSV){
+            feedBackLabel.setText("File has been saved in the output directory");
+        }
+       else {
+           feedBackLabel.setText("File not saved because the graph is empty");
+        }
+    }
+
+    @FXML
+    void csvMousePressed(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: white");
+
+    }
+
+    @FXML
+    void csvMouseReleased(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
+
+    }
+
+    @FXML
+    void csvMouseEntered(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: #dee8e8");
+
+    }
+
+    @FXML
+    void csvMouseExited(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
 
     }
 
