@@ -15,6 +15,7 @@ public class MainWindowModel {
         displayVertex.add(vertex);
         notifyOnAddVertex(vertex);
     }
+
     public void addSelectedVertex(Vertex vertex){
         selectedVertex.add(vertex);
     }
