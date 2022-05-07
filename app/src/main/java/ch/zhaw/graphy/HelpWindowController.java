@@ -50,7 +50,6 @@ public class HelpWindowController {
 
     @FXML
     void close(ActionEvent event) {
-        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 
@@ -66,28 +65,40 @@ public class HelpWindowController {
                     + System.lineSeparator() + System.lineSeparator() + System.lineSeparator()
                     + "The help button in the following window has more informations about how the tool exactly works.");
         } else {
-            textArea.setText("The buttons have the described functions:" + System.lineSeparator()
+            textArea.setText("If you provided the graph from a CSV-File, the graph is shown." + System.lineSeparator()
+                    + "Otherwise you can now create the graph by hand. A mouseclick adds a vertex."
+                    + System.lineSeparator()
+                    + "With the described functions below you can customise the graph as you like. "
+                    + System.lineSeparator() + "As soon as the graph is complete you can execute different alogrithms."
+                    + System.lineSeparator() + "All functions are described below." + System.lineSeparator()
+                    + System.lineSeparator() + System.lineSeparator()
                     + System.lineSeparator()
                     + "Add edge:" + System.lineSeparator()
-                    + ""
+                    + "Adds an edge between the two selected vertices."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Clear all:" + System.lineSeparator()
-                    + ""
+                    + "Removes the whole graph."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Remove:" + System.lineSeparator()
-                    + ""
+                    + "Removes only the vertices that are selected"
                     + System.lineSeparator() + System.lineSeparator()
                     + "Change color:" + System.lineSeparator()
-                    + ""
+                    + "Changes the color of the selected edges."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Select alogrithm:" + System.lineSeparator()
-                    + "You can choose between the following algorithms:"
+                    + "You can selected one of the following algorithms." + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "Dijkstra: Illustrates the shortest path for weighted graphs from the selected start vertex to the selected end vertex."
+                    + System.lineSeparator()
+                    + "BFS: Illustrates the shortest path for unweighted graphs from the selected start vertex to the selected end vertex."
+                    + System.lineSeparator()
+                    + "Spanning Tree: Illustrates the minimum spanning tree over the graph."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Print to CSV:" + System.lineSeparator()
-                    + "The displayed graph will be exported as a .csv file."
+                    + "Export the displayed graph as a CSV-File."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Close:" + System.lineSeparator()
-                    + ""
+                    + "Close the window and leave the tool."
                     + System.lineSeparator() + System.lineSeparator());
         }
     }

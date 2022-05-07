@@ -1,6 +1,7 @@
 package ch.zhaw.graphy;
 
 import ch.zhaw.graphy.Graph.Vertex;
+import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,11 +16,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.awt.*;
-
+import java.io.File;
 
 public class MainWindowController {
+
+    GraphHandler handler;
 
     private Stage stage;
 
@@ -30,7 +32,8 @@ public class MainWindowController {
     public MainWindowController(){
         try{
 			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
-			mainLoader.setController(this);
+            handler = new GraphHandler();
+            mainLoader.setController(this);
 			Stage mainStage = new Stage();
 			Pane rootNode = mainLoader.load();
 			Scene scene = new Scene(rootNode);
@@ -42,6 +45,24 @@ public class MainWindowController {
 		} catch(Exception e){
 		   e.printStackTrace();
 		}
+    }
+
+    public MainWindowController(File file){
+        try{
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            handler = new GraphHandler(file);
+            mainLoader.setController(this);
+            Stage mainStage = new Stage();
+            Pane rootNode = mainLoader.load();
+            Scene scene = new Scene(rootNode);
+            mainStage.setScene(scene);
+            mainStage.setMinWidth(280);
+            mainStage.setMinHeight(250);
+            this.stage = mainStage;
+            mainStage.show();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Stage getStage(){
@@ -101,7 +122,6 @@ public class MainWindowController {
 
     @FXML
     void close(ActionEvent event) {
-        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 
