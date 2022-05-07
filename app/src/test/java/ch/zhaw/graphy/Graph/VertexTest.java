@@ -8,6 +8,8 @@ import org.mockito.MockitoAnnotations;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.Vertex;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class VertexTest {
@@ -23,13 +25,17 @@ class VertexTest {
 
     @Test
     void testEqualsVertex() {
-        Vertex vertex1 = new Vertex("1");
-        Vertex vertex2 = new Vertex("2");
-        Vertex vertex3 = new Vertex("1");
+        Vertex vertex1 = new Vertex("1", new Point(1, 2));
+        Vertex vertex2 = new Vertex("2", new Point(1, 2));
+        Vertex vertex3 = new Vertex("1", new Point(2, 2));
+        Vertex vertex4 = new Vertex("1", new Point(1, 2));
 
         assertNotEquals(vertex1, vertex2);
-        assertEquals(vertex1, vertex3);
+        assertNotEquals(vertex1, vertex3);
         assertEquals(vertex1, vertex1);
+        assertEquals(vertex1, vertex4);
         assertNotEquals(vertex1, mockEdge);
     }
+
+
 }

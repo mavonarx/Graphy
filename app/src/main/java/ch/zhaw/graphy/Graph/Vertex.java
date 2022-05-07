@@ -11,25 +11,12 @@ public class Vertex {
 
     public static final int VERTEX_SIZE = 5;
 
+    private Point position;
     String value;
-
-    public int getX(){
-        return position.x;
-    }
-
-    public int getY(){
-        return position.y;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
 
     public void setPosition(Point position) {
         this.position = position;
     }
-
-    private Point position;
 
     public Vertex(String value, Point position){
         this.value=value;
@@ -44,7 +31,10 @@ public class Vertex {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex vertex = (Vertex) o;
-        return Objects.equals(value, vertex.value);
+        if (Objects.equals(value, vertex.value) && Objects.equals(position, vertex.getPosition())){
+            return true;
+        }
+        return false;
     }
 
     public String getValue() {
@@ -58,5 +48,17 @@ public class Vertex {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    public int getX(){
+        return position.x;
+    }
+
+    public int getY(){
+        return position.y;
+    }
+
+    public Point getPosition() {
+        return position;
     }
 }

@@ -1,8 +1,6 @@
 package ch.zhaw.graphy;
 
 import ch.zhaw.graphy.Graph.Vertex;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,11 +15,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.awt.*;
-
+import java.io.File;
+import java.io.IOException;
 
 public class MainWindowController {
+
+    GraphHandler handler;
 
     private Stage stage;
 
@@ -32,7 +32,8 @@ public class MainWindowController {
     public MainWindowController(){
         try{
 			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
-			mainLoader.setController(this);
+            handler = new GraphHandler();
+            mainLoader.setController(this);
 			Stage mainStage = new Stage();
 			Pane rootNode = mainLoader.load();
 			Scene scene = new Scene(rootNode);
@@ -44,6 +45,24 @@ public class MainWindowController {
 		} catch(Exception e){
 		   e.printStackTrace();
 		}
+    }
+
+    public MainWindowController(File file){
+        try{
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            handler = new GraphHandler(file);
+            mainLoader.setController(this);
+            Stage mainStage = new Stage();
+            Pane rootNode = mainLoader.load();
+            Scene scene = new Scene(rootNode);
+            mainStage.setScene(scene);
+            mainStage.setMinWidth(280);
+            mainStage.setMinHeight(250);
+            this.stage = mainStage;
+            mainStage.show();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Stage getStage(){
@@ -58,6 +77,9 @@ public class MainWindowController {
 
     @FXML
     private Button addEdge;
+
+    @FXML
+    private Label feedBackLabel;
 
     @FXML
     private Button changeColor;
@@ -103,7 +125,6 @@ public class MainWindowController {
 
     @FXML
     void close(ActionEvent event) {
-        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 
@@ -125,6 +146,44 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
+        try {
+            giveFeedback(handler.convertToCSV());
+        }
+        catch (IOException e){
+            feedBackLabel.setText("an Exception has occurred");
+        }
+    }
+
+    private void giveFeedback(boolean isSavedAsCSV){
+        if(isSavedAsCSV){
+            feedBackLabel.setText("File has been saved in the output directory");
+        }
+       else {
+           feedBackLabel.setText("File not saved because the graph is empty");
+        }
+    }
+
+    @FXML
+    void csvMousePressed(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: white");
+
+    }
+
+    @FXML
+    void csvMouseReleased(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
+
+    }
+
+    @FXML
+    void csvMouseEntered(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: #dee8e8");
+
+    }
+
+    @FXML
+    void csvMouseExited(MouseEvent event) {
+        printToCsv.setStyle("-fx-background-color: azure");
 
     }
 
