@@ -112,7 +112,7 @@ public class FileInputController {
 
     @FXML
     void launch(ActionEvent event){
-        MainWindowController mainWindowController = new MainWindowController(lauchFile);
+        MainWindowController mainWindowController = new MainWindowController(stage,lauchFile);
         mainWindowController.getStage().show();
         close(event);
     }

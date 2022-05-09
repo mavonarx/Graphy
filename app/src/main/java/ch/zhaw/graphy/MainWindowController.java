@@ -43,7 +43,8 @@ public class MainWindowController {
 		}
     }
 
-    public MainWindowController(File file){
+    public MainWindowController(Stage oldStage, File file){
+        this.oldStage=oldStage;
         try{
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler(file);
@@ -194,15 +195,18 @@ public class MainWindowController {
         }
         catch (IOException e){
             System.out.println(e.getMessage());
+            feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
     }
 
     private void giveFeedback(boolean isSavedAsCSV){
         if(isSavedAsCSV){
+            feedBackLabel.setStyle("-fx-text-fill: green");
             feedBackLabel.setText("File has been saved in the output directory");
         }
        else {
+           feedBackLabel.setStyle("-fx-text-fill: red");
            feedBackLabel.setText("File not saved because the graph is empty");
         }
     }
