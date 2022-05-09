@@ -155,30 +155,6 @@ public class MainWindowController {
     }
 
     @FXML
-    void csvMousePressed(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: white");
-
-    }
-
-    @FXML
-    void csvMouseReleased(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: azure");
-
-    }
-
-    @FXML
-    void csvMouseEntered(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: #dee8e8");
-
-    }
-
-    @FXML
-    void csvMouseExited(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: azure");
-
-    }
-
-    @FXML
     void remove(ActionEvent event) {
 
     }

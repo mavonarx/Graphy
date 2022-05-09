@@ -125,7 +125,7 @@
                   </Button>
                </right>
                <left>
-                  <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" onMouseEntered="#csvMouseEntered" onMouseExited="#csvMouseExited" onMousePressed="#csvMousePressed" onMouseReleased="#csvMouseReleased" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Save as CSV" BorderPane.alignment="CENTER">
+                  <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Save as CSV" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
@@ -136,7 +136,7 @@
                <center>
                   <Label fx:id="feedBackLabel" BorderPane.alignment="CENTER">
                      <graphic>
-                        <Button fx:id="printToCsv1" mnemonicParsing="false" onAction="#printToCsv" onMouseEntered="#csvMouseEntered" onMouseExited="#csvMouseExited" onMousePressed="#csvMousePressed" onMouseReleased="#csvMouseReleased" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Back to Start">
+                        <Button fx:id="printToCsv1" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Back to Start">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
