@@ -96,7 +96,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <MenuButton fx:id="algorithmSelectionMenu" minWidth="120.0" mnemonicParsing="false" prefHeight="35.0" stylesheets="@dropDownMenu.css" text="                       ">
+                  <MenuButton fx:id="algorithmSelectionMenu" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" stylesheets="@dropDownMenu.css" text="                       ">
                     <items>
                       <MenuItem fx:id="executeDijkstra" mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
                       <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />

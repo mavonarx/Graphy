@@ -69,6 +69,7 @@ public class MainWindowController {
     void initialize(){
         edgeWeight.setText("Add edge weight");
         vertexName.setText("Add vertex name");
+        algorithmSelectionMenu.setText("Choose Algorithm");
         
     }
 
