@@ -1,24 +1,5 @@
-.menu-item .label {
-}
-
 .menu-item:focused {
-    -fx-background-color: darkgray;
-}
-
-
-
-.context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: azure;
-}
-
-.menu-item{
-    -fx-background-color: azure;
-
-}
-
-.menu-bar {
-    -fx-background-color: azure;
+    -fx-background-color: darkgrey;
 }
 
 .menu-button:hover{
@@ -26,10 +7,10 @@
     -fx-cursor: hand;
 }
 
-.menu-button {
+.context-menu {
     -fx-background-color: azure;
 }
 
-.menu {
+.menu-button {
     -fx-background-color: azure;
 }

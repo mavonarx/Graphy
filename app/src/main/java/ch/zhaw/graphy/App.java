@@ -12,7 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
     @Override
     public void start(Stage preStage) throws Exception{
         PreWindowController preWindowController = new PreWindowController(preStage);
