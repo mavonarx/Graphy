@@ -48,7 +48,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <TextField prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Add edge weight">
+                  <TextField fx:id="edgeWeight" onAction="#addEdgeWeight" onMouseClicked="#onMouseClicked" onMouseExited="#onMouseExited" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -56,7 +56,7 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Add vertex name">
+                  <TextField fx:id="vertexName" onAction="#addVertexName" onMouseClicked="#onMouseClicked" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

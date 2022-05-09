@@ -1,5 +1,8 @@
 package ch.zhaw.graphy;
 
+import java.io.File;
+import java.io.IOException;
+
 import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,20 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
 
 public class MainWindowController {
 
     GraphHandler handler;
 
     private Stage stage;
+    private Stage oldStage;
 
-    public MainWindowController(){
+    public MainWindowController(Stage oldStage){
+        this.oldStage = oldStage;
         try{
 			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler();
@@ -63,6 +66,13 @@ public class MainWindowController {
     }
 
     @FXML
+    void initialize(){
+        edgeWeight.setText("Add edge weight");
+        vertexName.setText("Add vertex name");
+        
+    }
+
+    @FXML
     private MenuButton algorithmSelectionMenu;
 
     @FXML
@@ -79,6 +89,9 @@ public class MainWindowController {
 
     @FXML
     private Button close;
+
+    @FXML
+    private TextField edgeWeight;
 
     @FXML
     private MenuItem executeDijkstra;
@@ -99,7 +112,20 @@ public class MainWindowController {
     private MenuItem showHelp;
 
     @FXML
+    private TextField vertexName;
+
+    @FXML
     void addEdge(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addEdgeWeight(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addVertexName(ActionEvent event) {
 
     }
 
@@ -135,6 +161,19 @@ public class MainWindowController {
     }
 
     @FXML
+    void onMouseClicked(MouseEvent event) {
+        if(edgeWeight.getText().equals("Add edge weight"))
+            edgeWeight.setText("");
+    }
+
+    @FXML
+    void onMouseExited(MouseEvent event) {
+        if(edgeWeight.getText().equals("")){
+        edgeWeight.setText("Add edge weight");
+        }
+    }
+
+    @FXML
     void printToCsv(ActionEvent event) {
         try {
             giveFeedback(handler.convertToCSV());
@@ -157,7 +196,9 @@ public class MainWindowController {
     
     @FXML
     void backToStart(ActionEvent event) {
-
+        PreWindowController preWindowController = new PreWindowController(oldStage);
+        preWindowController.getStage().show();
+        close(event);
     }
 
     @FXML

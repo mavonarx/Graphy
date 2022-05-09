@@ -51,7 +51,7 @@ public class PreWindowController {
 
     @FXML
     void drawOwnGraph(ActionEvent event) {
-        MainWindowController mainWindowController = new MainWindowController();
+        MainWindowController mainWindowController = new MainWindowController(stage);
         mainWindowController.getStage().show();
         stage.close();
 
