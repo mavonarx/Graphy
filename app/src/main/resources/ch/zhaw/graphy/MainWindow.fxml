@@ -43,7 +43,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addEdge" mnemonicParsing="false" onAction="#addEdge" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Add edge">
+                  <Button fx:id="addEdge" mnemonicParsing="false" onAction="#addEdge" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Add edge">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Clear all">
+                  <Button fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Clear all">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -72,7 +72,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="remove" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Remove">
+                  <Button fx:id="remove" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Remove">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -80,7 +80,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="changeColor" mnemonicParsing="false" onAction="#changeColor" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Change color">
+                  <Button fx:id="changeColor" mnemonicParsing="false" onAction="#changeColor" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Change color">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -120,7 +120,7 @@
                <left>
                   <HBox alignment="CENTER" prefHeight="32.0" prefWidth="535.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Save as CSV">
+                        <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Save as CSV">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -134,7 +134,7 @@
                   </HBox>
                </left>
                <right>
-                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Close" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -146,7 +146,7 @@
                <center>
                   <HBox prefHeight="32.0" prefWidth="307.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#backToStart" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Back to Start">
+                        <Button mnemonicParsing="false" onAction="#backToStart" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Back to Start">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
