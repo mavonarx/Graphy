@@ -1,5 +1,8 @@
 package ch.zhaw.graphy;
 
+import java.io.File;
+import java.io.IOException;
+
 import ch.zhaw.graphy.Graph.GraphHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,22 +12,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
 
 public class MainWindowController {
 
     GraphHandler handler;
 
     private Stage stage;
+    private Stage oldStage;
 
-    public MainWindowController(){
+    public MainWindowController(Stage oldStage){
+        this.oldStage = oldStage;
         try{
-			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler();
             mainLoader.setController(this);
 			Stage mainStage = new Stage();
@@ -40,9 +43,10 @@ public class MainWindowController {
 		}
     }
 
-    public MainWindowController(File file){
+    public MainWindowController(Stage oldStage, File file){
+        this.oldStage=oldStage;
         try{
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler(file);
             mainLoader.setController(this);
             Stage mainStage = new Stage();
@@ -60,6 +64,14 @@ public class MainWindowController {
 
     public Stage getStage(){
         return stage;
+    }
+
+    @FXML
+    void initialize(){
+        edgeWeight.setText("Add edge weight");
+        vertexName.setText("Add vertex name");
+        algorithmSelectionMenu.setText("Choose Algorithm");
+        
     }
 
     @FXML
@@ -81,6 +93,9 @@ public class MainWindowController {
     private Button close;
 
     @FXML
+    private TextField edgeWeight;
+
+    @FXML
     private MenuItem executeDijkstra;
 
     @FXML
@@ -99,7 +114,20 @@ public class MainWindowController {
     private MenuItem showHelp;
 
     @FXML
+    private TextField vertexName;
+
+    @FXML
     void addEdge(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addEdgeWeight(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addVertexName(ActionEvent event) {
 
     }
 
@@ -114,8 +142,28 @@ public class MainWindowController {
     }
 
     @FXML
+    void clickVertexNameField(MouseEvent event) {
+        if(vertexName.getText().equals("Add vertex name"))
+            vertexName.setText("");
+    }
+
+    @FXML
     void close(ActionEvent event) {
         stage.close();
+    }
+
+    @FXML
+    void exitVertexNameField(MouseEvent event) {
+        if(vertexName.getText().equals("")){
+            vertexName.setText("Add vertex name");
+            }
+    }
+
+    @FXML
+    void exitEdgeWeightField(MouseEvent event) {
+        if(edgeWeight.getText().equals("")){
+        edgeWeight.setText("Add edge weight");
+        }
     }
 
     @FXML
@@ -135,47 +183,40 @@ public class MainWindowController {
     }
 
     @FXML
+    void clickEdgeWeightField(MouseEvent event) {
+        if(edgeWeight.getText().equals("Add edge weight"))
+            edgeWeight.setText("");
+    }
+
+    @FXML
     void printToCsv(ActionEvent event) {
         try {
             giveFeedback(handler.convertToCSV());
         }
         catch (IOException e){
             System.out.println(e.getMessage());
+            feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
     }
 
     private void giveFeedback(boolean isSavedAsCSV){
         if(isSavedAsCSV){
+            feedBackLabel.setStyle("-fx-text-fill: green");
             feedBackLabel.setText("File has been saved in the output directory");
         }
        else {
+           feedBackLabel.setStyle("-fx-text-fill: red");
            feedBackLabel.setText("File not saved because the graph is empty");
         }
     }
 
+    
     @FXML
-    void csvMousePressed(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: white");
-
-    }
-
-    @FXML
-    void csvMouseReleased(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: azure");
-
-    }
-
-    @FXML
-    void csvMouseEntered(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: #dee8e8");
-
-    }
-
-    @FXML
-    void csvMouseExited(MouseEvent event) {
-        printToCsv.setStyle("-fx-background-color: azure");
-
+    void backToStart(ActionEvent event) {
+        PreWindowController preWindowController = new PreWindowController(oldStage);
+        preWindowController.getStage().show();
+        close(event);
     }
 
     @FXML

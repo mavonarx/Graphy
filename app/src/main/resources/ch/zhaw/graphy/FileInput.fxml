@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,7 +29,7 @@
             <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="790.0">
                <children>
 
-                  <Button fx:id="launch" alignment="CENTER" mnemonicParsing="false" onAction="#launch" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Launch">
+                  <Button fx:id="launch" alignment="CENTER" mnemonicParsing="false" onAction="#launch" prefHeight="35.0" prefWidth="80.0" stylesheets="@buttons.css" text="Launch">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -38,7 +38,7 @@
                      </font> 
                   </Button>
 
-                  <Button fx:id="goBack" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Go back">
+                  <Button fx:id="goBack" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="101.0" stylesheets="@buttons.css" text="Back to start">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -47,7 +47,7 @@
                      </font>
                   </Button>
 
-                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: azure;" text="Close">
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="80.0" stylesheets="@buttons.css" text="Close">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>

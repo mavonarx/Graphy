@@ -17,7 +17,7 @@ public class HelpWindowController {
     public HelpWindowController(boolean isPreWindow) {
         this.isPreWindow = isPreWindow;
         try {
-            FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("/HelpWindow.fxml"));
+            FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/HelpWindow.fxml"));
             helpLoader.setController(this);
             Stage helpStage = new Stage();
             Pane rootNode = helpLoader.load();
