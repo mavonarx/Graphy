@@ -114,34 +114,45 @@
                </VBox.margin>
             </TextArea>
             <BorderPane prefHeight="85.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
-               <right>
-                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets right="10.0" />
-                     </BorderPane.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </right>
-               <left>
-                  <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Save as CSV" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font></Button>
-               </left>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" />
                </VBox.margin>
-               <center>
-                  <Label fx:id="feedBackLabel" BorderPane.alignment="CENTER">
-                     <graphic>
-                        <Button fx:id="printToCsv1" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Back to Start">
+               <left>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="535.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Save as CSV">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                     </graphic></Label>
+                        <Label fx:id="feedBackLabel" alignment="CENTER" prefHeight="17.0" prefWidth="410.0">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </left>
+               <right>
+                  <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: azure;" text="Close" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets right="10.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </right>
+               <center>
+                  <HBox prefHeight="32.0" prefWidth="307.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#backToStart" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;" text="Back to Start">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </center>
             </BorderPane>
          </children>

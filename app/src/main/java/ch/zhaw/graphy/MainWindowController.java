@@ -154,6 +154,12 @@ public class MainWindowController {
         }
     }
 
+    
+    @FXML
+    void backToStart(ActionEvent event) {
+
+    }
+
     @FXML
     void remove(ActionEvent event) {
 
