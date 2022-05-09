@@ -9,11 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +23,6 @@ import java.util.Scanner;
 public class GraphHandler {
 
     boolean isDirected;
-    private static final String DELIMITER = ",";
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
 
@@ -38,10 +35,6 @@ public class GraphHandler {
      * @throws IOException if the file has not the correct format
      */
     public GraphHandler(File file) throws FileNotFoundException, IOException {
-
-        if (!file.getPath().endsWith(".csv")) {
-            throw new IOException("Please provide a csv file");
-        }
 
         Scanner scan = new Scanner(file);
         if (scan.hasNextInt()){
@@ -81,7 +74,6 @@ public class GraphHandler {
         scan.close();
     }
 
-    //Todo can be removed if not used
     public GraphHandler(List<Edge> edges){
         for (Edge edge : edges){
             addEdge(edge);
@@ -168,48 +160,6 @@ public class GraphHandler {
         }
         return false;
     }
-
-    public boolean convertToCSV() throws IOException{
-
-        if (graph.isEmpty()) return false;
-
-        File file = initializeDirectoryStructure("Graph.csv");
-
-        try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
-            file.createNewFile();
-
-            /*the graph here is displayed as a directed graph.
-            (if it was originally undirected it contains edges in both directions)
-             */
-            br.write("1");
-            br.write(System.lineSeparator());
-
-            for (Vertex vertex : graph.keySet()) {
-                if (graph.get(vertex).isEmpty()){
-                    br.write((vertex + System.lineSeparator()));
-                    continue;
-                }
-                for (Edge e : graph.get(vertex)) {
-
-
-                    br.write(String.join(DELIMITER, List.of(
-                            String.valueOf(e.getStart()),
-                            String.valueOf(e.getEnd()),
-                            String.valueOf(e.getWeight()))));
-                    br.write(System.lineSeparator());
-                }
-            }
-        }
-        return true;
-    }
-
-    private File initializeDirectoryStructure(String fileName){
-        File output = new File("app/src/output");
-        output.mkdir();
-        File file = new File("app/src/output/" + fileName);
-        return file;
-    }
-
 
     /**
      * Creates a list of vertices adjacent to the given vertex
