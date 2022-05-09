@@ -141,8 +141,28 @@ public class MainWindowController {
     }
 
     @FXML
+    void clickVertexNameField(MouseEvent event) {
+        if(vertexName.getText().equals("Add vertex name"))
+            vertexName.setText("");
+    }
+
+    @FXML
     void close(ActionEvent event) {
         stage.close();
+    }
+
+    @FXML
+    void exitVertexNameField(MouseEvent event) {
+        if(vertexName.getText().equals("")){
+            vertexName.setText("Add vertex name");
+            }
+    }
+
+    @FXML
+    void exitEdgeWeightField(MouseEvent event) {
+        if(edgeWeight.getText().equals("")){
+        edgeWeight.setText("Add edge weight");
+        }
     }
 
     @FXML
@@ -162,16 +182,9 @@ public class MainWindowController {
     }
 
     @FXML
-    void onMouseClicked(MouseEvent event) {
+    void clickEdgeWeightField(MouseEvent event) {
         if(edgeWeight.getText().equals("Add edge weight"))
             edgeWeight.setText("");
-    }
-
-    @FXML
-    void onMouseExited(MouseEvent event) {
-        if(edgeWeight.getText().equals("")){
-        edgeWeight.setText("Add edge weight");
-        }
     }
 
     @FXML
