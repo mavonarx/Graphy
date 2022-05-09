@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class FileInputController {
@@ -27,7 +26,7 @@ public class FileInputController {
     public FileInputController(Stage oldStage){
         this.oldStage= oldStage;
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FileInput.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/FileInput.fxml"));
             loader.setController(this);
             Stage stage = new Stage();
             Pane rootNode = loader.load();
