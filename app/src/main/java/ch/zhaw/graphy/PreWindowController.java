@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -15,7 +14,7 @@ public class PreWindowController {
     Stage stage;
     public PreWindowController(Stage preStage){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/PreWindow.fxml"));
             loader.setController(this);
             Pane rootNode = loader.load();
             Scene scene = new Scene(rootNode);
@@ -52,7 +51,7 @@ public class PreWindowController {
 
     @FXML
     void drawOwnGraph(ActionEvent event) {
-        MainWindowController mainWindowController = new MainWindowController();
+        MainWindowController mainWindowController = new MainWindowController(stage);
         mainWindowController.getStage().show();
         stage.close();
 
