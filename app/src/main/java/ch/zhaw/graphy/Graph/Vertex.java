@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Vertex {
 
-    public static final int VERTEX_SIZE = 5;
+    public static final int VERTEX_SIZE = 10;
 
     private Point position;
     String value;
