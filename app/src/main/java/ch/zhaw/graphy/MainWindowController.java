@@ -74,9 +74,7 @@ public class MainWindowController {
         }
     }
 
-    public Stage getStage(){
-        return stage;
-    }
+
 
     @FXML
     private Pane paintArea;
@@ -272,7 +270,7 @@ public class MainWindowController {
 
     @FXML
     public void initialize() {
-        model = new MainWindowModel();
+        model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
         paintArea.setOnMouseClicked(paintAreaClick);
         remove.setOnMouseClicked(removeClick);
@@ -375,6 +373,10 @@ public class MainWindowController {
         paintArea.getChildren().add(0, line);
 
         lineEdgeMap.put(line, edge);
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 }
 
