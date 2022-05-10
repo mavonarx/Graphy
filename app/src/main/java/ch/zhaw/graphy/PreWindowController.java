@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 public class PreWindowController {
     Stage stage;
 
+    public PreWindowController(){
+    }
     public PreWindowController(Stage preStage){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/PreWindow.fxml"));
