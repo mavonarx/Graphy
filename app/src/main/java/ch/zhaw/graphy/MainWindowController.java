@@ -37,23 +37,24 @@ public class MainWindowController {
 
 
     private MainWindowModel model;
-
-    public MainWindowController(){
+    private Stage oldStage;
+    public MainWindowController(Stage oldStage){
+        this.oldStage = oldStage;
         try{
-			FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler();
             mainLoader.setController(this);
-			Stage mainStage = new Stage();
-			Pane rootNode = mainLoader.load();
-			Scene scene = new Scene(rootNode);
-			mainStage.setScene(scene);
-			mainStage.setMinWidth(280);
-			mainStage.setMinHeight(250);
-			this.stage = mainStage;
-			mainStage.show();
-		} catch(Exception e){
-		   e.printStackTrace();
-		}
+            Stage mainStage = new Stage();
+            Pane rootNode = mainLoader.load();
+            Scene scene = new Scene(rootNode);
+            mainStage.setScene(scene);
+            mainStage.setMinWidth(280);
+            mainStage.setMinHeight(250);
+            this.stage = mainStage;
+            mainStage.show();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public MainWindowController(File file){
@@ -73,8 +74,6 @@ public class MainWindowController {
             e.printStackTrace();
         }
     }
-
-
 
     @FXML
     private Pane paintArea;
@@ -127,7 +126,7 @@ public class MainWindowController {
 
     @FXML
     void clearAll(ActionEvent event) {
-
+        model.clearDisplayVertex();
     }
 
     @FXML
@@ -153,12 +152,14 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
+        /*
         try {
             giveFeedback(handler.convertToCSV());
         }
         catch (IOException e){
             feedBackLabel.setText("an Exception has occurred");
         }
+        */
     }
 
     private void giveFeedback(boolean isSavedAsCSV){
@@ -273,10 +274,10 @@ public class MainWindowController {
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
         paintArea.setOnMouseClicked(paintAreaClick);
-        remove.setOnMouseClicked(removeClick);
+        clearAll.setOnMouseClicked(clearAllClick);
     }
 
-    private EventHandler<MouseEvent> removeClick = new EventHandler<MouseEvent>() {
+    private EventHandler<MouseEvent> clearAllClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
             model.clearDisplayVertex();

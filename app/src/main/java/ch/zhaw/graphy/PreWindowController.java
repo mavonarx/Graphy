@@ -17,7 +17,6 @@ public class PreWindowController {
     public PreWindowController(Stage preStage){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/PreWindow.fxml"));
-            loader.setController(this);
             Pane rootNode = loader.load();
             Scene scene = new Scene(rootNode);
             preStage.setScene(scene);
@@ -53,7 +52,7 @@ public class PreWindowController {
 
     @FXML
     void drawOwnGraph(ActionEvent event) {
-        MainWindowController mainWindowController = new MainWindowController();
+        MainWindowController mainWindowController = new MainWindowController(stage);
         mainWindowController.getStage().show();
         stage.close();
 

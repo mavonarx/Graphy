@@ -9,8 +9,12 @@ import java.util.List;
 
 public class MainWindowModel {
 
-    private List<VertexListener> vertexListeners = new ArrayList<>();
-    private List<Vertex> displayVertex = new ArrayList<>();
+    GraphHandler handler;
+    List<VertexListener> vertexListeners = new ArrayList<>();
+    List<Vertex> displayVertex = new ArrayList<>();
+    List<Vertex> selectedVertex = new ArrayList<>();
+    private List<Edge> displayEdges = new ArrayList<>();
+    private List<Edge> selectedEdge = new ArrayList<>();
 
     public List<Vertex> getSelectedVertex() {
         return selectedVertex;
@@ -22,12 +26,6 @@ public class MainWindowModel {
     public Boolean hasSelectedEdge(){
         return !selectedEdge.isEmpty();
     }
-
-    private List<Vertex> selectedVertex = new ArrayList<>();
-
-    private List<Edge> displayEdges = new ArrayList<>();
-
-    private List<Edge> selectedEdge = new ArrayList<>();
 
     public void addDisplayEdge(Edge edge){
         displayEdges.add(edge);
@@ -47,11 +45,6 @@ public class MainWindowModel {
         notifyOnClearSelectedEdge();
     }
 
-    GraphHandler handler;
-    List<VertexListener> vertexListeners = new ArrayList<>();
-    List<Vertex> displayVertex = new ArrayList<>();
-    List<Vertex> selectedVertex = new ArrayList<>();
-
     public MainWindowModel(GraphHandler handler){
         this.handler = handler;
     }
@@ -65,14 +58,6 @@ public class MainWindowModel {
     public void addSelectedVertex(Vertex vertex){
         selectedVertex.add(vertex);
         notifyOnSelectVertex(vertex);
-    }
-
-    public void addDisplayVertex(List<Vertex> vertex){ //TODO; either remove or if kept needs a graphHandler to add the vertices to the graph map
-        displayVertex.addAll(vertex);
-        //notifyOnAddVertex();
-    }
-    public void addSelectedVertex(List<Vertex> vertex){
-        selectedVertex.addAll(vertex);
     }
     public void clearDisplayVertex(){
         displayVertex.clear();
