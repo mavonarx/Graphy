@@ -5,6 +5,7 @@ import ch.zhaw.graphy.Graph.Edge;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
@@ -333,7 +334,7 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            createVertex("test", new Point((int)event.getX(), (int)event.getY()));
+                            createVertex(UUID.randomUUID().toString(), new Point((int)event.getX(), (int)event.getY()));
                         }
                         break;
                     default:
