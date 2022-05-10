@@ -1,0 +1,16 @@
+.menu-item:focused {
+    -fx-background-color: darkgrey;
+}
+
+.menu-button:hover{
+    -fx-background-color: #dee8e8;
+    -fx-cursor: hand;
+}
+
+.context-menu {
+    -fx-background-color: azure;
+}
+
+.menu-button {
+    -fx-background-color: azure;
+}

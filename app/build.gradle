@@ -13,7 +13,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'java'
-    id 'org.openjfx.javafxplugin' version '0.0.11'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 description = 'Projekt2 - Graphy App'
@@ -66,4 +66,10 @@ java {
 javafx {
     version = '18'
     modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ch.zhaw.graphy.AppMain'
+    }
 }

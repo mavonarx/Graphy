@@ -23,6 +23,8 @@ import java.util.Scanner;
 public class GraphHandler {
 
     boolean isDirected;
+    private static final String DELIMITER = ",";
+    public static final String UTF8_BOM = "\uFEFF";
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
 
@@ -37,17 +39,24 @@ public class GraphHandler {
     public GraphHandler(File file) throws FileNotFoundException, IOException {
 
         Scanner scan = new Scanner(file);
-        if (scan.hasNextInt()){
-            isDirected = scan.nextInt() != 0;
-            scan.nextLine();
+        try {
+            if (!scan.hasNext()){
+                throw new IOException("File is empty");
+            }
+            String startLine = scan.nextLine();
+                if (startLine.startsWith(UTF8_BOM)) {
+                    startLine = startLine.substring(1);
+                }
+            isDirected = Integer.parseInt(startLine.split(DELIMITER)[0].strip())!=0;
         }
 
-        else {
+        catch (NumberFormatException e){
+            System.out.println(e.getMessage());
             throw new IOException("File has not the correct format");
         }
         while(scan.hasNextLine()){
             String scannedLine = scan.nextLine();
-            String [] edgeArray = scannedLine.split(",",3);
+            String [] edgeArray = scannedLine.split(DELIMITER,3);
 
             //only a node is added to the graph
             if (edgeArray.length == 1){

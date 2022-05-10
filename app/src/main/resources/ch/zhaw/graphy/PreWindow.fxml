@@ -66,7 +66,7 @@
             </Label>
             <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: azure;" text="Provided graph">
+                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Provided graph">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -74,7 +74,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: azure;" text="Draw own graph">
+                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Draw own graph">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
