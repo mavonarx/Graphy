@@ -29,8 +29,7 @@ class VertexTest {
         Vertex vertex2 = new Vertex("2", new Point(1, 2));
         Vertex vertex3 = new Vertex("1", new Point(2, 2));
         Vertex vertex4 = new Vertex("1", new Point(1, 2));
-
-        assertNotEquals(vertex1, vertex2);
+        
         assertNotEquals(vertex1, vertex3);
         assertEquals(vertex1, vertex1);
         assertEquals(vertex1, vertex4);

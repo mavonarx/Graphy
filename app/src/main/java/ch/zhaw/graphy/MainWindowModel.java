@@ -28,6 +28,7 @@ public class MainWindowModel {
     }
 
     public void addDisplayEdge(Edge edge){
+        handler.getGraph().get(edge.getStart()).add(edge);
         displayEdges.add(edge);
         notifyOnAddEdge(edge);
     }

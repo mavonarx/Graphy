@@ -27,12 +27,27 @@ public class Vertex {
         this.value=value;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Vertex vertex = (Vertex) o;
-        return Objects.equals(value, vertex.value);
+
+        return position.equals(vertex.position);
     }
+
+
+    /*
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertex otherVertex = (Vertex) o;
+        if ((otherVertex.position != this.position)){
+            return false;
+        }
+        return true;
+    }*/
 
     public String getValue() {
         return value;
