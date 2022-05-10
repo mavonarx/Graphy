@@ -31,10 +31,7 @@ public class Vertex {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex vertex = (Vertex) o;
-        if (Objects.equals(value, vertex.value) && Objects.equals(position, vertex.getPosition())){
-            return true;
-        }
-        return false;
+        return Objects.equals(value, vertex.value);
     }
 
     public String getValue() {

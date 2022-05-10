@@ -4,6 +4,8 @@ import ch.zhaw.graphy.Graph.Edge;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 import com.google.common.collect.BiMap;
@@ -207,7 +209,6 @@ public class MainWindowController {
 
     @FXML
     void printToCsv(ActionEvent event) {
-        /*
         try {
             giveFeedback(handler.convertToCSV());
         }
@@ -216,7 +217,6 @@ public class MainWindowController {
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
-        */
     }
 
     private void giveFeedback(boolean isSavedAsCSV){
