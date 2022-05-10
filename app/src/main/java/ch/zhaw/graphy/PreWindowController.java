@@ -19,6 +19,7 @@ public class PreWindowController {
     public PreWindowController(Stage preStage){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/PreWindow.fxml"));
+            loader.setController(this);
             Pane rootNode = loader.load();
             Scene scene = new Scene(rootNode);
             preStage.setScene(scene);
