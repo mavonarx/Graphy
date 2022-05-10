@@ -59,7 +59,7 @@ public class MainWindowController {
 
     public MainWindowController(File file){
         try{
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler(file);
             mainLoader.setController(this);
             Stage mainStage = new Stage();
