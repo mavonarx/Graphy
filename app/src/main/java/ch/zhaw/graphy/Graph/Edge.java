@@ -18,6 +18,7 @@ public class Edge implements Comparable<Edge>{
     }
 
     public Edge(Vertex start, Vertex end){
+
         this( start, end, DEFAULT_WEIGHT);
     }
 

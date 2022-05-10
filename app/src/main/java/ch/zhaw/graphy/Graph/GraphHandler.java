@@ -218,7 +218,6 @@ public class GraphHandler {
         return file;
     }
 
-
     /**
      * Creates a list of vertices adjacent to the given vertex
      * @param vertex the vertex for which u want the adjacent vertices
