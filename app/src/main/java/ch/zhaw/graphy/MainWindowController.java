@@ -36,9 +36,9 @@ public class MainWindowController {
     private Stage oldStage;
 
     private Color stdVertexColor = Color.RED;
-    private static final Color stdVertexSelectedColor = Color.BLANCHEDALMOND;
+    private static final Color stdVertexSelectedColor = Color.BLUE;
     private static final Color stdLineColor = Color.BLACK;
-    private static final Color stdLineSelectedColor = Color.AQUA;
+    private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
 
 
     private MainWindowModel model;
