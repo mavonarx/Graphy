@@ -1,6 +1,8 @@
 package ch.zhaw.graphy;
 
 import ch.zhaw.graphy.Graph.Edge;
+
+import java.awt.*;
 import java.io.File;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
