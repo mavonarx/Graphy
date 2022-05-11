@@ -13,7 +13,7 @@
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="title" alignment="CENTER" prefHeight="35.0" prefWidth="809.0" text="Drag and drop the File here" textFill="#1f15d7">
+            <Label fx:id="title" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="809.0" text="Drag and drop the File here" textFill="#1f15d7">
                <VBox.margin>
                   <Insets bottom="10.0" top="20.0" />
                </VBox.margin>
