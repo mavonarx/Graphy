@@ -225,8 +225,8 @@ public class GraphHandler {
                 br.write(String.join(
                                 DELIMITER,List.of(
                                         String.valueOf(vertex),
-                                        String.valueOf(vertex.getPosition().getX()),
-                                        String.valueOf(vertex.getPosition().getY())
+                                        String.valueOf((int)vertex.getPosition().getX()),
+                                        String.valueOf((int)vertex.getPosition().getY())
                                 )
                         ) + System.lineSeparator()
                 );
@@ -236,11 +236,11 @@ public class GraphHandler {
                 for (Edge e : graph.get(vertex)) {
                     br.write(String.join(DELIMITER, List.of(
                             String.valueOf(e.getStart()),
-                            String.valueOf(e.getStart().getPosition().getX()),
-                            String.valueOf(e.getStart().getPosition().getY()),
+                            String.valueOf((int)e.getStart().getPosition().getX()),
+                            String.valueOf((int)e.getStart().getPosition().getY()),
                             String.valueOf(e.getEnd()),
-                            String.valueOf(e.getEnd().getPosition().getX()),
-                            String.valueOf(e.getEnd().getPosition().getY()),
+                            String.valueOf((int)e.getEnd().getPosition().getX()),
+                            String.valueOf((int)e.getEnd().getPosition().getY()),
                             String.valueOf(e.getWeight()))));
                     br.write(System.lineSeparator());
                 }
