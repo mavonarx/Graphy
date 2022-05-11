@@ -84,6 +84,9 @@ public class MainWindowController {
     private Pane paintArea;
 
     @FXML
+    private TextField fileName;
+
+    @FXML
     void initialize(){
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
@@ -92,6 +95,7 @@ public class MainWindowController {
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
+        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -211,7 +215,7 @@ public class MainWindowController {
     @FXML
     void printToCsv(ActionEvent event) {
         try {
-            giveFeedback(handler.convertToCSV());
+            giveFeedback(handler.convertToCSV(fileName.getText()));
         }
         catch (IOException e){
             e.printStackTrace();

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
 
    <children>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -122,23 +122,31 @@
                   <Insets bottom="10.0" left="10.0" />
                </VBox.margin>
                <left>
-                  <HBox alignment="CENTER" prefHeight="62.0" prefWidth="444.0" BorderPane.alignment="CENTER">
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="530.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Save as CSV">
+                        <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="32.0" prefWidth="102.0" stylesheets="@buttons.css" text="Save as CSV">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Label fx:id="feedBackLabel" alignment="CENTER" prefHeight="17.0" prefWidth="316.0">
+                        <TextField fx:id="fileName" prefHeight="32.0" prefWidth="134.0" style="-fx-background-color: azure;">
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="feedBackLabel" prefHeight="17.0" prefWidth="267.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
                      </children>
                   </HBox>
                </left>
                <center>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="62.0" prefWidth="292.0" BorderPane.alignment="CENTER">
+                  <HBox alignment="CENTER" maxWidth="120.0" prefHeight="36.0" prefWidth="220.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button mnemonicParsing="false" onAction="#backToStart" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Back to start">
                            <font>
