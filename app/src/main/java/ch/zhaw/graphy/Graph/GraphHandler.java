@@ -219,8 +219,9 @@ public class GraphHandler {
             br.write(System.lineSeparator());
 
             //write vertices
+            br.write(graph.keySet().size()+ System.lineSeparator());
             for (Vertex vertex: graph.keySet()){
-                br.write(graph.keySet().size()+ System.lineSeparator());
+
                 br.write(String.join(
                                 DELIMITER,List.of(
                                         String.valueOf(vertex),
