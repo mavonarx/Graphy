@@ -292,12 +292,24 @@ public class GraphHandler {
      *
      * @return true if the file could be saved, throws an exception otherwise
      * @throws IOException if the file could not be saved.
+     * @param filename the name of the file
      */
-    public boolean convertToCSV() throws IOException{
+    public boolean convertToCSV(String filename) throws IOException{
+        if(("Enter a filename here".equals(filename)) || "".equals(filename) ){
+            filename = "Graph.csv";
+        }
+        if(!filename.endsWith(".csv")){
+            if (filename.contains(".")){
+                filename = filename.split("\\.")[0] + ".csv";
+            }
+           else {
+               filename += ".csv";
+            }
+        }
         LOGGER.fine("started converToCSV");
         if (graph.isEmpty()) return false;
 
-        File file = initializeDirectoryStructure("Graph.csv");
+        File file = initializeDirectoryStructure(filename);
 
         try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
             file.createNewFile();
@@ -352,12 +364,13 @@ public class GraphHandler {
      * @return returns a FileObject of the file
      */
     private File initializeDirectoryStructure(String fileName){
-        File output = new File("output");
+
+        File output = new File("../output");
         if (output.mkdirs()){
             LOGGER.info("created output directory");
         };
 
-        return new File("output/" + fileName);
+        return new File("../output/" + fileName);
     }
 
     /**

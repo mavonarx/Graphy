@@ -20,10 +20,10 @@ public class MainWindowModel {
         return selectedVertex;
     }
 
-    public Boolean hasSelectedVertex(){
+    public boolean hasSelectedVertex(){
         return !selectedVertex.isEmpty();
     }
-    public Boolean hasSelectedEdge(){
+    public boolean hasSelectedEdge(){
         return !selectedEdge.isEmpty();
     }
 
