@@ -64,7 +64,7 @@ public class GraphHandler {
         scan.close();
     }
 
-    private void scanEdges() {
+    private void scanEdges() throws IOException {
         while (scan.hasNextLine()){
             String scanEdgeString = scan.nextLine();
             if (scanEdgeString.isBlank()) continue;
@@ -73,11 +73,17 @@ public class GraphHandler {
             int x = Integer.parseInt(values[1].strip());
             int y = Integer.parseInt(values[2].strip());
             Vertex v1 = new Vertex(values[0],new Point(x,y));
+            if (!graph.containsKey(v1)){
+                throw new IOException("start vertex of an edge is not scanned as vertex");
+            }
 
             //scanning second vertex of edge
             x = Integer.parseInt(values[4].strip());
             y = Integer.parseInt(values[5].strip());
             Vertex v2 = new Vertex(values[3],new Point(x,y));
+            if (!graph.containsKey(v2)){
+                throw new IOException("end vertex of an edge is not scanned as vertex");
+            }
 
             int weight = Integer.parseInt(values[6].strip());
             Edge edge = new Edge(v1,v2,weight);
