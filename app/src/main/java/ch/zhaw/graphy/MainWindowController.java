@@ -340,7 +340,22 @@ public class MainWindowController {
                         break;
                     case 1:
                         model.addSelectedVertex(circleVertexMap.get(clickedCircle));
-                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
+                        int weight;
+                        if ("".equals(edgeWeight.getText())){
+                            weight = 0;
+                        }
+                        else {
+                            try {
+                                weight = Integer.parseInt(edgeWeight.getText());
+                            }
+                            catch (NumberFormatException e){
+                                weight = 0;
+                            }
+                        }
+
+
+
+                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1),weight);
                         model.addDisplayEdge(newEdge);
                         model.clearSelectedVertex();
                         break;
