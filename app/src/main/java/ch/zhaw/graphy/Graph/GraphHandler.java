@@ -255,9 +255,9 @@ public class GraphHandler {
     }
 
     private File initializeDirectoryStructure(String fileName){
-        File output = new File("app/src/output");
-        output.mkdir();
-        File file = new File("app/src/output/" + fileName);
+        File output = new File("output");
+        output.mkdirs();
+        File file = new File("output/" + fileName);
         return file;
     }
 

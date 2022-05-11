@@ -214,7 +214,7 @@ public class MainWindowController {
             giveFeedback(handler.convertToCSV());
         }
         catch (IOException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
