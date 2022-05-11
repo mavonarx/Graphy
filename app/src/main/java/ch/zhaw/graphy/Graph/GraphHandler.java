@@ -19,12 +19,15 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * This class represents the values that are needed to display the application.
  * The values are represented as one map of vertices pointing to a list of edges which holds the outgoing edges.
  */
 public class GraphHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(GraphHandler.class.getCanonicalName());
 
     boolean isDirected;
     /**
@@ -54,6 +57,7 @@ public class GraphHandler {
      * @throws IOException if the file has not the correct format - the messages displays more information
      */
     public GraphHandler(File file) throws FileNotFoundException, IOException {
+        LOGGER.fine("stared graphHandler constructor with file");
 
         //the .csv extension is required
         if (!file.getPath().endsWith(".csv")) {
@@ -67,13 +71,17 @@ public class GraphHandler {
             nrOfVertices = getNrOfVertices();
             scanVertices(nrOfVertices);
             scanEdges();
+            LOGGER.info("Constructed a graph out of CSV-File");
         }
 
         catch (NumberFormatException e){
             System.out.println(e.getMessage());
-            throw new IOException("File has not the correct format - Integer can not be parsed");
+            String message =  "File has not the correct format - Integer can not be parsed";
+            LOGGER.warning(message);
+            throw new IOException(message);
         }
         scan.close();
+        LOGGER.fine("Constructor with file successfully");
     }
 
     /**
@@ -81,6 +89,7 @@ public class GraphHandler {
      * @throws IOException if a vertex is used that has not been initialized by scannVertices
      */
     private void scanEdges() throws IOException {
+        LOGGER.fine("started scanning edges");
         while (scan.hasNextLine()){
             String scanEdgeString = scan.nextLine();
             if (scanEdgeString.isBlank()) continue;
@@ -90,7 +99,9 @@ public class GraphHandler {
             int y = Integer.parseInt(values[2].strip());
             Vertex v1 = new Vertex(values[0],new Point(x,y));
             if (!graph.containsKey(v1)){
-                throw new IOException("start vertex of an edge is not scanned as vertex");
+                String message = "start vertex of an edge is not scanned as vertex";
+                LOGGER.warning(message);
+                throw new IOException(message);
             }
 
             //scanning second vertex of edge
@@ -98,13 +109,17 @@ public class GraphHandler {
             y = Integer.parseInt(values[5].strip());
             Vertex v2 = new Vertex(values[3],new Point(x,y));
             if (!graph.containsKey(v2)){
-                throw new IOException("end vertex of an edge is not scanned as vertex");
+                String message = "end vertex of an edge is not scanned as vertex";
+                LOGGER.warning(message);
+                throw new IOException(message);
             }
 
             int weight = Integer.parseInt(values[6].strip());
             Edge edge = new Edge(v1,v2,weight);
             addEdge(edge);
+            LOGGER.info("added the edge from" + values[0] + " to " + values[3]);
         }
+        LOGGER.fine("scanned Edges successfully");
     }
 
     /**
@@ -113,6 +128,7 @@ public class GraphHandler {
      * @throws IOException if there are not enough vertices to be scanned.
      */
     private void scanVertices(int nrOfVertices) throws IOException {
+        LOGGER.fine("stared to scan Vertices");
         for (int i = 0; i< nrOfVertices; i++){
             if (!scan.hasNext()){
                 throw new IOException("Not enough vertices provided");
@@ -122,7 +138,9 @@ public class GraphHandler {
             int x = Integer.parseInt(values[1].strip());
             int y = Integer.parseInt(values[2].strip());
             addVertex(new Vertex(values[0],new Point(x,y)));
+            LOGGER.info("Added the vertex: " + values[0] + "x:"+ x + "y:" + y);
         }
+        LOGGER.fine("scanned vertices successfully");
     }
 
     /**
@@ -131,14 +149,17 @@ public class GraphHandler {
      * @throws IOException if there is no row in the file anymore
      */
     private int getNrOfVertices() throws IOException {
+        LOGGER.fine("Stared scanning #nr vertices");
         int nrOfVertices;
         if (!scan.hasNext()){
-            throw new IOException("No Nr# vertices is provided");
+            String message = "No Nr# vertices is provided";
+            LOGGER.warning(message);
+            throw new IOException(message);
         }
         String nrOfVerticesString = scan.nextLine();
         nrOfVertices=Integer.parseInt(nrOfVerticesString.split(DELIMITER)[0].strip());
+        LOGGER.fine("scanned nr# vertices successfully");
         return nrOfVertices;
-
     }
 
     /**
@@ -146,14 +167,19 @@ public class GraphHandler {
      * @throws IOException if the file is already at its end
      */
     private void checkIfDirected() throws IOException {
+        LOGGER.fine("Started scanning if the graph is directed");
         if (!scan.hasNext()){
-            throw new IOException("File is empty");
+            String message = "File is empty";
+            LOGGER.warning(message);
+            throw new IOException(message);
         }
         String startLine = scan.nextLine();
         if (startLine.startsWith(UTF8_BOM)) {
+            LOGGER.fine("UTF8-Bom detected");
             startLine = startLine.substring(1);
         }
         isDirected = Integer.parseInt(startLine.split(DELIMITER)[0].strip())!=0;
+        LOGGER.fine("directed scanned successfully");
     }
 
 
@@ -170,6 +196,7 @@ public class GraphHandler {
      */
     public void addEdge(Edge edge){
         if (edge==null) throw new IllegalArgumentException("Edge is null");
+        LOGGER.info("Added an edge to the graph");
         addVertex(edge.getStart());
         addVertex(edge.getEnd());
         graph.get(edge.getStart()).add(edge);
@@ -185,6 +212,7 @@ public class GraphHandler {
         if (vertex==null) throw new IllegalArgumentException("Vertex is null");
 
         if (graph.containsKey(vertex)){
+            LOGGER.warning("The vertex is already in the graph");
             return;
         }
 
@@ -198,9 +226,11 @@ public class GraphHandler {
             public void changed(ObservableValue<? extends ObservableSet<Edge>> observable, ObservableSet<Edge> oldValue, ObservableSet<Edge> newValue) {
                 graph.put(vertex,null);
                 graph.put(vertex,new SimpleSetProperty<>(newValue));
+                LOGGER.fine("Change detected");
             }
         });
         graph.put(vertex, adjacentSetProperty);
+        LOGGER.info("added a vertex to the graph");
     }
 
     /**
@@ -211,8 +241,11 @@ public class GraphHandler {
     public void removeEdge(Edge edge){
         if (edge==null) throw new IllegalArgumentException("Edge is null");
         if (graph.containsKey(edge.getStart())){
-            graph.get(edge.getStart()).remove(edge);
+            if (graph.get(edge.getStart()).remove(edge)){
+                LOGGER.info("removed edge");
+            };
         }
+
     }
 
     /**
@@ -222,10 +255,15 @@ public class GraphHandler {
      */
     public void removeVertex(Vertex vertex){
         if (vertex==null) throw new IllegalArgumentException("Vertex is null");
+        if (graph.containsKey(vertex)){
+            LOGGER.info("removed vertex" + vertex);
+        }
         for (SetProperty<Edge> setProperty :graph.values()){
            setProperty.remove(vertex);
         }
+
         graph.remove(vertex);
+
     }
 
 
@@ -256,21 +294,26 @@ public class GraphHandler {
      * @throws IOException if the file could not be saved.
      */
     public boolean convertToCSV() throws IOException{
+        LOGGER.fine("started converToCSV");
         if (graph.isEmpty()) return false;
 
         File file = initializeDirectoryStructure("Graph.csv");
 
         try (BufferedWriter br = Files.newBufferedWriter(file.toPath())) {
             file.createNewFile();
+            LOGGER.info("created the File (if not yet existent)" + file.getName());
 
             /*the graph here is displayed as a directed graph.
             (if it was originally undirected it contains edges in both directions)
              */
+            LOGGER.fine("writing isDirected");
             br.write(IS_DIRECTED);
             br.write(System.lineSeparator());
 
             //write vertices
+            LOGGER.fine("writing number of edges");
             br.write(graph.keySet().size()+ System.lineSeparator());
+            LOGGER.fine("writing vertices");
             for (Vertex vertex: graph.keySet()){
 
                 br.write(String.join(
@@ -282,6 +325,8 @@ public class GraphHandler {
                         ) + System.lineSeparator()
                 );
             }
+            LOGGER.fine("vertices written");
+            LOGGER.fine("writing edges");
 
             for (Vertex vertex : graph.keySet()) {
                 for (Edge e : graph.get(vertex)) {
@@ -296,6 +341,7 @@ public class GraphHandler {
                     br.write(System.lineSeparator());
                 }
             }
+            LOGGER.fine("edges written");
         }
         return true;
     }
@@ -307,15 +353,17 @@ public class GraphHandler {
      */
     private File initializeDirectoryStructure(String fileName){
         File output = new File("output");
-        output.mkdirs();
-        File file = new File("output/" + fileName);
-        return file;
+        if (output.mkdirs()){
+            LOGGER.info("created output directory");
+        };
+
+        return new File("output/" + fileName);
     }
 
     /**
      * Creates a list of vertices adjacent to the given vertex
      * @param vertex the vertex for which u want the adjacent vertices
-     * @return's a list of all adjacent vertices
+     * @return a list of all adjacent vertices
      */
     public List<Vertex> adjacentVertices(Vertex vertex){
         List<Vertex> adjacentList = new ArrayList<>();
