@@ -1,6 +1,7 @@
 package ch.zhaw.graphy.Graph;
 
 import javafx.beans.property.MapProperty;
+import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,24 +27,35 @@ import java.util.Scanner;
 public class GraphHandler {
 
     boolean isDirected;
+    /**
+     * The delimiter used in the graph csv file
+     */
     private static final String DELIMITER = ",";
+    /**
+     * The UTF8_Bom - some utf8 files put this at the beginning to identify utf8 encoding
+     */
     private static final String UTF8_BOM = "\uFEFF";
+    /**
+     * if a graph is directed it is represented as a 1 at the start of the csv file
+     */
     private static final String IS_DIRECTED = "1";
-    Scanner scan;
+    private Scanner scan;
 
+    /**
+     * The graph is represented as a map from a vertex to a set of edges.
+     */
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
 
     /**
-     * creates a graph from an input file
-     * @param file where an adjacencyList is represented. First line tells whether
-     *             it's a directed (!=0) or undirected (=0) graph
-     *             any further line represents an edge (vertex, vertex, weight)
+     * Constructor: creates a graph from an csv-input file
+     * @param file input csv file
      * @throws FileNotFoundException if the file cannot be found
-     * @throws IOException if the file has not the correct format
+     * @throws IOException if the file has not the correct format - the messages displays more information
      */
     public GraphHandler(File file) throws FileNotFoundException, IOException {
 
+        //the .csv extension is required
         if (!file.getPath().endsWith(".csv")) {
             throw new IOException("Please provide a csv file");
         }
@@ -64,6 +76,10 @@ public class GraphHandler {
         scan.close();
     }
 
+    /**
+     * scans the edges of the provided csv file
+     * @throws IOException if a vertex is used that has not been initialized by scannVertices
+     */
     private void scanEdges() throws IOException {
         while (scan.hasNextLine()){
             String scanEdgeString = scan.nextLine();
@@ -91,6 +107,11 @@ public class GraphHandler {
         }
     }
 
+    /**
+     * Scans the vertices of the csv file
+     * @param nrOfVertices the amount of vertices in the graph
+     * @throws IOException if there are not enough vertices to be scanned.
+     */
     private void scanVertices(int nrOfVertices) throws IOException {
         for (int i = 0; i< nrOfVertices; i++){
             if (!scan.hasNext()){
@@ -104,6 +125,11 @@ public class GraphHandler {
         }
     }
 
+    /**
+     * Scans the amount of vertices (provided at the second line of the csv file)
+     * @return the naumber of Vertices
+     * @throws IOException if there is no row in the file anymore
+     */
     private int getNrOfVertices() throws IOException {
         int nrOfVertices;
         if (!scan.hasNext()){
@@ -115,6 +141,10 @@ public class GraphHandler {
 
     }
 
+    /**
+     * reads from csv if the graph is directed or undirected
+     * @throws IOException if the file is already at its end
+     */
     private void checkIfDirected() throws IOException {
         if (!scan.hasNext()){
             throw new IOException("File is empty");
@@ -127,6 +157,9 @@ public class GraphHandler {
     }
 
 
+    /**
+     * constructor if no file is provided.
+     */
     public GraphHandler(){}
 
     /**
@@ -189,8 +222,10 @@ public class GraphHandler {
      */
     public void removeVertex(Vertex vertex){
         if (vertex==null) throw new IllegalArgumentException("Vertex is null");
-        throw new UnsupportedOperationException();
-        //TODO PLS SUPPORT ME
+        for (SetProperty<Edge> setProperty :graph.values()){
+           setProperty.remove(vertex);
+        }
+        graph.remove(vertex);
     }
 
 
@@ -198,6 +233,10 @@ public class GraphHandler {
         return graph.get();
     }
 
+    /**
+     * checks if the graph is weighted.
+     * @return true if the graph is weighted. Else false
+     */
     public boolean isWeighted(){
         for (Vertex vertex : graph.keySet()){
             for (Edge edge : graph.get(vertex)){
@@ -209,6 +248,13 @@ public class GraphHandler {
         return false;
     }
 
+    /**
+     * takes the graph and converts it to a csv file. This file is saved in the output directory
+     * (direct subdirectory of the project dir)
+     *
+     * @return true if the file could be saved, throws an exception otherwise
+     * @throws IOException if the file could not be saved.
+     */
     public boolean convertToCSV() throws IOException{
         if (graph.isEmpty()) return false;
 
@@ -254,6 +300,11 @@ public class GraphHandler {
         return true;
     }
 
+    /**
+     * Initializes the output directory (if not already present)
+     * @param fileName the name of the file that should be created
+     * @return returns a FileObject of the file
+     */
     private File initializeDirectoryStructure(String fileName){
         File output = new File("output");
         output.mkdirs();
