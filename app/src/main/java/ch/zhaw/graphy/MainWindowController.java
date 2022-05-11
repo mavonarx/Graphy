@@ -4,7 +4,6 @@ import ch.zhaw.graphy.Graph.Edge;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
@@ -16,11 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -143,6 +138,9 @@ public class MainWindowController {
 
     @FXML
     private TextField vertexName;
+
+    @FXML
+    private CheckBox bidirectional;
 
     @FXML
     void addEdge(ActionEvent event) {
@@ -356,7 +354,12 @@ public class MainWindowController {
 
 
                         Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1),weight);
+
                         model.addDisplayEdge(newEdge);
+                        if (bidirectional.isSelected()){
+                            newEdge = new Edge(model.getSelectedVertex().get(1),model.getSelectedVertex().get(0),weight);
+                            model.addDisplayEdge(newEdge);
+                        }
                         model.clearSelectedVertex();
                         break;
                 }
