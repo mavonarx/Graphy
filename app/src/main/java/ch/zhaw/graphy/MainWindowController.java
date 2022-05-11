@@ -33,6 +33,7 @@ public class MainWindowController {
     GraphHandler handler;
 
     private Stage stage;
+    private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
 
     private Color stdVertexColor = Color.RED;
@@ -317,7 +318,7 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            createVertex(UUID.randomUUID().toString(), new Point((int)event.getX(), (int)event.getY()));
+                            createVertex(new Point((int)event.getX(), (int)event.getY()));
                         }
                         break;
                     default:
@@ -370,8 +371,12 @@ public class MainWindowController {
     // A vertex is represented as a circle in the gui. This is the mapping of circle to vertex.
     private BiMap<Circle, Vertex> circleVertexMap = HashBiMap.create();
     private BiMap<Line, Edge> lineEdgeMap = HashBiMap.create();
-    private void createVertex(String value, Point position){
-        Vertex newVertex = new Vertex(value, position);
+    private void createVertex(Point position){
+        String name = vertexName.getText();
+        if(vertexName.getText().isBlank()){
+            name = String.valueOf(++numberOfDrawnUnnamedVertex);
+        }
+        Vertex newVertex = new Vertex(name, position);
         model.addDisplayVertex(newVertex);
     }
     private static final int VERTEX_SIZE = 10;
