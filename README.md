@@ -10,16 +10,15 @@ manual to create one.
 if the graph is directed. 
    - If the graph is directed put a 1
    - If the graph is undirected put a 0
-3. in the following lines there are either edges or vertices
-4. an edge is represented by 2 vertices and a weight seperated by commas
-    1. First put the value of the start edge (any string)
-    2. Second put the value of the end edge (any string)
+3. Set the number of vertices as an int
+4. In the following lines there are the #nr vertices 
+5. Put a vertex as follows: vertexName, x-coordinate as int, y-coordinate as int (attention! only use each coordinate tuple once!)
+6. Repeat this as many times as #nr vertices put in the second line. 
+7. After that the edges are put in the csv file: an edge is represented by 2 vertices and a weight seperated by commas
+Because a vertex is only equal to another when the coordinates are equal
+    1. First put the values of the start edge name, x-coordinate, y-coordinate (as ints again)
+    2. Second put the value of the end edge name, x-coordinate, y-coorinate (as ints again)
     3. Put the weight (as an integer)
-5. a vertex is just represented as a single string on the line
-6. repeat steps 4,5 as many times as needed
-7. If a vertex is already a start or end vertex of an edge 
-it will get automatically added to the graph and does not have to be 
-provided in the csv file (but still can).
 8. Alternatively you can also create a file with
 excel. If you save it as a csv it will add the commas automatically
    
