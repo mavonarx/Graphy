@@ -1,4 +1,4 @@
 package ch.zhaw.graphy.Graph;
 
-record Point(int x, int y) {
+public record Point(int x, int y) {
 }
