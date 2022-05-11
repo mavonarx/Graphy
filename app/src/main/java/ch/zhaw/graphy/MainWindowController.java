@@ -2,12 +2,12 @@ package ch.zhaw.graphy;
 
 import ch.zhaw.graphy.Graph.Edge;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
+import ch.zhaw.graphy.Graph.Point;
 import ch.zhaw.graphy.Graph.Vertex;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
