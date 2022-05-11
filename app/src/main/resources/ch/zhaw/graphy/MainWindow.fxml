@@ -7,7 +7,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
    <children>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -43,7 +42,7 @@
                   <Font name="System Bold" size="48.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1200.0">
                <children>
                   <Button fx:id="addEdge" mnemonicParsing="false" onAction="#addEdge" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Add edge">
                      <font>
@@ -110,17 +109,20 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <Pane fx:id="paintArea" prefHeight="395.0" prefWidth="735.0" style="-fx-background-color: white;">
+            <Pane fx:id="paintArea" prefHeight="650.0" prefWidth="735.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Pane>
-            <BorderPane prefHeight="85.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
+            <BorderPane maxHeight="70.0" prefHeight="85.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" />
                </VBox.margin>
                <left>
-                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="535.0" BorderPane.alignment="CENTER">
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="535.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button fx:id="printToCsv" mnemonicParsing="false" onAction="#printToCsv" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Save as CSV">
                            <font>
@@ -146,7 +148,7 @@
                   </Button>
                </right>
                <center>
-                  <HBox prefHeight="32.0" prefWidth="307.0" BorderPane.alignment="CENTER">
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="307.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button mnemonicParsing="false" onAction="#backToStart" prefHeight="35.0" prefWidth="110.0" stylesheets="@buttons.css" text="Back to start">
                            <font>
