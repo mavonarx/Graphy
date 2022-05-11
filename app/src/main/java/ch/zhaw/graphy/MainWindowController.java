@@ -408,8 +408,28 @@ public class MainWindowController {
         circleVertexMap.put(circle, vertex);
     }
     private void drawEdge(Edge edge){
-        Line line = new Line(edge.getStart().getX(), edge.getStart().getY(),
-                                edge.getEnd().getX(), edge.getEnd().getY());
+        int xStart = edge.getStart().getX();
+        int xEnd = edge.getEnd().getX();
+        int yStart = edge.getStart().getY();
+        int yEnd = edge.getEnd().getY();
+        Point pUp = findArrowUp(xStart,xEnd,yStart,yEnd);
+        Point pDown = findArrowDown(xStart,xEnd,yStart,yEnd);
+
+
+        Line line = new Line(xStart, yStart,
+                                xEnd, yEnd);
+        Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
+        Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
+        arrowline1.setStrokeWidth(5);
+        arrowline2.setStrokeWidth(5);
+        arrowline1.setFill(stdLineColor);
+        arrowline2.setFill(stdLineColor);
+        arrowline1.setPickOnBounds(false);
+        arrowline2.setPickOnBounds(false);
+        paintArea.getChildren().add(arrowline1);
+        paintArea.getChildren().add(arrowline2);
+
+
         line.setFill(stdLineColor);
         line.setStrokeWidth(5);
         line.setOnMouseClicked(edgeClick);
@@ -417,6 +437,34 @@ public class MainWindowController {
 
         lineEdgeMap.put(line, edge);
     }
+
+
+    private Point findArrowUp(int xStart, int xEnd, int yStart, int yEnd){
+        int x = xEnd-xStart;
+        int y = yEnd-yStart;
+        double twoNorm =  Math.sqrt(x*x + y*y);
+        double xNorm = x/twoNorm;
+        double yNorm = y/twoNorm;
+
+        x = (int )(xEnd -20*xNorm +10*yNorm);
+        y = (int)(yEnd-20* yNorm -10*xNorm);
+
+        return new Point(x,y);
+    }
+
+    private Point findArrowDown(int xStart, int xEnd, int yStart, int yEnd){
+        int x = xEnd-xStart;
+        int y = yEnd-yStart;
+        double twoNorm =  Math.sqrt(x*x + y*y);
+        double xNorm = x/twoNorm;
+        double yNorm = y/twoNorm;
+
+        x = (int )(xEnd -20*xNorm -10*yNorm);
+        y = (int)(yEnd-20* yNorm + 10*xNorm);
+
+        return new Point(x,y);
+    }
+
 
     public Stage getStage(){
         return stage;
