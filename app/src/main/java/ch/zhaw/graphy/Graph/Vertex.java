@@ -4,27 +4,23 @@ package ch.zhaw.graphy.Graph;
 import java.util.Objects;
 
 /**
- *
+ *This class represents a vertex of a graph. It has a position and a name.
  */
 public class Vertex {
 
-    public static final int VERTEX_SIZE = 10;
-
     private Point position;
-    String value;
+    private String name;
 
-    public void setPosition(Point position) {
+    /**
+     * constructor of vertex with name and position
+     * @param name
+     * @param position
+     */
+    public Vertex(String name, Point position){
+        this.name = name;
         this.position = position;
     }
 
-    public Vertex(String value, Point position){
-        this.value=value;
-        this.position = position;
-    }
-
-    public Vertex(String value){
-        this.value=value;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,29 +32,30 @@ public class Vertex {
         return position.equals(vertex.position);
     }
 
-
-    /*
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vertex otherVertex = (Vertex) o;
-        if ((otherVertex.position != this.position)){
-            return false;
-        }
-        return true;
-    }*/
-
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * ToString method of Vertex
+     * @return the name of the vertex
+     */
     @Override
     public String toString() {
-        return value;
+        return name;
     }
+
+    /**
+     * generated hasCode
+     * @return the hashcode value of this object
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(name);
     }
 
     public int getX(){
