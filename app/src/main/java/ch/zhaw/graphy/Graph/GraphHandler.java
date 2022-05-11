@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
-import javax.swing.text.Position;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -225,8 +224,8 @@ public class GraphHandler {
                 br.write(String.join(
                                 DELIMITER,List.of(
                                         String.valueOf(vertex),
-                                        String.valueOf((int)vertex.getPosition().getX()),
-                                        String.valueOf((int)vertex.getPosition().getY())
+                                        String.valueOf(vertex.getPosition().x()),
+                                        String.valueOf(vertex.getPosition().y())
                                 )
                         ) + System.lineSeparator()
                 );
@@ -236,11 +235,11 @@ public class GraphHandler {
                 for (Edge e : graph.get(vertex)) {
                     br.write(String.join(DELIMITER, List.of(
                             String.valueOf(e.getStart()),
-                            String.valueOf((int)e.getStart().getPosition().getX()),
-                            String.valueOf((int)e.getStart().getPosition().getY()),
+                            String.valueOf(e.getStart().getPosition().x()),
+                            String.valueOf(e.getStart().getPosition().y()),
                             String.valueOf(e.getEnd()),
-                            String.valueOf((int)e.getEnd().getPosition().getX()),
-                            String.valueOf((int)e.getEnd().getPosition().getY()),
+                            String.valueOf(e.getEnd().getPosition().x()),
+                            String.valueOf(e.getEnd().getPosition().y()),
                             String.valueOf(e.getWeight()))));
                     br.write(System.lineSeparator());
                 }
