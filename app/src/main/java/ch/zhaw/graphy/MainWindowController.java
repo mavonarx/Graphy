@@ -78,6 +78,12 @@ public class MainWindowController {
         } catch(Exception e){
             e.printStackTrace();
         }
+        for (Vertex vertex: handler.getGraph().keySet()){
+            drawVertex(vertex);
+            for (Edge edge : handler.getGraph().get(vertex)){
+                drawEdge(edge);
+            }
+        }
     }
 
     @FXML
@@ -90,12 +96,9 @@ public class MainWindowController {
     void initialize(){
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
-        edgeWeight.setText("Add edge weight");
-        vertexName.setText("Add vertex name");
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -165,30 +168,12 @@ public class MainWindowController {
         model.clearDisplayVertex();
     }
 
-    @FXML
-    void clickVertexNameField(MouseEvent event) {
-        if(vertexName.getText().equals("Add vertex name"))
-            vertexName.setText("");
-    }
 
     @FXML
     void close(ActionEvent event) {
         stage.close();
     }
 
-    @FXML
-    void exitVertexNameField(MouseEvent event) {
-        if(vertexName.getText().equals("")){
-            vertexName.setText("Add vertex name");
-            }
-    }
-
-    @FXML
-    void exitEdgeWeightField(MouseEvent event) {
-        if(edgeWeight.getText().equals("")){
-        edgeWeight.setText("Add edge weight");
-        }
-    }
 
     @FXML
     void executeBfs(ActionEvent event) {
@@ -204,12 +189,6 @@ public class MainWindowController {
     @FXML
     void executeSpanningTree(ActionEvent event) {
         algorithmSelectionMenu.setText("Spanning Tree");
-    }
-
-    @FXML
-    void clickEdgeWeightField(MouseEvent event) {
-        if(edgeWeight.getText().equals("Add edge weight"))
-            edgeWeight.setText("");
     }
 
     @FXML

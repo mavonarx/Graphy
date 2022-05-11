@@ -49,20 +49,20 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="edgeWeight" onAction="#addEdgeWeight" onMouseClicked="#clickEdgeWeightField" onMouseExited="#exitEdgeWeightField" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;">
+                  <TextField fx:id="edgeWeight" onAction="#addEdgeWeight" prefHeight="35.0" prefWidth="110.0" promptText="Edge Weight" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Italic" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="vertexName" onAction="#addVertexName" onMouseClicked="#clickVertexNameField" onMouseExited="#exitVertexNameField" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: azure;">
+                  <TextField fx:id="vertexName" onAction="#addVertexName" prefHeight="35.0" prefWidth="110.0" promptText="Vertex name" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                       <font>
-                        <Font name="System Italic" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </TextField>
                   <Button fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Clear all">
@@ -103,6 +103,9 @@
                       <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />
                         <MenuItem fx:id="executeSpanningTree" mnemonicParsing="false" onAction="#executeSpanningTree" text="Spanning Tree" />
                     </items>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </MenuButton>
                </children>
                <VBox.margin>
@@ -129,12 +132,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="fileName" prefHeight="32.0" prefWidth="134.0" style="-fx-background-color: azure;">
+                        <TextField fx:id="fileName" prefHeight="32.0" prefWidth="134.0" promptText="Graph.csv" style="-fx-background-color: azure;">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                            <font>
-                              <Font name="System Italic" size="12.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </TextField>
                         <Label fx:id="feedBackLabel" prefHeight="17.0" prefWidth="267.0">
