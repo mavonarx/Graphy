@@ -81,7 +81,6 @@ public class GraphHandler {
             Vertex v2 = new Vertex(values[3],new Point(x,y));
 
             int weight = Integer.parseInt(values[6].strip());
-            System.out.println(weight);
             Edge edge = new Edge(v1,v2,weight);
             addEdge(edge);
         }
