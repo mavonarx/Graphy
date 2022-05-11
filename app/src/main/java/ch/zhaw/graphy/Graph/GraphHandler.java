@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.collections.ObservableSet;
 
+import javax.swing.text.Position;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +28,10 @@ public class GraphHandler {
 
     boolean isDirected;
     private static final String DELIMITER = ",";
-    public static final String UTF8_BOM = "\uFEFF";
+    private static final String UTF8_BOM = "\uFEFF";
+    private static final String IS_DIRECTED = "1";
+    Scanner scan;
+
     MapProperty<Vertex, SimpleSetProperty<Edge>> graph = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
 
@@ -44,57 +49,79 @@ public class GraphHandler {
             throw new IOException("Please provide a csv file");
         }
 
-        Scanner scan = new Scanner(file);
+        scan = new Scanner(file);
+        int nrOfVertices =0;
         try {
-            if (!scan.hasNext()){
-                throw new IOException("File is empty");
-            }
-            String startLine = scan.nextLine();
-                if (startLine.startsWith(UTF8_BOM)) {
-                    startLine = startLine.substring(1);
-                }
-            isDirected = Integer.parseInt(startLine.split(DELIMITER)[0].strip())!=0;
+            checkIfDirected();
+            nrOfVertices = getNrOfVertices();
+            scanVertices(nrOfVertices);
+            scanEdges();
         }
 
         catch (NumberFormatException e){
             System.out.println(e.getMessage());
-            throw new IOException("File has not the correct format");
-        }
-        while(scan.hasNextLine()){
-            String scannedLine = scan.nextLine();
-            String [] edgeArray = scannedLine.split(DELIMITER,3);
-
-            //only a node is added to the graph
-            if (edgeArray.length == 1){
-                addVertex(new Vertex(edgeArray[0]));
-                continue;
-            }
-
-            //an edge is added to the graph
-            if (edgeArray.length!=3) throw new IOException("File has not the correct format");
-            String start = edgeArray[0].strip();
-            String end = edgeArray[1].strip();
-            int weight = Integer.parseInt(edgeArray[2].strip());
-
-            Vertex startVertex = new Vertex(start);
-            Vertex endVertex = new Vertex(end);
-            Edge edge = new Edge(startVertex, endVertex,weight);
-            addEdge(edge);
-
-            if (!isDirected){
-                addEdge(new Edge(endVertex, startVertex,weight));
-            }
-
+            throw new IOException("File has not the correct format - Integer can not be parsed");
         }
         scan.close();
     }
 
-    //Todo can be removed if not used
-    public GraphHandler(List<Edge> edges){
-        for (Edge edge : edges){
+    private void scanEdges() {
+        while (scan.hasNextLine()){
+            String scanEdgeString = scan.nextLine();
+            if (scanEdgeString.isBlank()) continue;
+            String [] values = scanEdgeString.split(DELIMITER);
+            // scanning first vertex of edge
+            int x = Integer.parseInt(values[1].strip());
+            int y = Integer.parseInt(values[2].strip());
+            Vertex v1 = new Vertex(values[0],new Point(x,y));
+
+            //scanning second vertex of edge
+            x = Integer.parseInt(values[4].strip());
+            y = Integer.parseInt(values[5].strip());
+            Vertex v2 = new Vertex(values[3],new Point(x,y));
+
+            int weight = Integer.parseInt(values[6].strip());
+            System.out.println(weight);
+            Edge edge = new Edge(v1,v2,weight);
             addEdge(edge);
         }
     }
+
+    private void scanVertices(int nrOfVertices) throws IOException {
+        for (int i = 0; i< nrOfVertices; i++){
+            if (!scan.hasNext()){
+                throw new IOException("Not enough vertices provided");
+            }
+            String scanVertexString = scan.nextLine();
+            String [] values = scanVertexString.split(DELIMITER);
+            int x = Integer.parseInt(values[1].strip());
+            int y = Integer.parseInt(values[2].strip());
+            addVertex(new Vertex(values[0],new Point(x,y)));
+        }
+    }
+
+    private int getNrOfVertices() throws IOException {
+        int nrOfVertices;
+        if (!scan.hasNext()){
+            throw new IOException("No Nr# vertices is provided");
+        }
+        String nrOfVerticesString = scan.nextLine();
+        nrOfVertices=Integer.parseInt(nrOfVerticesString.split(DELIMITER)[0].strip());
+        return nrOfVertices;
+
+    }
+
+    private void checkIfDirected() throws IOException {
+        if (!scan.hasNext()){
+            throw new IOException("File is empty");
+        }
+        String startLine = scan.nextLine();
+        if (startLine.startsWith(UTF8_BOM)) {
+            startLine = startLine.substring(1);
+        }
+        isDirected = Integer.parseInt(startLine.split(DELIMITER)[0].strip())!=0;
+    }
+
 
     public GraphHandler(){}
 
@@ -124,19 +151,19 @@ public class GraphHandler {
             return;
         }
 
-            SimpleSetProperty<Edge> adjacentSetProperty = new SimpleSetProperty<>(FXCollections.observableSet());
-            adjacentSetProperty.addListener(new ChangeListener<ObservableSet<Edge>>() {
-                /*if an adjacencyList  is changed the map representing the graph should also recognize a change.
-                  To reach that goal we shortly change the list to null and then set it with the new value.
-                  Then the graph will listen to changes to the lists as well.
-                 */
-                @Override
-                public void changed(ObservableValue<? extends ObservableSet<Edge>> observable, ObservableSet<Edge> oldValue, ObservableSet<Edge> newValue) {
-                    graph.put(vertex,null);
-                    graph.put(vertex,new SimpleSetProperty<>(newValue));
-                }
-            });
-            graph.put(vertex, adjacentSetProperty);
+        SimpleSetProperty<Edge> adjacentSetProperty = new SimpleSetProperty<>(FXCollections.observableSet());
+        adjacentSetProperty.addListener(new ChangeListener<ObservableSet<Edge>>() {
+            /*if an adjacencyList  is changed the map representing the graph should also recognize a change.
+              To reach that goal we shortly change the list to null and then set it with the new value.
+              Then the graph will listen to changes to the lists as well.
+             */
+            @Override
+            public void changed(ObservableValue<? extends ObservableSet<Edge>> observable, ObservableSet<Edge> oldValue, ObservableSet<Edge> newValue) {
+                graph.put(vertex,null);
+                graph.put(vertex,new SimpleSetProperty<>(newValue));
+            }
+        });
+        graph.put(vertex, adjacentSetProperty);
     }
 
     /**
@@ -159,6 +186,7 @@ public class GraphHandler {
     public void removeVertex(Vertex vertex){
         if (vertex==null) throw new IllegalArgumentException("Vertex is null");
         throw new UnsupportedOperationException();
+        //TODO PLS SUPPORT ME
     }
 
 
@@ -178,7 +206,6 @@ public class GraphHandler {
     }
 
     public boolean convertToCSV() throws IOException{
-
         if (graph.isEmpty()) return false;
 
         File file = initializeDirectoryStructure("Graph.csv");
@@ -189,20 +216,31 @@ public class GraphHandler {
             /*the graph here is displayed as a directed graph.
             (if it was originally undirected it contains edges in both directions)
              */
-            br.write("1");
+            br.write(IS_DIRECTED);
             br.write(System.lineSeparator());
 
+            //write vertices
+            for (Vertex vertex: graph.keySet()){
+                br.write(graph.keySet().size()+ System.lineSeparator());
+                br.write(String.join(
+                                DELIMITER,List.of(
+                                        String.valueOf(vertex),
+                                        String.valueOf(vertex.getPosition().getX()),
+                                        String.valueOf(vertex.getPosition().getY())
+                                )
+                        ) + System.lineSeparator()
+                );
+            }
+
             for (Vertex vertex : graph.keySet()) {
-                if (graph.get(vertex).isEmpty()){
-                    br.write((vertex + System.lineSeparator()));
-                    continue;
-                }
                 for (Edge e : graph.get(vertex)) {
-
-
                     br.write(String.join(DELIMITER, List.of(
                             String.valueOf(e.getStart()),
+                            String.valueOf(e.getStart().getPosition().getX()),
+                            String.valueOf(e.getStart().getPosition().getY()),
                             String.valueOf(e.getEnd()),
+                            String.valueOf(e.getEnd().getPosition().getX()),
+                            String.valueOf(e.getEnd().getPosition().getY()),
                             String.valueOf(e.getWeight()))));
                     br.write(System.lineSeparator());
                 }
@@ -228,7 +266,7 @@ public class GraphHandler {
 
         for (Edge edge : graph.get(vertex)){
             adjacentList.add(edge.getEnd());
-    }
+        }
         return adjacentList;
     }
 }
