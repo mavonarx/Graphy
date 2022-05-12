@@ -584,4 +584,3 @@ public class MainWindowController {
         return stage;
     }
 }
-
