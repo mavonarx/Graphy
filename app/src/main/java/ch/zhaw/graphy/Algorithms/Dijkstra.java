@@ -52,29 +52,26 @@ public class Dijkstra{
 
                 // add edge to finalized list (visited)
                 visited.add(currentStart);
-
                 for (Edge edge : graph.getGraph().get(currentStart)) {
 
                 /*
                 if the distance is infinite or the distance stored is higher than the
                 new calculated distance update the distance and predecessor
                 */
-                    if (distances.get(currentEnd) == -1 || distances.get(currentEnd) > distances.get(currentStart) + edge.getWeight()) {
-                        distances.put(edge.getEnd(), edge.getWeight() + distances.get(currentStart));
-                        predecessors.put(currentEnd, currentStart);
+                    if (distances.get(edge.getEnd()) == -1 || distances.get(edge.getEnd()) > distances.get(edge.getStart()) + edge.getWeight()) {
+                        distances.put(edge.getEnd(), edge.getWeight() + distances.get(edge.getStart()));
+                        predecessors.put(edge.getEnd(), edge.getStart());
                     }
                 }
 
                 // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
-                if (currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex) > distances.get(currentEnd))) {
-                    this.endVertex = currentEnd;
-                }
+
                 prioQueue.addAll(graph.getGraph().get(currentEnd));
             }
 
 
         // fill the list with all predecessors to the endpoint
-        Vertex pointer = this.endVertex;
+        Vertex pointer = finalVertex;
         while (pointer !=null){
             resultPath.addFirst(pointer);
             pointer = predecessors.get(pointer);

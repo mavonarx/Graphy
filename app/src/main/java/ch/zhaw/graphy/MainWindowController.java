@@ -132,6 +132,7 @@ public class MainWindowController {
                 drawEdge(edge);
             }
         }
+        numberOfDrawnUnnamedVertex = handler.getGraph().size();
     }
 
     @FXML
@@ -152,7 +153,6 @@ public class MainWindowController {
                 }
             }
         });
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -239,7 +239,9 @@ public class MainWindowController {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
         LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
-        for (int i =0; i<path.size()-1;i++){
+
+
+        for (int i =0; i<path.size()-2;i++){
             for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
@@ -292,6 +294,7 @@ public class MainWindowController {
     
     @FXML
     void backToStart(ActionEvent event) {
+        clearAll(event);
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
@@ -406,6 +409,7 @@ public class MainWindowController {
         @Override
         public void handle(MouseEvent event) {
             model.clearDisplayVertex();
+            numberOfDrawnUnnamedVertex=0;
         }
     };
 
