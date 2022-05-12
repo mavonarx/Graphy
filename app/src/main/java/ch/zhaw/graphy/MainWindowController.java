@@ -86,6 +86,9 @@ public class MainWindowController {
     @FXML
     private CheckBox bidirectional;
 
+    @FXML
+    private CheckBox selectMode;
+
     private MainWindowModel model;
     public MainWindowController(Stage oldStage){
         this.oldStage = oldStage;
@@ -423,8 +426,9 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            //todo value = name der in der gui textbox steht.
-                            createVertex(new Point((int)event.getX(), (int)event.getY()));
+                            if(!selectMode.isSelected()) {
+                                createVertex(new Point((int) event.getX(), (int) event.getY()));
+                            }
                         }
                         break;
                     default:
@@ -445,33 +449,31 @@ public class MainWindowController {
                         model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                         break;
                     case 1:
-                        if(model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)){
+                        if(model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)) {
                             model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
-                        int weight;
-                        if ("".equals(edgeWeight.getText())){
-                            weight = 0;
-                        }
-                        else {
-                            try {
-                                weight = Integer.parseInt(edgeWeight.getText());
-                            }
-                            catch (NumberFormatException e){
+                            int weight;
+                            if ("".equals(edgeWeight.getText())) {
                                 weight = 0;
+                            } else {
+                                try {
+                                    weight = Integer.parseInt(edgeWeight.getText());
+                                } catch (NumberFormatException e) {
+                                    weight = 0;
+                                }
                             }
-                        }
+                            if (!selectMode.isSelected()) {
+                                Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1), weight);
 
-
-
-                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1),weight);
-
-                        model.addDisplayEdge(newEdge);
-                        if (bidirectional.isSelected()){
-                            newEdge = new Edge(model.getSelectedVertex().get(1),model.getSelectedVertex().get(0),weight);
-                            model.addDisplayEdge(newEdge);
-                        }
-                          model.clearSelectedVertex();
+                                model.addDisplayEdge(newEdge);
+                                if (bidirectional.isSelected()) {
+                                    newEdge = new Edge(model.getSelectedVertex().get(1), model.getSelectedVertex().get(0), weight);
+                                    model.addDisplayEdge(newEdge);
+                                }
+                                model.clearSelectedVertex();
+                            }
                         }
                         break;
+                    default: model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                 }
             }
         }
