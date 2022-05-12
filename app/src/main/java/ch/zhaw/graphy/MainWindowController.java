@@ -216,7 +216,7 @@ public class MainWindowController {
         model.getSelectedEdge().clear();
         model.getSelectedVertex().clear();
         lineEdgeMap.clear();
-        guiVertexMap.getCircleVertexList().clear();
+        guiVertexMap.clear();
     }
 
 
@@ -616,6 +616,10 @@ class OwnBiMap{
     void put(Circle circle, Label label, Vertex vertex){
         circleVertexList.put(circle, vertex);
         circleLabelList.put(circle, label);
+    }
+    void clear(){
+        circleVertexList.clear();
+        circleLabelList.clear();
     }
 }
 
