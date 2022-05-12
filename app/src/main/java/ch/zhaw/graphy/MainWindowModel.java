@@ -19,9 +19,6 @@ public class MainWindowModel {
     List<Vertex> selectedVertex = new ArrayList<>();
     private List<Edge> displayEdges = new ArrayList<>();
     private List<Edge> selectedEdge = new ArrayList<>();
-    //Used to get the corresponding visual to the object
-    Map<Vertex, Circle> vertexToCircleMap = new HashMap<>();
-    Map<Edge, Line> edgeToLineMap = new HashMap<>();
 
 
 
@@ -138,11 +135,13 @@ public class MainWindowModel {
     public List<Edge> getSelectedEdge() {
         return selectedEdge;
     }
+
+    /*
     public Map<Edge, Line> getEdgeToLineMap() {
         return edgeToLineMap;
     }
 
     public Map<Vertex, Circle> getVertexToCircleMap() {
         return vertexToCircleMap;
-    }
+    }*/
 }
