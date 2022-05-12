@@ -31,8 +31,25 @@ public class FileInputController {
     File lauchFile;
     private static final String PROMPT = "Drag a graph file below";
 
+    @FXML
+    private Button close;
+
+    @FXML
+    private Button goBack;
+
+    @FXML
+    private Button launch;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private TextArea textArea;
+
     /**
-     * Constructor for FileInputController. Fills in the scene. Sets up, configures and shows the stage.
+     * Constructor for FileInputController. Fills in the scene. Sets up, configures
+     * and shows the stage.
+     * 
      * @param oldStage the given stage
      */
     public FileInputController(Stage oldStage) {
@@ -54,7 +71,8 @@ public class FileInputController {
     }
 
     /**
-     * Called to initialize the FileInputController after its root element has been completely processed.
+     * Called to initialize the FileInputController after its root element has been
+     * completely processed.
      */
     @FXML
     private void initialize() {
@@ -69,30 +87,9 @@ public class FileInputController {
     }
 
     /**
-     * Returns the stage of the FileInput-Window.
-     * @return
-     */
-    public Stage getStage() {
-        return stage;
-    }
-
-    @FXML
-    private Button close;
-
-    @FXML
-    private Button goBack;
-
-    @FXML
-    private Button launch;
-
-    @FXML
-    private Label title;
-
-    @FXML
-    private TextArea textArea;
-
-    /**
-     * Files can be dragged and dropped into the textArea. If you drop more then one file there will be a hint and you can't provide the graph.
+     * Files can be dragged and dropped into the textArea. If you drop more then one
+     * file there will be a hint and you can't provide the graph.
+     * 
      * @param event
      */
     @FXML
@@ -107,8 +104,6 @@ public class FileInputController {
         if (files.get(0) == null) {
             throw new IllegalArgumentException("The file is null");
         }
-
-        // title.setText("The chosen file is:" + files.get(0).getPath().toUpperCase());
         textArea.setText("The chosen file is: \n" + files.get(0).getPath());
         lauchFile = files.get(0);
         try {
@@ -122,17 +117,8 @@ public class FileInputController {
     }
 
     /**
-     * Closes the FileInput-Window.
-     * 
-     * @param event
-     */
-    @FXML
-    void close(ActionEvent event) {
-        stage.close();
-    }
-
-    /**
      * Starts the MainWindow with the dropped file and closes the FileInput-Window.
+     * 
      * @param event
      */
     @FXML
@@ -144,6 +130,7 @@ public class FileInputController {
 
     /**
      * Goes back to the PreWindow and closes the FileInput-Window.
+     * 
      * @param event
      */
     @FXML
@@ -151,6 +138,25 @@ public class FileInputController {
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
+    }
+
+    /**
+     * Closes the FileInput-Window.
+     * 
+     * @param event
+     */
+    @FXML
+    void close(ActionEvent event) {
+        stage.close();
+    }
+
+    /**
+     * Returns the stage of the FileInput-Window.
+     * 
+     * @return
+     */
+    public Stage getStage() {
+        return stage;
     }
 
 }
