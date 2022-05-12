@@ -295,10 +295,12 @@ public class MainWindowController {
 
     @FXML
     void remove(ActionEvent event) {
+        //first we remove the selected edges from the paint area and from the LineEdgeMap
         for (Edge modelEdge : model.getSelectedEdge()){
             paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(modelEdge));
-            guiVertexMap.getLineEdgeBiMap().inverse().remove(modelEdge);
             guiVertexMap.getLineEdgeBiMap().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(modelEdge), modelEdge);
+
+            //now we need to remove the edges from the list associated with a vertex
             for (Vertex vertex : handler.getGraph().keySet()){
                 for (Edge graphEdge : handler.getGraph().get(vertex)){
                     if (modelEdge.equals(graphEdge)){
@@ -307,19 +309,22 @@ public class MainWindowController {
                 }
             }
         }
+
+        //next we remove the selected vertices
         for (Vertex vertex : model.getSelectedVertex()){
             paintArea.getChildren().remove(guiVertexMap.getCircleVertexList().inverse().get(vertex));
-            guiVertexMap.getCircleVertexList().inverse().remove(vertex);
             handler.getGraph().remove(vertex);
             guiVertexMap.getCircleVertexList().remove(vertex, guiVertexMap.getCircleVertexList().get(vertex));
+            //and all edge connected to this vertex since they would be hanging
             for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
                 if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
                     paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(edge));
                     guiVertexMap.getLineEdgeBiMap().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(edge), edge);
-                    guiVertexMap.getLineEdgeBiMap().inverse().remove(edge);
+                    handler.getGraph().get(vertex).remove(edge);
                 }
             }
         }
+        //lastly we clear the selected maps
         model.selectedVertex.clear();
         model.getSelectedEdge().clear();
     }
@@ -569,12 +574,6 @@ public class MainWindowController {
             x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
             y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
         }
-
-
-
-
-
-
         return new Point(x,y);
     }
 
