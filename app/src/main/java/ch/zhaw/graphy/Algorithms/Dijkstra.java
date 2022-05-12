@@ -77,10 +77,12 @@ public class Dijkstra{
             pointer = predecessors.get(pointer);
         }
 
-        if (resultPath.isEmpty()){
+        if (resultPath.size()==1){
             throw new IllegalArgumentException("The given vertices are not connected");
         }
+        resultPath.forEach(System.out::println);
         return resultPath;
+
     }
 }
 
