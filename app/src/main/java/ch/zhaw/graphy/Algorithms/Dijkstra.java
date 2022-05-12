@@ -80,7 +80,6 @@ public class Dijkstra{
         if (resultPath.size()==1){
             throw new IllegalArgumentException("The given vertices are not connected");
         }
-        resultPath.forEach(System.out::println);
         return resultPath;
 
     }
