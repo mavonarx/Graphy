@@ -21,6 +21,9 @@ public class Edge implements Comparable<Edge>{
     public Edge(Vertex start, Vertex end, int weight){
 
         if (end ==null || start ==null) throw new IllegalArgumentException("End- or startVertex cannot be null");
+        if (weight <= 0){
+            weight = (int) Math.sqrt(Math.pow(end.getX() - start.getX(), 2) + Math.pow(end.getY() - end.getY() , 2));
+        }
         this.start = start;
         this.end = end;
         this.weight = weight;
@@ -32,7 +35,7 @@ public class Edge implements Comparable<Edge>{
      * @param end end vertex
      */
     public Edge(Vertex start, Vertex end){
-        this( start, end, (int) Math.sqrt(Math.pow(end.getX() - start.getX(), 2) + Math.pow(end.getY() - end.getY() , 2)));
+        this( start, end, 0);
     }
 
     public int getWeight() {
