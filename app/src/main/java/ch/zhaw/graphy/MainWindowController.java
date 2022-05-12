@@ -216,7 +216,7 @@ public class MainWindowController {
         model.getSelectedEdge().clear();
         model.getSelectedVertex().clear();
         lineEdgeMap.clear();
-        circleVertexMap.clear();
+        guiVertexMap.getCircleVertexList().clear();
     }
 
 
@@ -327,7 +327,7 @@ public class MainWindowController {
             paintArea.getChildren().remove(model.getVertexToCircleMap().get(vertex));
             model.getVertexToCircleMap().remove(vertex);
             handler.getGraph().remove(vertex);
-            circleVertexMap.remove(vertex, circleVertexMap.get(vertex));
+            guiVertexMap.getCircleVertexList().remove(vertex, guiVertexMap.getCircleVertexList().get(vertex));
             for (Edge edge : model.getEdgeToLineMap().keySet()){
                 if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
                     paintArea.getChildren().remove(model.getEdgeToLineMap().get(edge));
@@ -434,7 +434,7 @@ public class MainWindowController {
                         }
                         else {
                             //todo value = name der in der gui textbox steht.
-                            createVertex("", new Point((int)event.getX(), (int)event.getY()));
+                            createVertex(new Point((int)event.getX(), (int)event.getY()));
                         }
                         break;
                     default:
@@ -456,7 +456,7 @@ public class MainWindowController {
                         break;
                     case 1:
                         if(model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)){
-                            model.addSelectedVertex(circleVertexMap.get(clickedCircle));
+                            model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                         int weight;
                         if ("".equals(edgeWeight.getText())){
                             weight = 0;
@@ -536,7 +536,7 @@ public class MainWindowController {
         paintArea.getChildren().add(circle);
         paintArea.getChildren().add(label);
         guiVertexMap.put(circle, label, vertex);
-        circleVertexMap.put(circle, vertex);
+        //guiVertexMap.getCircleVertexList().put(circle, vertex);
         model.getVertexToCircleMap().put(vertex, circle);
     }
     private void drawEdge(Edge edge){
