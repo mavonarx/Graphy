@@ -1,6 +1,5 @@
 package ch.zhaw.graphy.Graph;
 
-
 import java.util.Objects;
 
 /**
@@ -16,35 +15,30 @@ public class Vertex {
 
     /**
      * constructor of vertex with name and position
+     * 
      * @param name
      * @param position
      */
-    public Vertex(String name, Point position){
+    public Vertex(String name, Point position) {
         this.name = name;
         this.position = position;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Vertex vertex = (Vertex) o;
 
         return position.equals(vertex.position);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * ToString method of Vertex
+     * 
      * @return the name of the vertex
      */
     @Override
@@ -54,6 +48,7 @@ public class Vertex {
 
     /**
      * generated hasCode
+     * 
      * @return the hashcode value of this object
      */
     @Override
@@ -61,17 +56,24 @@ public class Vertex {
         return Objects.hash(name);
     }
 
-    public int getX(){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getX() {
         return position.x();
     }
 
-    public int getY(){
+    public int getY() {
         return position.y();
     }
 
     public Point getPosition() {
         return position;
     }
-
 
 }

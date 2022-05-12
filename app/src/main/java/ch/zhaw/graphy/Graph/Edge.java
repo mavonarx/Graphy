@@ -41,18 +41,6 @@ public class Edge implements Comparable<Edge>{
         this( start, end, 0);
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public Vertex getEnd() {
-        return end;
-    }
-
-    public Vertex getStart() {
-        return start;
-    }
-
     /**
      *
      * @param other the object to be compared.
@@ -84,6 +72,18 @@ public class Edge implements Comparable<Edge>{
     @Override
     public int hashCode() {
         return Objects.hash(end, weight);
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public Vertex getEnd() {
+        return end;
+    }
+
+    public Vertex getStart() {
+        return start;
     }
 }
 
