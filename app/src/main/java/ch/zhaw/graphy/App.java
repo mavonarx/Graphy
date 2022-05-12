@@ -3,20 +3,26 @@
  */
 package ch.zhaw.graphy;
 
-import java.net.URLClassLoader;
-
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * This class launches the application.
+ */
 public class App extends Application {
+    /**
+     * Main method
+     * @param args Arguments to launch the application.
+     */
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+    /**
+     * The start method is called after the init method has returned, and after the system is ready for the application to begin running.
+     */
     @Override
-    public void start(Stage preStage) throws Exception{
+    public void start(Stage preStage) throws Exception {
         PreWindowController preWindowController = new PreWindowController(preStage);
         preWindowController.getStage().show();
     }
