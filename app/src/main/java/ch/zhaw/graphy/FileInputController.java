@@ -153,7 +153,7 @@ public class FileInputController {
     /**
      * Returns the stage of the FileInput-Window.
      * 
-     * @return
+     * @return current stage
      */
     public Stage getStage() {
         return stage;

@@ -123,7 +123,7 @@ public class HelpWindowController {
 
     /**
      * Returns the stage of the HelpWindow.
-     * @return
+     * @return current stage
      */
     public Stage getStage() {
         return stage;
