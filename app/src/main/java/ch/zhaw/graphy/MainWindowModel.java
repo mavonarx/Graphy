@@ -38,11 +38,6 @@ public class MainWindowModel {
         selectedEdge.add(edge);
         notifyOnSelectEdge(edge);
     }
-    public void clearDisplayEdge(){
-        displayVertex.clear();
-        selectedVertex.clear();
-        notifyOnClearVertex();
-    }
     public void clearSelectedEdge(){
         selectedEdge.clear();
         notifyOnClearSelectedEdge();
