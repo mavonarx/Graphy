@@ -22,6 +22,12 @@ public class HelpWindowController {
     private Stage stage;
     private boolean isPreWindow;
 
+    @FXML
+    private Button close;
+
+    @FXML
+    private TextArea textArea;
+
     /**
      * Constructor for FileInputController. Fills in the scene. Sets up, configures and shows the stage.
      * @param isPreWindow true, if the PreWindow loads the HelpWindow.
@@ -52,20 +58,6 @@ public class HelpWindowController {
         setText();
         textArea.setEditable(false);
     }
-
-    /**
-     * Returns the stage of the HelpWindow.
-     * @return
-     */
-    public Stage getStage() {
-        return stage;
-    }
-
-    @FXML
-    private Button close;
-
-    @FXML
-    private TextArea textArea;
 
     /**
      * Closes the HelpWindow.
@@ -129,4 +121,11 @@ public class HelpWindowController {
         }
     }
 
+    /**
+     * Returns the stage of the HelpWindow.
+     * @return
+     */
+    public Stage getStage() {
+        return stage;
+    }
 }
