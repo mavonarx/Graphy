@@ -216,6 +216,10 @@ public class MainWindowController {
 
     @FXML
     void executeBfs(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("No source vertex has been selected");
+        }
         algorithmSelectionMenu.setText("BFS");
         if (model.selectedVertex.isEmpty()){
             throw new IllegalArgumentException("Pls select a vertex to start from");
@@ -230,12 +234,16 @@ public class MainWindowController {
                 }
             }
         }
-
         guiVertexMap.getCircleVertexList().inverse().get(model.selectedVertex.get(0)).setFill(Color.PURPLE);
+        feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
 
     @FXML
     void executeDijkstra(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("Select 2 vertices for dijkstra");
+        }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
         LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
@@ -250,10 +258,15 @@ public class MainWindowController {
                 changeEdgeColor(lineEdge, Color.GREEN);
             }
         }
+        feedBackLabel.setText("Minimum weight is: ");
     }
 
     @FXML
     void executeSpanningTree(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("No source vertex has been selected");
+        }
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
         Set<Edge> chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
@@ -264,6 +277,7 @@ public class MainWindowController {
                 }
             }
         }
+        feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
     }
 
     @FXML
@@ -299,6 +313,10 @@ public class MainWindowController {
 
     @FXML
     void remove(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: blue");
+            feedBackLabel.setText("No vertex or Edge has been selected");
+        }
         //first we remove the selected edges from the paint area and from the LineEdgeMap
         for (Edge modelEdge : model.getSelectedEdge()){
             paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(modelEdge));
@@ -561,7 +579,12 @@ public class MainWindowController {
         //line.setOnMouseClicked(edgeClick);
         paintArea.getChildren().add(0, curve);
 
-        guiVertexMap.getLineEdgeBiMap().put(curve, edge);
+        try {
+            guiVertexMap.getLineEdgeBiMap().put(curve, edge);
+        } catch (IllegalArgumentException e){
+                feedBackLabel.setStyle("-fx-text-fill: red");
+                feedBackLabel.setText("That edge exists already");
+        }
     }
 
 
