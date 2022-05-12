@@ -5,6 +5,9 @@ import java.util.Objects;
 /**
  * This class represents an edge in the graph. It has a start and an end vertex. And a weight.
  * if no weight is given a default value of 0 is taken.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
  */
 public class Edge implements Comparable<Edge>{
     private final Vertex start;

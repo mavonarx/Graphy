@@ -6,6 +6,10 @@ import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
+/**
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class Dijkstra{
 
     private final Map<Vertex, Integer> distances = new HashMap<>();
@@ -14,8 +18,6 @@ public class Dijkstra{
     private final Set<Vertex> visited = new HashSet<>();
     private LinkedList<Vertex> resultPath = new LinkedList<>();
     private Vertex endVertex;
-
-
 
     /**
      * Executes a dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges

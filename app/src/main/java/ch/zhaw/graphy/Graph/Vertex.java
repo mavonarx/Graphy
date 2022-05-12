@@ -4,7 +4,10 @@ package ch.zhaw.graphy.Graph;
 import java.util.Objects;
 
 /**
- *This class represents a vertex of a graph. It has a position and a name.
+ * This class represents a vertex of a graph. It has a position and a name.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
  */
 public class Vertex {
 

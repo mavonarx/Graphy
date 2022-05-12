@@ -24,6 +24,9 @@ import java.util.logging.Logger;
 /**
  * This class represents the values that are needed to display the application.
  * The values are represented as one map of vertices pointing to a list of edges which holds the outgoing edges.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
  */
 public class GraphHandler {
 

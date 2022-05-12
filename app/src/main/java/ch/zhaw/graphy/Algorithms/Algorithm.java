@@ -4,6 +4,10 @@ package ch.zhaw.graphy.Algorithms;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
+/**
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public abstract class Algorithm {
 
     BreadthFirstSearch bfs;
