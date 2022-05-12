@@ -9,11 +9,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * This class is responsible for the logic in the HelpWindow.
+ * It listens to changes from the gui and applies its logic and finally updates
+ * the gui.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class HelpWindowController {
 
     private Stage stage;
     private boolean isPreWindow;
 
+    /**
+     * Constructor for FileInputController. Fills in the scene. Sets up, configures and shows the stage.
+     * @param isPreWindow true, if the PreWindow loads the HelpWindow.
+     */
     public HelpWindowController(boolean isPreWindow) {
         this.isPreWindow = isPreWindow;
         try {
@@ -32,12 +44,19 @@ public class HelpWindowController {
         }
     }
 
+    /**
+     * Called to initialize the HelpWindowController after its root element has been completely processed.
+     */
     @FXML
     public void initialize() {
         setText();
         textArea.setEditable(false);
     }
 
+    /**
+     * Returns the stage of the HelpWindow.
+     * @return
+     */
     public Stage getStage() {
         return stage;
     }
@@ -48,11 +67,18 @@ public class HelpWindowController {
     @FXML
     private TextArea textArea;
 
+    /**
+     * Closes the HelpWindow.
+     * @param event
+     */
     @FXML
     void close(ActionEvent event) {
         stage.close();
     }
 
+    /**
+     * Fills the textArea with a help message depending on which controller loads the HelpWindowController.
+     */
     private void setText() {
         if (isPreWindow) {
             textArea.setText("You can choose between the two following options:" + System.lineSeparator()
