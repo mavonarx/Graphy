@@ -572,7 +572,8 @@ public class MainWindowController {
 
 
     private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
-        final int CURVE_ROUNDING = 30;
+        final double CURVE_ROUNDING = 30.0/200;
+        final double MAXFACTOR = 200;
         int x = xEnd-xStart;
         int y = yEnd-yStart;
         double twoNorm =  Math.sqrt(x*x + y*y);
@@ -583,8 +584,10 @@ public class MainWindowController {
         int halfy = yStart+(yEnd-yStart)/2;
 
 
-        x = (int )(halfx-CURVE_ROUNDING*yNorm);
-        y = (int)(halfy +CURVE_ROUNDING*xNorm);
+        double factor = Math.min(twoNorm, MAXFACTOR);
+
+        x = (int )(halfx-CURVE_ROUNDING*yNorm*factor);
+        y = (int)(halfy +CURVE_ROUNDING*xNorm*factor);
         return new Point(x,y);
     }
 
