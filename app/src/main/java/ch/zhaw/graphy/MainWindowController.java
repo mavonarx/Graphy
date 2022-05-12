@@ -412,8 +412,8 @@ public class MainWindowController {
         int xEnd = edge.getEnd().getX();
         int yStart = edge.getStart().getY();
         int yEnd = edge.getEnd().getY();
-        Point pUp = findArrowUp(xStart,xEnd,yStart,yEnd);
-        Point pDown = findArrowDown(xStart,xEnd,yStart,yEnd);
+        Point pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
+        Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
 
 
         Line line = new Line(xStart, yStart,
@@ -439,31 +439,30 @@ public class MainWindowController {
     }
 
 
-    private Point findArrowUp(int xStart, int xEnd, int yStart, int yEnd){
+    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
         int x = xEnd-xStart;
         int y = yEnd-yStart;
         double twoNorm =  Math.sqrt(x*x + y*y);
         double xNorm = x/twoNorm;
         double yNorm = y/twoNorm;
 
-        x = (int )(xEnd -20*xNorm +10*yNorm);
-        y = (int)(yEnd-20* yNorm -10*xNorm);
+        if (up){
+            x = (int )(xEnd -2*VERTEX_SIZE*xNorm +VERTEX_SIZE*yNorm);
+            y = (int)(yEnd-2*VERTEX_SIZE* yNorm -VERTEX_SIZE*xNorm);
+        }
+        else {
+            x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
+            y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
+        }
+
+
+
+
+
 
         return new Point(x,y);
     }
 
-    private Point findArrowDown(int xStart, int xEnd, int yStart, int yEnd){
-        int x = xEnd-xStart;
-        int y = yEnd-yStart;
-        double twoNorm =  Math.sqrt(x*x + y*y);
-        double xNorm = x/twoNorm;
-        double yNorm = y/twoNorm;
-
-        x = (int )(xEnd -20*xNorm -10*yNorm);
-        y = (int)(yEnd-20* yNorm + 10*xNorm);
-
-        return new Point(x,y);
-    }
 
 
     public Stage getStage(){
