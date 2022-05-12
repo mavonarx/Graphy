@@ -10,7 +10,6 @@ public class Edge implements Comparable<Edge>{
     private final Vertex start;
     private final Vertex end;
     private final int weight;
-    private static final int DEFAULT_WEIGHT = 0;
 
 
     /**
@@ -33,10 +32,8 @@ public class Edge implements Comparable<Edge>{
      * @param end end vertex
      */
     public Edge(Vertex start, Vertex end){
-
-        this( start, end, DEFAULT_WEIGHT);
+        this( start, end, (int) Math.sqrt(Math.pow(end.getX() - start.getX(), 2) + Math.pow(end.getY() - end.getY() , 2)));
     }
-
 
     public int getWeight() {
         return weight;

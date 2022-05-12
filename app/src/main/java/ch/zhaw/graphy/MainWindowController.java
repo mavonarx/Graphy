@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,11 +23,16 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 
 public class MainWindowController {
 
@@ -37,7 +43,7 @@ public class MainWindowController {
 
     private Color stdVertexColor = Color.RED;
     private static final Color stdVertexSelectedColor = Color.BLUE;
-    private static final Color stdLineColor = Color.BLACK;
+    private static final Color stdLineColor = Color.LIGHTGRAY;
     private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
 
 
@@ -255,7 +261,7 @@ public class MainWindowController {
     }
 
     private void changeVertexColor(Vertex changeVertex, Color color){
-        Circle circle =  circleVertexMap.inverse().get(changeVertex);
+        Circle circle = guiVertexMap.getCircleVertexList().inverse().get(changeVertex);
         circle.setFill(color);
     }
 
@@ -271,7 +277,7 @@ public class MainWindowController {
     }
 
     private void changeVertexColor(Color color){
-        for (Circle circle : circleVertexMap.keySet()){
+        for (Circle circle : guiVertexMap.getCircleVertexList().keySet()){
             circle.setFill(color);
         }
     }
@@ -327,6 +333,9 @@ public class MainWindowController {
     private EventHandler<MouseEvent> paintAreaClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+            if(event.getX() < 0 || event.getY() < 0){
+                return;
+            }
                 switch (clickAction){
                     case PaintAreaClick:
                         if(model.hasSelectedVertex() || model.hasSelectedEdge()){
@@ -338,7 +347,8 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            createVertex(UUID.randomUUID().toString(), new Point((int)event.getX(), (int)event.getY()));
+                            //todo value = name der in der gui textbox steht.
+                            createVertex("", new Point((int)event.getX(), (int)event.getY()));
                         }
                         break;
                     default:
@@ -356,13 +366,15 @@ public class MainWindowController {
                 Circle clickedCircle = (Circle) event.getSource();
                 switch (model.getSelectedVertex().size()){
                     case 0:
-                        model.addSelectedVertex(circleVertexMap.get(clickedCircle));
+                        model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                         break;
                     case 1:
-                        model.addSelectedVertex(circleVertexMap.get(clickedCircle));
-                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
-                        model.addDisplayEdge(newEdge);
-                        model.clearSelectedVertex();
+                        if(model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)){
+                            model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
+                            Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
+                            model.addDisplayEdge(newEdge);
+                            model.clearSelectedVertex();
+                        }
                         break;
                 }
             }
@@ -389,7 +401,8 @@ public class MainWindowController {
 
     }
     // A vertex is represented as a circle in the gui. This is the mapping of circle to vertex.
-    private BiMap<Circle, Vertex> circleVertexMap = HashBiMap.create();
+    //private BiMap<Circle, Vertex> circleVertexMap = HashBiMap.create();
+    private OwnBiMap guiVertexMap = new OwnBiMap();
     private BiMap<Line, Edge> lineEdgeMap = HashBiMap.create();
     private void createVertex(String value, Point position){
         Vertex newVertex = new Vertex(value, position);
@@ -402,13 +415,22 @@ public class MainWindowController {
         circle.setCenterX(vertex.getX());
         circle.setCenterY(vertex.getY());
         circle.setOnMouseClicked(vertexClick);
+        Label label = new Label(vertex.getName());
+        label.setTextFill(Color.BLACK);
+        label.setPrefWidth(100);
+        label.setPrefHeight(20);
+        //label.setCenterShape(true);
+        label.setAlignment(Pos.CENTER);
+        //label.setTextAlignment(TextAlignment.CENTER);
+        label.relocate(circle.getCenterX() - (label.getPrefWidth() / 2), circle.getCenterY() - (VERTEX_SIZE + label.getPrefHeight()));
         paintArea.getChildren().add(circle);
-        circleVertexMap.put(circle, vertex);
+        paintArea.getChildren().add(label);
+        guiVertexMap.put(circle, label, vertex);
     }
     private void drawEdge(Edge edge){
         Line line = new Line(edge.getStart().getX(), edge.getStart().getY(),
                                 edge.getEnd().getX(), edge.getEnd().getY());
-        line.setFill(stdLineColor);
+        line.setStroke(stdLineColor);
         line.setStrokeWidth(5);
         line.setOnMouseClicked(edgeClick);
         paintArea.getChildren().add(0, line);
@@ -418,6 +440,21 @@ public class MainWindowController {
 
     public Stage getStage(){
         return stage;
+    }
+}
+
+class OwnBiMap{
+    public BiMap<Circle, Vertex> getCircleVertexList() {
+        return circleVertexList;
+    }
+    public BiMap<Circle, Label> getCircleLabelList() {
+        return circleLabelList;
+    }
+    private BiMap<Circle, Vertex> circleVertexList = HashBiMap.create();
+    private BiMap<Circle, Label> circleLabelList = HashBiMap.create();
+    void put(Circle circle, Label label, Vertex vertex){
+        circleVertexList.put(circle, vertex);
+        circleLabelList.put(circle, label);
     }
 }
 
