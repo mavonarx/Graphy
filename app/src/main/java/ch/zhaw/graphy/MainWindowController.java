@@ -395,6 +395,7 @@ public class MainWindowController {
         @Override
         public void onClearSelectedVertex() {
             changeVertexColor(stdVertexColor);
+            changeEdgeColor(Color.BLACK);
         }
 
         @Override
