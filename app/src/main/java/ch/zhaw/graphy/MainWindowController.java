@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -336,13 +337,13 @@ public class MainWindowController {
     }
 
     private void changeEdgeColor(Edge changeEdge, Color color){
-        Line line =  guiVertexMap.getLineEdgeBiMap().inverse().get(changeEdge);
-        line.setStroke(color);
+        QuadCurve curve =  guiVertexMap.getLineEdgeBiMap().inverse().get(changeEdge);
+        curve.setStroke(color);
     }
 
     private void changeEdgeColor(Color color){
-        for (Line line : guiVertexMap.getLineEdgeBiMap().keySet()){
-            line.setStroke(color);
+        for (QuadCurve curve : guiVertexMap.getLineEdgeBiMap().keySet()){
+            curve.setStroke(color);
         }
     }
 
@@ -475,8 +476,8 @@ public class MainWindowController {
         @Override
         public void handle(MouseEvent event) {
             clickAction = ClickAction.EdgeClick;
-            if(event.getSource() instanceof Line){
-                Line clickedLine = (Line) event.getSource();
+            if(event.getSource() instanceof QuadCurve){
+                QuadCurve clickedLine = (QuadCurve) event.getSource();
                 model.addSelectedEdge(guiVertexMap.getLineEdgeBiMap().get(clickedLine));
             }
         }
@@ -529,29 +530,53 @@ public class MainWindowController {
         Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
 
 
-        Line line = new Line(xStart, yStart,
-                                xEnd, yEnd);
-        line.setStroke(stdLineColor);
+        Point curve1 = findCurve(xStart,xEnd,yStart,yEnd);
+        QuadCurve curve = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
+        curve.setFill(null);
+        curve.setStrokeWidth(2);
+        curve.setStroke(stdLineColor);
+        curve.setOnMouseClicked(edgeClick);
+        //Line line = new Line(xStart, yStart,xEnd, yEnd);
         Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
         Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
-        arrowline1.setStrokeWidth(5);
-        arrowline2.setStrokeWidth(5);
+        arrowline1.setStrokeWidth(2);
+        arrowline2.setStrokeWidth(2);
         arrowline1.setFill(stdLineColor);
         arrowline2.setFill(stdLineColor);
         arrowline1.setPickOnBounds(false);
         arrowline2.setPickOnBounds(false);
-        paintArea.getChildren().add(arrowline1);
-        paintArea.getChildren().add(arrowline2);
+        paintArea.getChildren().add(0,arrowline1);
+        paintArea.getChildren().add(0,arrowline2);
 
 
-        line.setFill(stdLineColor);
-        line.setStrokeWidth(5);
-        line.setOnMouseClicked(edgeClick);
-        paintArea.getChildren().add(0, line);
+        //line.setFill(stdLineColor);
+        //line.setStrokeWidth(5);
+        //line.setOnMouseClicked(edgeClick);
+        paintArea.getChildren().add(0, curve);
 
-        guiVertexMap.getLineEdgeBiMap().put(line, edge);
-        guiVertexMap.getLineEdgeBiMap().inverse().put(edge, line);
+        guiVertexMap.getLineEdgeBiMap().put(curve, edge);
     }
+
+
+
+
+    private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
+        final int CURVE_ROUNDING = 30;
+        int x = xEnd-xStart;
+        int y = yEnd-yStart;
+        double twoNorm =  Math.sqrt(x*x + y*y);
+        double xNorm = x/twoNorm;
+        double yNorm = y/twoNorm;
+
+        int halfx = xStart+(xEnd-xStart)/2;
+        int halfy = yStart+(yEnd-yStart)/2;
+
+
+        x = (int )(halfx-CURVE_ROUNDING*yNorm);
+        y = (int)(halfy +CURVE_ROUNDING*xNorm);
+        return new Point(x,y);
+    }
+
 
 
     private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
