@@ -3,9 +3,13 @@ package ch.zhaw.graphy;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainWindowModel {
 
@@ -15,10 +19,11 @@ public class MainWindowModel {
     List<Vertex> selectedVertex = new ArrayList<>();
     private List<Edge> displayEdges = new ArrayList<>();
     private List<Edge> selectedEdge = new ArrayList<>();
+    //Used to get the corresponding visual to the object
+    Map<Vertex, Circle> vertexToCircleMap = new HashMap<>();
+    Map<Edge, Line> edgeToLineMap = new HashMap<>();
 
-    public List<Vertex> getSelectedVertex() {
-        return selectedVertex;
-    }
+
 
     public boolean hasSelectedVertex(){
         return !selectedVertex.isEmpty();
@@ -124,5 +129,20 @@ public class MainWindowModel {
         void onAddEdge(Edge newEdge);
         void onSelectEdge(Edge selectedEdge);
         void onClearSelectedEdge();
+    }
+
+    public List<Vertex> getSelectedVertex() {
+        return selectedVertex;
+    }
+
+    public List<Edge> getSelectedEdge() {
+        return selectedEdge;
+    }
+    public Map<Edge, Line> getEdgeToLineMap() {
+        return edgeToLineMap;
+    }
+
+    public Map<Vertex, Circle> getVertexToCircleMap() {
+        return vertexToCircleMap;
     }
 }

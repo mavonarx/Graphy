@@ -1,15 +1,22 @@
 package ch.zhaw.graphy;
 
+import ch.zhaw.graphy.Algorithms.BreadthFirstSearch;
+import ch.zhaw.graphy.Algorithms.Dijkstra;
+import ch.zhaw.graphy.Algorithms.MinimumSpanningTree;
 import ch.zhaw.graphy.Graph.Edge;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Set;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
 import ch.zhaw.graphy.Graph.Vertex;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -101,6 +108,18 @@ public class MainWindowController {
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
+
+        // force the field to be numeric only
+        edgeWeight.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    edgeWeight.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -113,7 +132,7 @@ public class MainWindowController {
     private Label feedBackLabel;
 
     @FXML
-    private Button changeColor;
+    private Button colorize;
 
     @FXML
     private Button clearAll;
@@ -164,13 +183,40 @@ public class MainWindowController {
     }
 
     @FXML
-    void changeColor(ActionEvent event) {
-
+    void colorize(ActionEvent event) {
+        int min = 0;
+        int max = 0;
+        for (Edge edge : model.getEdgeToLineMap().keySet()){
+            if (edge.getWeight() > max){
+                max = edge.getWeight();
+            }
+            if (edge.getWeight() < min){
+                min = edge.getWeight();
+            }
+        }
+        double difference = (max-min);
+        for (Edge edge : model.getEdgeToLineMap().keySet()){
+            double percent = edge.getWeight()/difference;
+            changeEdgeColor(edge, Color.rgb((int) Math.round(255*percent), (int) Math.round(255-255*percent), 0));
+        }
     }
 
     @FXML
     void clearAll(ActionEvent event) {
-        model.clearDisplayVertex();
+        model.clearDisplayVertex(); //TODO update
+        for (Edge edge : model.getEdgeToLineMap().keySet()){
+            paintArea.getChildren().remove(model.getEdgeToLineMap().get(edge));
+        }
+
+        for (Vertex vertex : model.getVertexToCircleMap().keySet()){
+            paintArea.getChildren().remove(model.getVertexToCircleMap().get(vertex));
+        }
+
+        handler.getGraph().clear();
+        model.getSelectedEdge().clear();
+        model.getSelectedVertex().clear();
+        lineEdgeMap.clear();
+        circleVertexMap.clear();
     }
 
 
@@ -183,17 +229,53 @@ public class MainWindowController {
     @FXML
     void executeBfs(ActionEvent event) {
         algorithmSelectionMenu.setText("BFS");
+        if (model.selectedVertex.isEmpty()){
+            throw new IllegalArgumentException("Pls select a vertex to start from");
+        }
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+        bfs.executeBFS(handler, model.selectedVertex.get(0));
+        for (Vertex vertex : bfs.getVisualMap().keySet()){
+            model.getVertexToCircleMap().get(vertex).setFill(Color.ORANGE);
+            for (Edge edge : model.getEdgeToLineMap().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(bfs.getVisualMap().get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                }
+            }
+        }
 
+        model.getVertexToCircleMap().get(model.selectedVertex.get(0)).setFill(Color.PURPLE);
     }
 
     @FXML
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
+        Dijkstra dijkstra = new Dijkstra();
+        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+        for (int i =0; i<path.size()-1;i++){
+            for (Vertex vertex : model.getVertexToCircleMap().keySet()){
+                if (vertex.equals(path.get(i))){
+                    changeVertexColor(vertex, Color.ORANGE);
+                }
+            }
+            for (Edge lineEdge : model.getEdgeToLineMap().keySet()){
+                if (lineEdge.getStart().equals(path.get(i)) && lineEdge.getEnd().equals(path.get(i+1)));
+                changeEdgeColor(lineEdge, Color.GREEN);
+            }
+        }
     }
 
     @FXML
     void executeSpanningTree(ActionEvent event) {
         algorithmSelectionMenu.setText("Spanning Tree");
+        MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
+        Set<Edge> chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
+        for (Edge mstEdge : chosenEdges){
+            for (Edge lineEdge : model.getEdgeToLineMap().keySet()){
+                if (mstEdge.equals(lineEdge)){
+                    changeEdgeColor(lineEdge, Color.GREEN);
+                }
+            }
+        }
     }
 
     @FXML
@@ -229,7 +311,33 @@ public class MainWindowController {
 
     @FXML
     void remove(ActionEvent event) {
-
+        for (Edge modelEdge : model.getSelectedEdge()){
+            paintArea.getChildren().remove(model.getEdgeToLineMap().get(modelEdge));
+            model.getEdgeToLineMap().remove(modelEdge);
+            lineEdgeMap.remove(lineEdgeMap.inverse().get(modelEdge), modelEdge);
+            for (Vertex vertex : handler.getGraph().keySet()){
+                for (Edge graphEdge : handler.getGraph().get(vertex)){
+                    if (modelEdge.equals(graphEdge)){
+                        handler.getGraph().get(vertex).remove(graphEdge);
+                    }
+                }
+            }
+        }
+        for (Vertex vertex : model.getSelectedVertex()){
+            paintArea.getChildren().remove(model.getVertexToCircleMap().get(vertex));
+            model.getVertexToCircleMap().remove(vertex);
+            handler.getGraph().remove(vertex);
+            circleVertexMap.remove(vertex, circleVertexMap.get(vertex));
+            for (Edge edge : model.getEdgeToLineMap().keySet()){
+                if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
+                    paintArea.getChildren().remove(model.getEdgeToLineMap().get(edge));
+                    lineEdgeMap.remove(lineEdgeMap.inverse().get(edge), edge);
+                    model.getEdgeToLineMap().remove(edge);
+                }
+            }
+        }
+        model.selectedVertex.clear();
+        model.getSelectedEdge().clear();
     }
 
     @FXML
@@ -428,6 +536,8 @@ public class MainWindowController {
         paintArea.getChildren().add(circle);
         paintArea.getChildren().add(label);
         guiVertexMap.put(circle, label, vertex);
+        circleVertexMap.put(circle, vertex);
+        model.getVertexToCircleMap().put(vertex, circle);
     }
     private void drawEdge(Edge edge){
         int xStart = edge.getStart().getX();
@@ -459,6 +569,7 @@ public class MainWindowController {
         paintArea.getChildren().add(0, line);
 
         lineEdgeMap.put(line, edge);
+        model.getEdgeToLineMap().put(edge, line);
     }
 
 
