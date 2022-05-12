@@ -4,7 +4,6 @@ import ch.zhaw.graphy.Graph.Edge;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
@@ -16,11 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -33,6 +28,7 @@ public class MainWindowController {
     GraphHandler handler;
 
     private Stage stage;
+    private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
 
     private Color stdVertexColor = Color.RED;
@@ -78,6 +74,12 @@ public class MainWindowController {
         } catch(Exception e){
             e.printStackTrace();
         }
+        for (Vertex vertex: handler.getGraph().keySet()){
+            drawVertex(vertex);
+            for (Edge edge : handler.getGraph().get(vertex)){
+                drawEdge(edge);
+            }
+        }
     }
 
     @FXML
@@ -90,12 +92,9 @@ public class MainWindowController {
     void initialize(){
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
-        edgeWeight.setText("Add edge weight");
-        vertexName.setText("Add vertex name");
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -141,6 +140,9 @@ public class MainWindowController {
     private TextField vertexName;
 
     @FXML
+    private CheckBox bidirectional;
+
+    @FXML
     void addEdge(ActionEvent event) {
 
     }
@@ -165,30 +167,12 @@ public class MainWindowController {
         model.clearDisplayVertex();
     }
 
-    @FXML
-    void clickVertexNameField(MouseEvent event) {
-        if(vertexName.getText().equals("Add vertex name"))
-            vertexName.setText("");
-    }
 
     @FXML
     void close(ActionEvent event) {
         stage.close();
     }
 
-    @FXML
-    void exitVertexNameField(MouseEvent event) {
-        if(vertexName.getText().equals("")){
-            vertexName.setText("Add vertex name");
-            }
-    }
-
-    @FXML
-    void exitEdgeWeightField(MouseEvent event) {
-        if(edgeWeight.getText().equals("")){
-        edgeWeight.setText("Add edge weight");
-        }
-    }
 
     @FXML
     void executeBfs(ActionEvent event) {
@@ -204,12 +188,6 @@ public class MainWindowController {
     @FXML
     void executeSpanningTree(ActionEvent event) {
         algorithmSelectionMenu.setText("Spanning Tree");
-    }
-
-    @FXML
-    void clickEdgeWeightField(MouseEvent event) {
-        if(edgeWeight.getText().equals("Add edge weight"))
-            edgeWeight.setText("");
     }
 
     @FXML
@@ -338,7 +316,7 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            createVertex(UUID.randomUUID().toString(), new Point((int)event.getX(), (int)event.getY()));
+                            createVertex(new Point((int)event.getX(), (int)event.getY()));
                         }
                         break;
                     default:
@@ -360,8 +338,28 @@ public class MainWindowController {
                         break;
                     case 1:
                         model.addSelectedVertex(circleVertexMap.get(clickedCircle));
-                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
+                        int weight;
+                        if ("".equals(edgeWeight.getText())){
+                            weight = 0;
+                        }
+                        else {
+                            try {
+                                weight = Integer.parseInt(edgeWeight.getText());
+                            }
+                            catch (NumberFormatException e){
+                                weight = 0;
+                            }
+                        }
+
+
+
+                        Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1),weight);
+
                         model.addDisplayEdge(newEdge);
+                        if (bidirectional.isSelected()){
+                            newEdge = new Edge(model.getSelectedVertex().get(1),model.getSelectedVertex().get(0),weight);
+                            model.addDisplayEdge(newEdge);
+                        }
                         model.clearSelectedVertex();
                         break;
                 }
@@ -391,8 +389,12 @@ public class MainWindowController {
     // A vertex is represented as a circle in the gui. This is the mapping of circle to vertex.
     private BiMap<Circle, Vertex> circleVertexMap = HashBiMap.create();
     private BiMap<Line, Edge> lineEdgeMap = HashBiMap.create();
-    private void createVertex(String value, Point position){
-        Vertex newVertex = new Vertex(value, position);
+    private void createVertex(Point position){
+        String name = vertexName.getText();
+        if(vertexName.getText().isBlank()){
+            name = String.valueOf(++numberOfDrawnUnnamedVertex);
+        }
+        Vertex newVertex = new Vertex(name, position);
         model.addDisplayVertex(newVertex);
     }
     private static final int VERTEX_SIZE = 10;
@@ -406,8 +408,28 @@ public class MainWindowController {
         circleVertexMap.put(circle, vertex);
     }
     private void drawEdge(Edge edge){
-        Line line = new Line(edge.getStart().getX(), edge.getStart().getY(),
-                                edge.getEnd().getX(), edge.getEnd().getY());
+        int xStart = edge.getStart().getX();
+        int xEnd = edge.getEnd().getX();
+        int yStart = edge.getStart().getY();
+        int yEnd = edge.getEnd().getY();
+        Point pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
+        Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
+
+
+        Line line = new Line(xStart, yStart,
+                                xEnd, yEnd);
+        Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
+        Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
+        arrowline1.setStrokeWidth(5);
+        arrowline2.setStrokeWidth(5);
+        arrowline1.setFill(stdLineColor);
+        arrowline2.setFill(stdLineColor);
+        arrowline1.setPickOnBounds(false);
+        arrowline2.setPickOnBounds(false);
+        paintArea.getChildren().add(arrowline1);
+        paintArea.getChildren().add(arrowline2);
+
+
         line.setFill(stdLineColor);
         line.setStrokeWidth(5);
         line.setOnMouseClicked(edgeClick);
@@ -415,6 +437,33 @@ public class MainWindowController {
 
         lineEdgeMap.put(line, edge);
     }
+
+
+    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
+        int x = xEnd-xStart;
+        int y = yEnd-yStart;
+        double twoNorm =  Math.sqrt(x*x + y*y);
+        double xNorm = x/twoNorm;
+        double yNorm = y/twoNorm;
+
+        if (up){
+            x = (int )(xEnd -2*VERTEX_SIZE*xNorm +VERTEX_SIZE*yNorm);
+            y = (int)(yEnd-2*VERTEX_SIZE* yNorm -VERTEX_SIZE*xNorm);
+        }
+        else {
+            x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
+            y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
+        }
+
+
+
+
+
+
+        return new Point(x,y);
+    }
+
+
 
     public Stage getStage(){
         return stage;
