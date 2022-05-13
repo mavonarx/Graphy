@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
@@ -80,6 +81,9 @@ public class MainWindowController {
     @FXML
     private CheckBox bidirectional;
 
+    @FXML
+    private CheckBox selectMode;
+
     private MainWindowModel model;
     public MainWindowController(Stage oldStage){
         this.oldStage = oldStage;
@@ -124,6 +128,7 @@ public class MainWindowController {
                 createEdge(edge);
             }
         }
+        numberOfDrawnUnnamedVertex = handler.getGraph().size();
     }
 
     @FXML
@@ -144,7 +149,6 @@ public class MainWindowController {
                 }
             }
         });
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -221,9 +225,11 @@ public class MainWindowController {
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
-        for (int i =0; i<path.size()-1;i++){
-            for (Vertex vertex : vertexGuiBiMap.inverse().keySet()){
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+
+
+        for (int i =0; i<path.keySet().size();i++){
+            for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
                 }
@@ -275,6 +281,7 @@ public class MainWindowController {
     
     @FXML
     void backToStart(ActionEvent event) {
+        clearAll(event);
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
@@ -282,7 +289,10 @@ public class MainWindowController {
 
     @FXML
     void remove(ActionEvent event) {
+        //first we remove the selected edges from the paint area and from the LineEdgeMap
         for (Edge modelEdge : model.getSelectedEdge()){
+
+            //now we need to remove the edges from the list associated with a vertex
             for (Vertex vertex : handler.getGraph().keySet()){
                 for (Edge graphEdge : handler.getGraph().get(vertex)){
                     if (modelEdge.equals(graphEdge)){
@@ -291,6 +301,8 @@ public class MainWindowController {
                 }
             }
         }
+
+        //next we remove the selected vertices
         for (Vertex vertex : model.getSelectedVertex()){
             handler.getGraph().remove(vertex);
             Iterator<Edge> edgeIterator = edgeGuiBiMap.inverse().keySet().iterator();
@@ -397,6 +409,7 @@ public class MainWindowController {
         @Override
         public void handle(MouseEvent event) {
             model.clearDisplayVertex();
+            numberOfDrawnUnnamedVertex=0;
         }
     };
 
@@ -417,7 +430,10 @@ public class MainWindowController {
                             }
                         }
                         else {
-                            createVertex(new Point((int)event.getX(), (int)event.getY()));
+
+                            if(!selectMode.isSelected()) {
+                                createVertex(new Point((int) event.getX(), (int) event.getY()));
+                            }
                         }
                         break;
                     default:
@@ -441,24 +457,26 @@ public class MainWindowController {
                             int weight;
                             if ("".equals(edgeWeight.getText())){
                                 weight = 0;
-                            }
-                            else {
+                            } else {
                                 try {
                                     weight = Integer.parseInt(edgeWeight.getText());
-                                }
-                                catch (NumberFormatException e){
+                                } catch (NumberFormatException e) {
                                     weight = 0;
                                 }
                             }
-                            Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1),weight);
-                            model.addDisplayEdge(newEdge);
-                            if (bidirectional.isSelected()){
-                                newEdge = new Edge(model.getSelectedVertex().get(1),model.getSelectedVertex().get(0),weight);
+                            if (!selectMode.isSelected()) {
+                                Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1), weight);
+
                                 model.addDisplayEdge(newEdge);
+                                if (bidirectional.isSelected()) {
+                                    newEdge = new Edge(model.getSelectedVertex().get(1), model.getSelectedVertex().get(0), weight);
+                                    model.addDisplayEdge(newEdge);
+                                }
+                                model.clearSelectedVertex();
                             }
-                            model.clearSelectedVertex();
                         }
                         break;
+                    default: model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                 }
             }
     };
@@ -497,6 +515,7 @@ public class MainWindowController {
         EdgeGui edgeGui = new EdgeGui(edge, edgeClick);
         edgeGuiBiMap.put(edgeGui, edge);
         paintArea.getChildren().addAll(0, edgeGui.getNodes());
+
     }
     public Stage getStage(){
         return stage;
