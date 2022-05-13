@@ -23,7 +23,7 @@ which could be used by multiple algorithms.
 
 ## How to use the tool
 If you launch the app you will start in the welcoming-Window. Here you can choose to either draw a graph directly
-or launch it via a csv file. 
+or launch it via a csv file. We provide two predefined example files which you can find in the /Examples folder.
 
 If you chose to launch it a new window will appear. Drag and drop your csv file in the white area.
 Graphy checks your file and if it has the correct format you can launch it via the launch button.
