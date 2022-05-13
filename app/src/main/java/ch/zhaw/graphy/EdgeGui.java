@@ -17,10 +17,10 @@ import java.util.List;
 /**
  * A class that represents an Edge in the GUI
  */
-public class EdgeGui {
+public class EdgeGui implements GraphGuiObject {
     private record ArrowInfo(int x, int y, int xEnd, int yEnd){}
-    public static final Color STD_EDGE_COLOR = Color.LIGHTGRAY;
-    public static final Color STD_EDGE_SELECTED_COLOR = Color.AQUA;
+    private static final Color STD_EDGE_COLOR = Color.LIGHTGRAY;
+    private static final Color STD_EDGE_SELECTED_COLOR = Color.AQUA;
     private static final int CURVE_WIDTH = 3;
     private EdgeClickEvent onEdgeClick;
 
@@ -82,11 +82,33 @@ public class EdgeGui {
         name.setTextFill(color);
     }
 
-    public void setStdEdgeColor(){
+    /**
+     * Sets the color of this EdgeGui object to standart color.
+     */
+    public void setStdColor(){
         curve.setStroke(STD_EDGE_COLOR);
         arrowline1.setStroke(STD_EDGE_COLOR);
         arrowline2.setStroke(STD_EDGE_COLOR);
         name.setTextFill(Color.BLACK);
+    }
+
+    /**
+     * Sets the color of this EdgeGui object to selected color.
+     */
+    public void setSelectedColor(){
+        curve.setStroke(STD_EDGE_SELECTED_COLOR);
+        arrowline1.setStroke(STD_EDGE_SELECTED_COLOR);
+        arrowline2.setStroke(STD_EDGE_SELECTED_COLOR);
+        name.setTextFill(STD_EDGE_SELECTED_COLOR);
+    }
+
+    /**
+     * Returns if this object is colored
+     * @return true if this object is not colored in standart color.
+     */
+    @Override
+    public boolean isColored() {
+        return curve.getStroke() != STD_EDGE_COLOR;
     }
 
     /**

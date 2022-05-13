@@ -1,6 +1,6 @@
 package ch.zhaw.graphy.Graph;
 
-import ch.zhaw.graphy.graphObject;
+import ch.zhaw.graphy.GraphObject;
 
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
  * @version 13.05.2022
  */
-public class Vertex implements graphObject {
+public class Vertex implements GraphObject {
 
     private Point position;
     private String name;

@@ -77,6 +77,9 @@ public class MainWindowModel {
         notifyOnSelectEdge(edge);
     }
 
+    /**
+     * Clears all selected edges and notifies about clear selected edge.
+     */
     public void clearSelectedEdge(){
         selectedEdge.clear();
         notifyOnClearSelectedEdge();
