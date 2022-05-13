@@ -14,11 +14,15 @@ class OwnBiMap{
     private BiMap<Circle, Label> circleLabelList = HashBiMap.create();
     private BiMap<QuadCurve, Edge> lineEdgeBiMap = HashBiMap.create();
     private BiMap<QuadCurve, Label> lineLabelList = HashBiMap.create();
+
     void put(Circle circle, Label label, Vertex vertex){
         circleVertexList.put(circle, vertex);
         circleLabelList.put(circle, label);
     }
-
+    void putEdge(QuadCurve curve, Label label, Edge edge){
+        lineEdgeBiMap.put(curve, edge);
+        lineLabelList.put(curve, label);
+    }
     public BiMap<Circle, Vertex> getCircleVertexList() {
         return circleVertexList;
     }
