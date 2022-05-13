@@ -64,19 +64,27 @@ public class Dijkstra{
                     if (distances.get(edge.getEnd()) == -1 || distances.get(edge.getEnd()) > distances.get(edge.getStart()) + edge.getWeight()) {
                         distances.put(edge.getEnd(), edge.getWeight() + distances.get(edge.getStart()));
                         predecessors.put(edge.getEnd(), edge.getStart());
+                        System.out.println(edge.getStart());
+                        System.out.println(edge.getEnd() + " : " +predecessors.get(edge.getEnd()));
                     }
+                    prioQueue.addAll(graph.getGraph().get(edge.getEnd()));
                 }
 
                 // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
 
-                prioQueue.addAll(graph.getGraph().get(currentEnd));
+               // prioQueue.addAll(graph.getGraph().get(currentEnd));
             }
 
         // fill the list with all predecessors to the endpoint
         Vertex pointer = finalVertex;
         while (pointer !=null){
+            System.out.println(pointer);
             resultMap.put(pointer,predecessors.get(pointer));
             pointer = predecessors.get(pointer);
+
+        }
+        for (Vertex vertex : resultMap.keySet()){
+            System.out.println(vertex +" : " + resultMap.get(vertex));
         }
 
         if (resultMap.size()==1){
