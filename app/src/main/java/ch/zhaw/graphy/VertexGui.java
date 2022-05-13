@@ -13,30 +13,24 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that represents a Vertex in the GUI
+ */
 public class VertexGui {
+    public static final int VERTEX_SIZE = 10;
+    public static final Color STD_VERTEX_COLOR = Color.RED;
+    public static final Color STD_VERTEX_SELECTED_COLOR = Color.BLUE;
+    private static final Color STD_TEXT_COLOR = Color.BLACK;
     private Circle node;
     private Circle clickArea;
     private Label name;
-
-    private static final Color stdCircleColor = Color.RED;
-    private static final Color stdTextColor = Color.BLACK;
-    public static final int VERTEX_SIZE = 10;
-
     private VertexClickEvent onVertexClick;
-    private VertexGui getMe(){
-        return this;
-    }
-    private EventHandler<MouseEvent> vertexClick = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-            onVertexClick.handle(getMe());
-        }
-    };
-    public void setColor(Color color){
-        node.setFill(color);
-        name.setTextFill(color);
-    }
 
+    /**
+     * Constructor for VertexGui
+     * @param vertex that will be represented by the VertexGui
+     * @param clickEvent clickEvent that is triggered when the VertexGui object gets clicked
+     */
     public VertexGui(Vertex vertex, VertexClickEvent clickEvent){
         onVertexClick = clickEvent;
 
@@ -44,12 +38,12 @@ public class VertexGui {
         clickArea.setCenterX(vertex.getX());
         clickArea.setCenterY(vertex.getY());
         clickArea.setOnMouseClicked(vertexClick);
-        node = new Circle(VERTEX_SIZE, stdCircleColor);
+        node = new Circle(VERTEX_SIZE, STD_VERTEX_COLOR);
         node.setCenterX(vertex.getX());
         node.setCenterY(vertex.getY());
 
         name = new Label(vertex.getName());
-        name.setTextFill(stdTextColor);
+        name.setTextFill(STD_TEXT_COLOR);
         name.setPrefWidth(100);
         name.setPrefHeight(20);
         name.setAlignment(Pos.CENTER);
@@ -57,6 +51,19 @@ public class VertexGui {
         name.relocate(node.getCenterX() - (name.getPrefWidth() / 2), node.getCenterY() - (VERTEX_SIZE + name.getPrefHeight()));
     }
 
+    /**
+     * Sets the color of the VertexGui object
+     * @param color to set.
+     */
+    public void setColor(Color color){
+        node.setFill(color);
+        name.setTextFill(color);
+    }
+
+    /**
+     * Gets the nodes of an VertexGui object.
+     * @return all nodes that graphically represents an Vertex
+     */
     public List<Node> getNodes(){
         List<Node> nodes = new ArrayList<>();
         nodes.add(node);
@@ -64,4 +71,22 @@ public class VertexGui {
         nodes.add(clickArea);
         return nodes;
     }
+
+    /**
+     * Gets an Instance of the current VertexGui
+     * @return this instance
+     */
+    private VertexGui getMe(){
+        return this;
+    }
+
+    /**
+     * Mouse event that is triggered when the VertexGui is clicked.
+     */
+    private EventHandler<MouseEvent> vertexClick = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            onVertexClick.handle(getMe());
+        }
+    };
 }
