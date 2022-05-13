@@ -210,15 +210,13 @@ public class MainWindowController {
      */
     @FXML
     void executeBfs(ActionEvent event) {
+        algorithmSelectionMenu.setText("BFS");
         if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("No source vertex has been selected");
             return;
         }
-        algorithmSelectionMenu.setText("BFS");
-        if (!model.hasSelectedVertex()) {
-            throw new IllegalArgumentException("Pls select a vertex to start from");
-        }
+
         BreadthFirstSearch bfs = new BreadthFirstSearch();
         bfs.executeBFS(handler, model.getSelectedVertex().get(0));
         for (Vertex vertex : bfs.getVisualMap().keySet()){
