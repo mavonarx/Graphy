@@ -246,8 +246,14 @@ public class MainWindowController {
         }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
-        for (int i =0; i<path.size()-1;i++){
+        LinkedList<Vertex> path = new LinkedList<>();
+        try {
+            path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+        }catch (IllegalArgumentException e){
+            feedBackLabel.setText("The graph is not connected.");
+        }
+
+        for (int i =0; i<path.size()-2;i++){
             for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
@@ -258,6 +264,7 @@ public class MainWindowController {
                 changeEdgeColor(lineEdge, Color.GREEN);
             }
         }
+
         feedBackLabel.setText("Minimum weight is: ");
     }
 
