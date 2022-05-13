@@ -1,0 +1,238 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;1160&lt;/x&gt;&lt;y&gt;640&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;170&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;150;10;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;1052&lt;/x&gt;&lt;y&gt;1060&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;110&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;90&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;330&lt;/x&gt;&lt;y&gt;120&lt;/y&gt;&lt;w&gt;230&lt;/w&gt;&lt;h&gt;90&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;210;10;10;70&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;193&lt;/x&gt;&lt;y&gt;590&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;240&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;220&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;182&lt;/x&gt;&lt;y&gt;1260&lt;/y&gt;&lt;w&gt;500&lt;/w&gt;&lt;h&gt;260&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;240;480;240;480;180&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;330&lt;/x&gt;&lt;y&gt;120&lt;/y&gt;&lt;w&gt;230&lt;/w&gt;&lt;h&gt;90&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;210;10;10;70&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;330&lt;/x&gt;&lt;y&gt;120&lt;/y&gt;&lt;w&gt;230&lt;/w&gt;&lt;h&gt;90&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;210;10;10;70&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;786&lt;/x&gt;&lt;y&gt;1010&lt;/y&gt;&lt;w&gt;80&lt;/w&gt;&lt;h&gt;40&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;60;20&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;364&lt;/x&gt;&lt;y&gt;110&lt;/y&gt;&lt;w&gt;200&lt;/w&gt;&lt;h&gt;110&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;180;10;10;90&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLInterface&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;820&lt;/x&gt;&lt;y&gt;1320&lt;/y&gt;&lt;w&gt;200&lt;/w&gt;&lt;h&gt;90&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;EdgeClickEvent
+--
+~ handle(edge: EdgeGui) : handle
+bg=pink&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLPackage</id><coordinates><x>0</x><y>0</y><w>1610</w><h>240</h></coordinates><panel_attributes>Algorithms
+fg=light_gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>100</y><w>340</w><h>90</h></coordinates><panel_attributes>Algorithm {abstract}
+--
+- bfs: BreadthFirstSearch
+--
++ Algorithm(bfs: BreadthFirstSearch)
+~ checkIfConnected(graph: GraphHandler, start: Vertex) : void
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>40</y><w>420</w><h>90</h></coordinates><panel_attributes>BreadthFirstSearch
+--
+- visualMap: Map&lt;Vertex, Vertex&gt;
+--
++ executeBFS(graph: GraphHandler, source: Vertex) : Map&lt;Vertex, Integer&gt;
++ getVisualMap() : Map&lt;Vertex, Vertex&gt;
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>850</x><y>50</y><w>570</w><h>50</h></coordinates><panel_attributes>Dijkstra
+--
+_+ executeDijkstra(graph: GraphHandler, startVertex: Vertex, finalVertex: Vertex) : Map&lt;Vertex, Vertex&gt;_
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>970</x><y>130</y><w>350</w><h>70</h></coordinates><panel_attributes>MinimumSpanningTree
+--
++ MinimumSpanningTree(bfs: BreadthFirstSearch)
++ executeMST(graph: GraphHandler, start: Vertex) : Set&lt;Edge&gt;
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>80</x><y>380</y><w>340</w><h>220</h></coordinates><panel_attributes>Edge
+--
+- start: Vertex {final}
+- end: Vertex {final}
+- weight: int {final}
+--
++ Edge(start: Vertex, end: Vertex, weight: int)
++ Edge(start: Vertex, end: Vertex)
++ compareTo(other: Edge) : int
++ equals(o: Object) : boolean
++ hashCode() : int
++ getWeight() : int
++ getEnd() : Vertex
++ getStart() : Vertex
+bg=cyan</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>500</x><y>300</y><w>340</w><h>360</h></coordinates><panel_attributes>GraphHandler
+--
+~ isDirected: boolean
+_- DELIMITER: String {final}_
+_- UTF8_BOM: String {final}_
+_- IS_DIRECTED: String {final}_
+- scan: Scanner
+~ graph: MapProperty&lt;Vertex, SimpleSetProperty&lt;Edge&gt;&gt;
+--
++ GraphHandler(file: File)
++ GraphHandler()
+- scanEdges() : void
+- scanVertices(nrOfVertices: int) : void
+- getNrOfVertices() : int
+- checkIfDirected() : void
++ addEdge(edge: Edge) : void
++ addVertex(vertex: Vertex) : void
++ removeEdge(edge: Edge) : void
++ removeVertex(vertex: Vertex) : void
++ isWeighted() : boolean
++ convertToCSV(filename: String) : boolean
+- initializeDirectoryStructure(fileName) : File
++ adjacentVertices(vertex: Vertex) : List&lt;Vertex&gt;
++ getGraph() : ObservableMap&lt;Vertex, SimpleSetProperty&lt;Edge&gt;&gt;
+
+bg=cyan
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>980</x><y>330</y><w>340</w><h>70</h></coordinates><panel_attributes>&lt;&lt;Record&gt;&gt;
+Point
+--
++ Point(x: int, y:int)
+bg=cyan</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>980</x><y>440</y><w>340</w><h>210</h></coordinates><panel_attributes>Vertex
+--
+- position: Point
+- name: String
+--
++ Vertex(name: String, position: Point)
++ equals(o: Object) : boolean
++ toString() : String
++ hashCode() : int
++ setName(name: String) : void
++ getName() : String
++ getX() : int
++ getY() : int
++ getPosition() : Point
+bg=cyan</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1110</x><y>1350</y><w>340</w><h>280</h></coordinates><panel_attributes>FileInputController
+--
+- stage: Stage
+- oldStage: Stage
+~ launchFile: File
+_- PROMPT: String {final}_
+- launch: Button
+- title: Label
+- textArea: TextArea
+--
++ FileInputController(oldStage: Stage)
+- initialize() : void
+~ DragDropped(event: DragEvent) : void
+~ launch(event: ActionEvent) : void
+~ goBack(event: ActionEvent) : void
+~ close(event: ActionEvent) : void
++ getStage() : Stage
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>770</y><w>400</w><h>670</h></coordinates><panel_attributes>MainWindowController
+--
+~ handler: GraphHandler
+- edgeGuiBiMap: BiMap&lt;EdgeGui, Edge&gt;
+- vertexGuiBiMap: BiMap&lt;VertexGui, Vertex&gt;
+- stage: Stage
+- oldStage: Stage
+_- numberOfDrawnUnnamedVertex: int_
+- clickAction: ClickAction
+- model: MainWindowModel
+- paintArea: Pane
+- fileName: TextField
+- algorithmSelectionMenu: MenuButton
+- feedBackLabel: Label
+- clearAll: Button
+- edgeWeight: TextField
+- vertexName: TextField
+- bidirectional: CheckBox
+- selectMode: CheckBox
+--
++ MainWindowController(oldStage: Stage)
++ MainWindowController(oldStage: Stage, file File)
+~ initialize() : void
+~ colorize(event: ActionEvent) : void
+~ clearAll(event: ActionEvent) : void
+~ close(event: ActionEvent) : void
+~ executeBfs(event: ActionEvent) : void
+~ executeDijkstra(event: ActionEvent) : void
+~ executeSpanningTree(event: ActionEvent) : void
+~ executeDijkstraVia(event: ActionEvent) : void
+- changePathColor(weightCounter: int, path: Map&lt;Vertex, Vertex&gt;) : int
+~ printToCsv(event: ActionEvent) : void
+- giveFeedback(isSavedAsCSV: boolean) : void
+~ backToStart(event: ActionEvent) : void
+~ remove(event: ActionEvent) : void
+~ showHelp(event: ActionEvent) : void
+- changeVertexColor(changeVertex: Vertex, color: Color) : void
+- changeEdgeColor(changeEdge: Edge, color: Color) : void
+- changeEdgeColor(color: Color) : void
+- changeVertexColor(color: Color) : void
+- createVertex(position: Point) : void
+- createVertex(vertex: Vertex) : void
+- createEdge(edge: Edge) : void
+- clearPaintArea() : void
++ getStage() : Stage
+
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>1570</y><w>340</w><h>170</h></coordinates><panel_attributes>HelpWindowController
+--
+- stage: Stage
+- isPreWindow: boolean
+- textArea: TextArea
+--
++ HelpWindowController(isPreWindow: boolean)
+- initialize() : void
+~ close(event: ActionEvent) : void
+- setText() : void
++ getStage() : Stage
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>28</x><y>813</y><w>360</w><h>460</h></coordinates><panel_attributes>MainWindowModel
+--
+- mainWindowModelListeners: List&lt;MainWindowModelListener&gt;
+- displayVertex: List&lt;Vertex&gt;
+- selectedVertex: List&lt;Vertex&gt;
+- displayEdges: List&lt;Edge&gt;
+- selectedEdge: List&lt;Edge&gt;
+--
++ hasSelectedVertex() : boolean
++ hasSelectedEdge() : boolean
++ removeSelectedDisplayVertex() : void
++ removeSelectedDisplayEdge() : void
++ addDisplayEdge(edge: Edge) : void
++ addSelectedEdge(edge: Edge) : void
++ clearSelectedEdge(): void
++ addDisplayVertex(vertex: Vertex) : void
++ addSelectedVertex(vertex: Vertex) : void
++ clearDisplayVertex() : void
++ clearSelectedVertex() : void
++ registerListener(listener: MainWindowModelListener) : void
+- notifyOnAddVertex(newVertex: Vertex) : void
+- notifyOnSelectVertex(selectVertex: Vertex) : void
+- notifyOnClearVertex() : void
+- notifyOnClearSelectedVertex() : void
+- notifyOnAddEdge(newEdge: Edge) : void
+- notifyOnSelectEdge(newEdge: Edge) : void
+- notifyOnClearSelectedEdge() : void
+- notifyOnRemoveSelectedVertex() : void
+- notifyOnRemoveSelectedEdge() : void
++ getSelectedVertex() : List&lt;Vertex&gt;
++ getSelectedEdge() : List&lt;Edge&gt;
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>120</y><w>230</w><h>50</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>210;10;210;30;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>1140</x><y>390</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>650</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLInterface</id><coordinates><x>1340</x><y>1180</y><w>180</w><h>90</h></coordinates><panel_attributes>EdgeClickEvent
+--
+~ handle(edge: EdgeGui) : void
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>1570</y><w>340</w><h>170</h></coordinates><panel_attributes>PreWindowController
+--
+- stage: Stage
+--
++ PreWindowController(preStage: Stage)
+~ drawOwnGraph(event: ActionEvent) : void
+~ providedGraph(event: ActionEvent) : void
+~ showHelp(event: ActionEvent) : void
++ getStage() : Stage
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>6</x><y>260</y><w>1610</w><h>460</h></coordinates><panel_attributes>Graph
+fg=light_gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1250</x><y>810</y><w>360</w><h>270</h></coordinates><panel_attributes>EdgeGui
+--
+_+ STD_EDGE_COLOR: Color {final}_
+_+ STD_EDGE_SELECTED_COLOR: Color {final}_
+_- CURVE_WIDTH: int {final}_
+- onEdgeClick: EdgeClickEvent
+- clickArea: QuadCurve
+- curve: QuadCurve
+- name: Label
+- arrowLine1: Line
+- arrowLine2: Line
+--
++ EdgeGui(edge: Edge, event: EdgeClickEvent)
+- findCurve(xStart: int, xEnd: int, yStart: int, yEnd: int) : Point
+- findArrow(xStart: int, xEnd: int, yStart: int, yEnd: int, up: boolean) : ArrowInfo
++ setColor(color: Color) : void
++ getNodes() : List&lt;Node&gt;
+- getMe() : EdgeGui
+
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>890</x><y>870</y><w>340</w><h>240</h></coordinates><panel_attributes>VertexGui
+--
+_+ VERTEX_SIZE: int {final}_
+_+ STD_VERTEX_COLOR: Color {final}_
+_+ STD_VERTEX_SELECTED_COLOR: Color {final}_
+- node: Circle
+- clickArea: Circle
+- name: Label
+- onVertexClick: VertexClickEvent
+--
++ VertexGui(vertex: Vertex, clickEvent: VertexClickEvent)
+- getMe() : VertexGui
++ getNodes() : List&lt;Node&gt;
++ setColor(Color) : void
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>6</x><y>736</y><w>1610</w><h>1060</h></coordinates><panel_attributes>Gui
+fg=light_gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLInterface</id><coordinates><x>980</x><y>1200</y><w>200</w><h>90</h></coordinates><panel_attributes>VertexClickEvent
+--
+~ handle(vertex: VertexGui) : void
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>182</x><y>1260</y><w>500</w><h>260</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;240;480;240;480;180</additional_attributes></element><element><id>Relation</id><coordinates><x>1421</x><y>1072</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>586</x><y>120</y><w>590</w><h>580</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>570;530;570;560;340;560;340;50;10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>591</y><w>710</w><h>110</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>690;90;10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>258</x><y>590</y><w>410</w><h>100</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;80;390;80;390;70</additional_attributes></element><element><id>Relation</id><coordinates><x>678</x><y>640</y><w>480</w><h>50</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>460;10;460;30;10;30;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>193</x><y>590</y><w>30</w><h>240</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;220</additional_attributes></element><element><id>Relation</id><coordinates><x>193</x><y>667</y><w>80</w><h>30</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>672</x><y>1067</y><w>740</w><h>430</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>720;10;720;80;270;80;270;410;10;410;10;370</additional_attributes></element><element><id>Relation</id><coordinates><x>1052</x><y>1100</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>1072</x><y>1103</y><w>30</w><h>130</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1160</x><y>640</y><w>30</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;150;10;10</additional_attributes></element><element><id>UMLInterface</id><coordinates><x>1132</x><y>776</y><w>80</w><h>70</h></coordinates><panel_attributes>GraphObject
+bg=pink</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>277</x><y>587</y><w>910</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>890;210;760;210;760;110;10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>142</x><y>180</y><w>1020</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;40;1000;40;1000;20</additional_attributes></element></diagram>
