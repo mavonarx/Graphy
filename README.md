@@ -1,5 +1,24 @@
 # Graphy
 
+###How to use the tool
+There are 2 modes in this app. 
+
+1. Build-mode (enabled when the checkbox for select-mode is unchecked)
+
+In the build mode you can create a vertex by clicking on the white area. 
+Optionally you can give it a name (for this just add a string in the vertex
+name field before creating it). If no name is set, a default name 
+(incrementing integer) is used. 
+
+To create an edge between two vertices select both of them in the correct order
+First start vertex, second end vertex. To give the edge a weight type an integer
+before creating the edge. If no weight has been set the default weight 
+(euclidean distance) between the two vertices is taken. 
+
+2. Select-mode (enabled when the ckeckbox for select-mode is checked)
+In the select mode you can select as many vertices and edges as you want. With the selection you can
+remove 
+
 ### How to create a correct csv graph file
 The csv file has to be structured to be 
 correctly interpreted: Here we provide a step by step
