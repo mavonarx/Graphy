@@ -336,7 +336,6 @@ public class MainWindowController {
         path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(1), model.getSelectedVertex().get(2));
 
         weightCounter = changePathColor(weightCounter, path);
-        model.getSelectedVertex().size();
         changeVertexColor(model.getSelectedVertex().get(1), Color. GREY);
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
     }

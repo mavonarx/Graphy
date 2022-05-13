@@ -25,6 +25,7 @@ public class MinimumSpanningTree extends Algorithm{
     /**
      * Executes a MSt algorithm (prim). This looks for a collection of edges which connect all vertices and
      * with the lowest collective path cost
+     *
      * @param graph a graphHandler containing a graph map
      * @param source a vertex from which you would like the mst to start
      * @return the set of edges connecting all vertices
