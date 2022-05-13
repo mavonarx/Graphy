@@ -47,12 +47,6 @@ public class MainWindowController {
     private Stage stage;
     private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
-    private Color stdVertexColor = Color.RED;
-    private static final Color stdVertexSelectedColor = Color.BLUE;
-    private static final Color stdLineColor = Color.LIGHTGRAY;
-    private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
-
-    private static final int VERTEX_SIZE = 12;
 
     @FXML
     private Pane paintArea;
@@ -433,7 +427,7 @@ public class MainWindowController {
 
         @Override
         public void onSelectVertex(Vertex selectedVertex) {
-            changeVertexColor(selectedVertex, stdVertexSelectedColor);
+            changeVertexColor(selectedVertex, VertexGui.STD_VERTEX_SELECTED_COLOR);
         }
 
         @Override
@@ -443,8 +437,8 @@ public class MainWindowController {
 
         @Override
         public void onClearSelectedVertex() {
-            changeVertexColor(stdVertexColor);
-            changeEdgeColor(Color.BLACK);
+            changeVertexColor(VertexGui.STD_VERTEX_COLOR);
+            changeEdgeColor(EdgeGui.STD_EDGE_COLOR);
         }
 
         @Override
@@ -454,12 +448,12 @@ public class MainWindowController {
 
         @Override
         public void onSelectEdge(Edge changeEdge) {
-            changeEdgeColor(changeEdge, stdLineSelectedColor);
+            changeEdgeColor(changeEdge, EdgeGui.STD_EDGE_SELECTED_COLOR);
         }
 
         @Override
         public void onClearSelectedEdge() {
-            changeEdgeColor(stdLineColor);
+            changeEdgeColor(EdgeGui.STD_EDGE_COLOR);
         }
 
         @Override

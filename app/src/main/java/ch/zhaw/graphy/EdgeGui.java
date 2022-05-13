@@ -14,20 +14,90 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that represents an Edge in the GUI
+ */
 public class EdgeGui {
     private record ArrowInfo(int x, int y, int xEnd, int yEnd){}
-    public static final Color stdEdgeColor = Color.BLACK;
-    public static final Color stdLineSelectedColor = Color.AQUA;
-    private static final int curveWidth = 3;
-    private static final int stdPadding = 5;
+    public static final Color STD_EDGE_COLOR = Color.BLACK;
+    public static final Color STD_EDGE_SELECTED_COLOR = Color.AQUA;
+    private static final int CURVE_WIDTH = 3;
     private EdgeClickEvent onEdgeClick;
 
-    QuadCurve clickArea;
-    QuadCurve curve;
-    Label name;
-    Line arrowline1;
-    Line arrowline2;
+    private QuadCurve clickArea;
+    private QuadCurve curve;
+    private Label name;
+    private Line arrowline1;
+    private Line arrowline2;
 
+    /**
+     * Constructor for EdgeGui
+     * @param edge that will be represented by the EdgeGui
+     * @param event clickEvent that is triggered when the EdgeGui object gets clicked
+     */
+    public EdgeGui(Edge edge, EdgeClickEvent event){
+        onEdgeClick = event;
+        int xStart = edge.getStart().getX();
+        int xEnd = edge.getEnd().getX();
+        int yStart = edge.getStart().getY();
+        int yEnd = edge.getEnd().getY();
+        ArrowInfo pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
+        ArrowInfo pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
+
+        Point curve1 = findCurve(xStart,xEnd,yStart, yEnd);
+        curve = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
+        curve.setFill(null);
+        curve.setStrokeWidth(CURVE_WIDTH);
+        curve.setStroke(STD_EDGE_COLOR);
+
+        clickArea = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
+        clickArea.setFill(null);
+        clickArea.setStrokeWidth(CURVE_WIDTH + VertexGui.VERTEX_SIZE);
+        clickArea.setStroke(Color.TRANSPARENT);
+        clickArea.setOnMouseClicked(curveClick);
+
+        arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
+        arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
+        arrowline1.setStrokeWidth(CURVE_WIDTH);
+        arrowline2.setStrokeWidth(CURVE_WIDTH);
+        arrowline1.setPickOnBounds(false);
+        arrowline2.setPickOnBounds(false);
+
+        name = new Label(String.valueOf(edge.getWeight()));
+        name.setTextFill(STD_EDGE_COLOR);
+        name.setFont(new Font("Arial" ,16));
+        name.relocate(curve1.x(), curve1.y());
+    }
+
+    /**
+     * Sets the color of the EdgeGui object
+     * @param color to set.
+     */
+    public void setColor(Color color){
+        curve.setStroke(color);
+        arrowline1.setStroke(color);
+        arrowline2.setStroke(color);
+        name.setTextFill(color);
+    }
+
+    /**
+     * Gets the nodes of an EdgeGui object.
+     * @return all nodes that graphically represents an Edge
+     */
+    public List<Node> getNodes(){
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(curve);
+        nodes.add(name);
+        nodes.add(arrowline1);
+        nodes.add(arrowline2);
+        nodes.add(clickArea);
+        return nodes;
+    }
+
+    /**
+     * Gets an Instance of the current EdgeGui
+     * @return this instance
+     */
     private EdgeGui getMe(){
         return this;
     }
@@ -75,61 +145,13 @@ public class EdgeGui {
         return new ArrowInfo(x,y,(int)(xEnd-vertexSize*xNorm),(int)(yEnd-vertexSize*yNorm));
     }
 
-    public EdgeGui(Edge edge, EdgeClickEvent event){
-        onEdgeClick = event;
-        int xStart = edge.getStart().getX();
-        int xEnd = edge.getEnd().getX();
-        int yStart = edge.getStart().getY();
-        int yEnd = edge.getEnd().getY();
-        ArrowInfo pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
-        ArrowInfo pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
-
-        Point curve1 = findCurve(xStart,xEnd,yStart, yEnd);
-        curve = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
-        curve.setFill(null);
-        curve.setStrokeWidth(curveWidth);
-        curve.setStroke(stdEdgeColor);
-
-        clickArea = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
-        clickArea.setFill(null);
-        clickArea.setStrokeWidth(curveWidth + VertexGui.VERTEX_SIZE);
-        clickArea.setStroke(Color.TRANSPARENT);
-        clickArea.setOnMouseClicked(curveClick);
-
-        arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
-        arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
-        arrowline1.setStrokeWidth(curveWidth);
-        arrowline2.setStrokeWidth(curveWidth);
-        arrowline1.setPickOnBounds(false);
-        arrowline2.setPickOnBounds(false);
-
-        name = new Label(String.valueOf(edge.getWeight()));
-        name.setTextFill(stdEdgeColor);
-        name.setFont(new Font("Arial" ,16));
-        name.relocate(curve1.x(), curve1.y());
-    }
-
-    public void setColor(Color color){
-        curve.setStroke(color);
-        arrowline1.setStroke(color);
-        arrowline2.setStroke(color);
-        name.setTextFill(color);
-    }
-
+    /**
+     * Mouse event that is triggered when the EdgeGui is clicked.
+     */
     private EventHandler<MouseEvent> curveClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
             onEdgeClick.handle(getMe());
         }
     };
-
-    public List<Node> getNodes(){
-        List<Node> nodes = new ArrayList<>();
-        nodes.add(curve);
-        nodes.add(name);
-        nodes.add(arrowline1);
-        nodes.add(arrowline2);
-        nodes.add(clickArea);
-        return nodes;
-    }
 }
