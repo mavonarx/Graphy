@@ -20,7 +20,6 @@ public class VertexGui {
     public static final int VERTEX_SIZE = 10;
     public static final Color STD_VERTEX_COLOR = Color.RED;
     public static final Color STD_VERTEX_SELECTED_COLOR = Color.BLUE;
-    private static final Color STD_TEXT_COLOR = Color.BLACK;
     private Circle node;
     private Circle clickArea;
     private Label name;
@@ -43,7 +42,7 @@ public class VertexGui {
         node.setCenterY(vertex.getY());
 
         name = new Label(vertex.getName());
-        name.setTextFill(STD_TEXT_COLOR);
+        name.setTextFill(STD_VERTEX_COLOR);
         name.setPrefWidth(100);
         name.setPrefHeight(20);
         name.setAlignment(Pos.CENTER);
