@@ -32,12 +32,6 @@ public class FileInputController {
     private static final String PROMPT = "Drag a graph file below";
 
     @FXML
-    private Button close;
-
-    @FXML
-    private Button goBack;
-
-    @FXML
     private Button launch;
 
     @FXML

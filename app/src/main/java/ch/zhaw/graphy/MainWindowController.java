@@ -45,8 +45,10 @@ public class MainWindowController {
     private BiMap<EdgeGui, Edge> edgeGuiBiMap = HashBiMap.create();
     private BiMap<VertexGui, Vertex> vertexGuiBiMap = HashBiMap.create();
     private Stage stage;
-    private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
+    private static int numberOfDrawnUnnamedVertex = 0;
+    private ClickAction clickAction = ClickAction.PaintAreaClick;
+    private MainWindowModel model;
 
     @FXML
     private Pane paintArea;
@@ -55,37 +57,17 @@ public class MainWindowController {
     @FXML
     private MenuButton algorithmSelectionMenu;
     @FXML
-    private Button addEdge;
-    @FXML
     private Label feedBackLabel;
-    @FXML
-    private Button colorize;
     @FXML
     private Button clearAll;
     @FXML
-    private Button close;
-    @FXML
     private TextField edgeWeight;
-    @FXML
-    private MenuItem executeDijkstra;
-    @FXML
-    private MenuItem executeSpanningTree;
-    @FXML
-    private Button printToCsv;
-    @FXML
-    private Button remove;
-    @FXML
-    private Label selectAlgorithm;
-    @FXML
-    private MenuItem showHelp;
     @FXML
     private TextField vertexName;
     @FXML
     private CheckBox bidirectional;
     @FXML
     private CheckBox selectMode;
-
-    private MainWindowModel model;
 
     /**
      * Constructor for MainWindowController. Fills in the scene. Sets up, configures
@@ -423,6 +405,37 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Clears all visual parts in the paint area.
+     */
+    private void clearPaintArea() {
+        paintArea.getChildren().removeAll();
+    }
+
+        /**
+     * Creates a new vertex at the given position.
+     * @param position given position
+     */
+    private void createVertex(Point position) {
+        String name = vertexName.getText();
+        if (vertexName.getText().isBlank()) {
+            name = String.valueOf(++numberOfDrawnUnnamedVertex);
+        }
+        Vertex newVertex = new Vertex(name, position);
+        model.addDisplayVertex(newVertex);
+    }
+
+    private void createVertex(Vertex vertex){
+        VertexGui vertexGui = new VertexGui(vertex, vertexClick);
+        vertexGuiBiMap.put(vertexGui, vertex);
+        paintArea.getChildren().addAll(vertexGui.getNodes());
+    }
+    private void createEdge(Edge edge){
+        EdgeGui edgeGui = new EdgeGui(edge, edgeClick);
+        edgeGuiBiMap.put(edgeGui, edge);
+        paintArea.getChildren().addAll(0, edgeGui.getNodes());
+    }
+  
     private MainWindowModel.MainWindowModelListener modelListener = new MainWindowModel.MainWindowModelListener() {
         @Override
         public void onAddVertex(Vertex newVertex) {
@@ -605,8 +618,6 @@ public class MainWindowController {
         }
     };
 
-    private ClickAction clickAction = ClickAction.PaintAreaClick;
-
     /**
      * Contains the different types of click actions.
      */
@@ -617,30 +628,6 @@ public class MainWindowController {
     }
 
     /**
-     * Creates a new vertex at the given position.
-     * @param position given position
-     */
-    private void createVertex(Point position) {
-        String name = vertexName.getText();
-        if (vertexName.getText().isBlank()) {
-            name = String.valueOf(++numberOfDrawnUnnamedVertex);
-        }
-        Vertex newVertex = new Vertex(name, position);
-        model.addDisplayVertex(newVertex);
-    }
-
-    private void createVertex(Vertex vertex){
-        VertexGui vertexGui = new VertexGui(vertex, vertexClick);
-        vertexGuiBiMap.put(vertexGui, vertex);
-        paintArea.getChildren().addAll(vertexGui.getNodes());
-    }
-    private void createEdge(Edge edge){
-        EdgeGui edgeGui = new EdgeGui(edge, edgeClick);
-        edgeGuiBiMap.put(edgeGui, edge);
-        paintArea.getChildren().addAll(0, edgeGui.getNodes());
-    }
-
-     /**
      * Returns the stage of the MainWindow.
      * 
      * @return current stage

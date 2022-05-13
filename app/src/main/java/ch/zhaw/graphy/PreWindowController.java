@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -18,15 +16,6 @@ import javafx.stage.Stage;
  */
 public class PreWindowController {
     Stage stage;
-
-    @FXML
-    private Button drawGraph;
-
-    @FXML
-    private Button providedGraph;
-
-    @FXML
-    private MenuItem showHelp;
 
     /**
      * Constructor for PreWindowController. Fills in the scene. Sets up, configures
