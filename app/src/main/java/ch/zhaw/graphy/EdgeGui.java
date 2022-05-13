@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class EdgeGui {
     private record ArrowInfo(int x, int y, int xEnd, int yEnd){}
-    public static final Color STD_EDGE_COLOR = Color.BLACK;
+    public static final Color STD_EDGE_COLOR = Color.LIGHTGRAY;
     public static final Color STD_EDGE_SELECTED_COLOR = Color.AQUA;
     private static final int CURVE_WIDTH = 3;
     private EdgeClickEvent onEdgeClick;
@@ -60,11 +60,13 @@ public class EdgeGui {
         arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
         arrowline1.setStrokeWidth(CURVE_WIDTH);
         arrowline2.setStrokeWidth(CURVE_WIDTH);
+        arrowline1.setStroke(STD_EDGE_COLOR);
+        arrowline2.setStroke(STD_EDGE_COLOR);
         arrowline1.setPickOnBounds(false);
         arrowline2.setPickOnBounds(false);
 
         name = new Label(String.valueOf(edge.getWeight()));
-        name.setTextFill(STD_EDGE_COLOR);
+        name.setTextFill(Color.BLACK);
         name.setFont(new Font("Arial" ,16));
         name.relocate(curve1.x(), curve1.y());
     }
@@ -78,6 +80,13 @@ public class EdgeGui {
         arrowline1.setStroke(color);
         arrowline2.setStroke(color);
         name.setTextFill(color);
+    }
+
+    public void setStdEdgeColor(){
+        curve.setStroke(STD_EDGE_COLOR);
+        arrowline1.setStroke(STD_EDGE_COLOR);
+        arrowline2.setStroke(STD_EDGE_COLOR);
+        name.setTextFill(Color.BLACK);
     }
 
     /**

@@ -213,7 +213,7 @@ public class MainWindowController {
         algorithmSelectionMenu.setText("BFS");
         if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
-            feedBackLabel.setText("No source vertex has been selected");
+            feedBackLabel.setText("Select 1 vertex for BFS");
             return;
         }
 
@@ -267,7 +267,7 @@ public class MainWindowController {
     void executeSpanningTree(ActionEvent event) {
         if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
-            feedBackLabel.setText("No source vertex has been selected");
+            feedBackLabel.setText("Select 1 vertex for MST");
             return;
         }
         algorithmSelectionMenu.setText("Spanning Tree");
@@ -440,6 +440,11 @@ public class MainWindowController {
             edgeGui.setColor(color);
         }
     }
+    private void setEdgeColorStd(){
+        for (EdgeGui edgeGui : edgeGuiBiMap.keySet()){
+            edgeGui.setStdEdgeColor();
+        }
+    }
 
     /**
      * Changes the color of all vertices.
@@ -497,7 +502,7 @@ public class MainWindowController {
         @Override
         public void onClearSelectedVertex() {
             changeVertexColor(VertexGui.STD_VERTEX_COLOR);
-            changeEdgeColor(EdgeGui.STD_EDGE_COLOR);
+            setEdgeColorStd();
         }
 
         @Override
@@ -512,7 +517,7 @@ public class MainWindowController {
 
         @Override
         public void onClearSelectedEdge() {
-            changeEdgeColor(EdgeGui.STD_EDGE_COLOR);
+            setEdgeColorStd();
         }
 
         @Override
