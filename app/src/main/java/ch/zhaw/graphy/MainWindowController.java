@@ -570,7 +570,7 @@ public class MainWindowController {
 
 
 
-    record ArrowInfo (int x, int y, int xEnd, int yEnd){
+    private record ArrowInfo (int x, int y, int xEnd, int yEnd){
 
     }
 
