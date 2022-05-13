@@ -7,10 +7,7 @@ import ch.zhaw.graphy.Graph.Edge;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
@@ -209,13 +206,14 @@ public class MainWindowController {
     /**
      * Executes the bfs algorithm on the graph from the selected start vertex.
      * 
-     * @param event
+     * @param event on BFS button press
      */
     @FXML
     void executeBfs(ActionEvent event) {
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("No source vertex has been selected");
+            return;
         }
         algorithmSelectionMenu.setText("BFS");
         if (!model.hasSelectedVertex()) {
@@ -231,6 +229,7 @@ public class MainWindowController {
                 }
             }
         }
+        model.getSelectedVertex().clear();
         vertexGuiBiMap.inverse().get(model.getSelectedVertex().get(0)).setColor(Color.PURPLE);
         feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
@@ -238,29 +237,23 @@ public class MainWindowController {
     /**
      * Executes the dijkstra algorithm on the graph from the selected start vertex.
      * 
-     * @param event
+     * @param event on dijkstra button press
      */
     @FXML
     void executeDijkstra(ActionEvent event) {
         int weightCounter =0;
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 2){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("Select 2 vertices for dijkstra");
+            return;
         }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
 
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
-        for (Vertex vertex : path.keySet()){
-            vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
-            for (Edge edge : edgeGuiBiMap.inverse().keySet()){
-                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
-                    changeEdgeColor(edge, Color.GREEN);
-                    weightCounter+=edge.getWeight();
-                }
-            }
-        }
+        weightCounter = changePathColor(weightCounter, path);
+        model.getSelectedVertex().clear();
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
         }
 
@@ -270,17 +263,25 @@ public class MainWindowController {
      * Executes the spanning tree algorithm on the graph from the selected start
      * vertex.
      * 
-     * @param event
+     * @param event on MST button press
      */
     @FXML
     void executeSpanningTree(ActionEvent event) {
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("No source vertex has been selected");
+            return;
         }
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
-        Set<Edge> chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
+        Set<Edge> chosenEdges = new HashSet<>();
+        try {
+            chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
+        }catch (IllegalArgumentException e){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("The graph isn't connected to the source");
+            return;
+        }
         for (Edge mstEdge : chosenEdges){
             for (Edge lineEdge : edgeGuiBiMap.inverse().keySet()){
                 if (mstEdge.equals(lineEdge)){
@@ -288,7 +289,55 @@ public class MainWindowController {
                 }
             }
         }
+        model.getSelectedVertex().clear();
         feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
+    }
+
+    /**
+     * Uses dijkstra twice to get from a source vertex (first in {model.getSelectedVertex})
+     * to a destination vertex (third in {model.getSelectedVertex}) via
+     *  a pass through vertex (second in {model.getSelectedVertex})
+     *
+     * @param event on dijkstraVia button press
+     */
+    @FXML
+    void executeDijkstraVia(ActionEvent event){
+        int weightCounter =0;
+        if (model.getSelectedVertex().size() != 3){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("Select 3 vertices for dijkstra-Via");
+            return;
+        }
+        algorithmSelectionMenu.setText("Dijkstra");
+        Dijkstra dijkstra = new Dijkstra();
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
+
+        weightCounter = changePathColor(weightCounter, path);
+        path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(1), model.getSelectedVertex().get(2));
+
+        weightCounter = changePathColor(weightCounter, path);
+        changeVertexColor(model.getSelectedVertex().get(1), Color. GREY);
+        feedBackLabel.setText("Minimum path cost is: " + weightCounter);
+    }
+
+    /**
+     * Helper method for the dijkstra buttons to reduce code multiplication
+     *
+     * @param weightCounter a counter the accumulated weights
+     * @param path a map created by a dijkstra
+     * @return this int is the new weight counter in the buttons
+     */
+    private int changePathColor(int weightCounter, Map<Vertex, Vertex> path) {
+        for (Vertex vertex : path.keySet()){
+            vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
+            for (Edge edge : edgeGuiBiMap.inverse().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                    weightCounter+=edge.getWeight();
+                }
+            }
+        }
+        return weightCounter;
     }
 
     /**
