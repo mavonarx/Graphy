@@ -52,6 +52,8 @@ public class MainWindowController {
     private static final Color stdLineColor = Color.LIGHTGRAY;
     private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
 
+    private static final int VERTEX_SIZE = 12;
+
     @FXML
     private Pane paintArea;
     @FXML
@@ -154,7 +156,6 @@ public class MainWindowController {
                 }
             }
         });
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -242,6 +243,7 @@ public class MainWindowController {
 
     @FXML
     void executeDijkstra(ActionEvent event) {
+        int weightCounter =0;
         if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("Select 2 vertices for dijkstra");
@@ -251,19 +253,19 @@ public class MainWindowController {
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
 
 
-        for (int i =0; i<path.keySet().size();i++){
-            for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
-                if (vertex.equals(path.get(i))){
-                    changeVertexColor(vertex, Color.ORANGE);
+        for (Vertex vertex : path.keySet()){
+            guiVertexMap.getCircleVertexList().inverse().get(vertex).setFill(Color.ORANGE);
+            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                    weightCounter+=edge.getWeight();
                 }
             }
-            for (Edge lineEdge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-                if (lineEdge.getStart().equals(path.get(i)) && lineEdge.getEnd().equals(path.get(i+1)));
-                changeEdgeColor(lineEdge, Color.GREEN);
-            }
         }
-        feedBackLabel.setText("Minimum weight is: ");
-    }
+        feedBackLabel.setText("Minimum path cost is: " + weightCounter);
+        }
+
+
 
     @FXML
     void executeSpanningTree(ActionEvent event) {
@@ -532,7 +534,6 @@ public class MainWindowController {
         Vertex newVertex = new Vertex(name, position);
         model.addDisplayVertex(newVertex);
     }
-    private static final int VERTEX_SIZE = 10;
 
     private void drawVertex(Vertex vertex){
         Circle circle = new Circle(VERTEX_SIZE, stdVertexColor);
