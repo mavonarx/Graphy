@@ -14,21 +14,33 @@ import ch.zhaw.graphy.Graph.Vertex;
  */
 public class MinimumSpanningTree extends Algorithm{
 
+    /**
+     * The constructor for a mst (extending Algorithm superClass)
+     * @param bfs a {@link BreadthFirstSearch} most of the time uses a new object
+     */
     public MinimumSpanningTree(BreadthFirstSearch bfs){
         super(bfs);
     }
 
-    public Set<Edge> executeMST(GraphHandler graph, Vertex start){
-        //Use BFS to make sure the graph is fully connected
+    /**
+     * Executes a MSt algorithm (prim). This looks for a collection of edges which connect all vertices and
+     * with the lowest collective path cost
+     *
+     * @param graph a graphHandler containing a graph map
+     * @param source a vertex from which you would like the mst to start
+     * @return the set of edges connecting all vertices
+     */
+    public Set<Edge> executeMST(GraphHandler graph, Vertex source){
 
-        checkIfConnected(graph, start);
+        //Use BFS to make sure the graph is fully connected e.g. if all vertices are reachable from the given source
+        checkIfConnected(graph, source);
 
         Set<Vertex> visited= new HashSet<>();
         Set<Edge> chosenEdges = new HashSet<>();
-        visited.add(start);
+        visited.add(source);
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
 
-        priorityQueue.addAll(graph.getGraph().get(start));
+        priorityQueue.addAll(graph.getGraph().get(source));
 
         while (visited.size()< graph.getGraph().size()){
             Edge current = priorityQueue.poll();
@@ -44,6 +56,5 @@ public class MinimumSpanningTree extends Algorithm{
             }
         }
         return chosenEdges;
-
     }
 }
