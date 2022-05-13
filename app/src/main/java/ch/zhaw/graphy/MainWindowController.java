@@ -8,6 +8,7 @@ import ch.zhaw.graphy.Graph.Edge;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
@@ -132,6 +133,7 @@ public class MainWindowController {
                 drawEdge(edge);
             }
         }
+        numberOfDrawnUnnamedVertex = handler.getGraph().size();
     }
 
     @FXML
@@ -152,7 +154,6 @@ public class MainWindowController {
                 }
             }
         });
-        fileName.setText("Enter a filename here");
     }
 
     @FXML
@@ -238,8 +239,10 @@ public class MainWindowController {
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
-        for (int i =0; i<path.size()-1;i++){
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+
+
+        for (int i =0; i<path.keySet().size();i++){
             for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
@@ -292,6 +295,7 @@ public class MainWindowController {
     
     @FXML
     void backToStart(ActionEvent event) {
+        clearAll(event);
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
@@ -406,6 +410,7 @@ public class MainWindowController {
         @Override
         public void handle(MouseEvent event) {
             model.clearDisplayVertex();
+            numberOfDrawnUnnamedVertex=0;
         }
     };
 
@@ -533,8 +538,8 @@ public class MainWindowController {
         int xEnd = edge.getEnd().getX();
         int yStart = edge.getStart().getY();
         int yEnd = edge.getEnd().getY();
-        Point pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
-        Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
+        ArrowInfo pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
+        ArrowInfo pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
 
 
         Point curve1 = findCurve(xStart,xEnd,yStart,yEnd);
@@ -544,8 +549,8 @@ public class MainWindowController {
         curve.setStroke(stdLineColor);
         curve.setOnMouseClicked(edgeClick);
         //Line line = new Line(xStart, yStart,xEnd, yEnd);
-        Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
-        Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
+        Line arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
+        Line arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
         arrowline1.setStrokeWidth(2);
         arrowline2.setStrokeWidth(2);
         arrowline1.setFill(stdLineColor);
@@ -566,9 +571,13 @@ public class MainWindowController {
 
 
 
+    private record ArrowInfo (int x, int y, int xEnd, int yEnd){
+
+    }
 
     private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
-        final int CURVE_ROUNDING = 30;
+        final double CURVE_ROUNDING = 30.0/200;
+        final double MAXFACTOR = 200;
         int x = xEnd-xStart;
         int y = yEnd-yStart;
         double twoNorm =  Math.sqrt(x*x + y*y);
@@ -579,19 +588,25 @@ public class MainWindowController {
         int halfy = yStart+(yEnd-yStart)/2;
 
 
-        x = (int )(halfx-CURVE_ROUNDING*yNorm);
-        y = (int)(halfy +CURVE_ROUNDING*xNorm);
+        double factor = Math.min(twoNorm, MAXFACTOR);
+
+        x = (int )(halfx-CURVE_ROUNDING*yNorm*factor);
+        y = (int)(halfy +CURVE_ROUNDING*xNorm*factor);
         return new Point(x,y);
     }
 
 
 
-    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
+    private ArrowInfo findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
         int x = xEnd-xStart;
         int y = yEnd-yStart;
         double twoNorm =  Math.sqrt(x*x + y*y);
         double xNorm = x/twoNorm;
         double yNorm = y/twoNorm;
+        final int ANGEL_GRAD = -12;
+        final double ANGEL_RAD = ANGEL_GRAD*Math.PI/180;
+        xNorm = xNorm*Math.cos(ANGEL_RAD)-yNorm*Math.sin(ANGEL_RAD);
+        yNorm = yNorm*Math.cos(ANGEL_RAD)+xNorm*Math.sin(ANGEL_RAD);
 
         if (up){
             x = (int )(xEnd -2*VERTEX_SIZE*xNorm +VERTEX_SIZE*yNorm);
@@ -601,7 +616,7 @@ public class MainWindowController {
             x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
             y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
         }
-        return new Point(x,y);
+        return new ArrowInfo(x,y,(int)(xEnd-VERTEX_SIZE*xNorm),(int)(yEnd-VERTEX_SIZE*yNorm));
     }
 
 
