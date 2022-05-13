@@ -7,6 +7,8 @@ import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 /**
+ * Represents the Spanning Tree algorithm.
+ * 
  * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
  * @version 13.05.2022
  */

@@ -12,6 +12,10 @@ public abstract class Algorithm {
 
     BreadthFirstSearch bfs;
 
+    /**
+     * Constructor for algorithm.
+     * @param bfs given bfs algorithm
+     */
     public Algorithm(BreadthFirstSearch bfs){
         this.bfs = bfs;
     }

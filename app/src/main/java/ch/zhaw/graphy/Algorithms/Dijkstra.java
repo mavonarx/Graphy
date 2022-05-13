@@ -7,6 +7,9 @@ import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 /**
+ * Represents the Dijkstra algorithm. The Dijkstra shows the
+ * shortest path on a weighted graph from a start to an end point.
+ * 
  * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
  * @version 13.05.2022
  */
