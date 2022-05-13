@@ -104,4 +104,4 @@ if more than one are working on the same issue they use the same GitHub issue.
 
 ## Classdiagramm
 
-Here is a link to the class diagram [Class-diagram](C:\Users\Nicolas\Documents\GitHub\Team6-The_Bacon_magicians-Projekt2-Graphy\Class-Diagramm.png)
+Here is a link to the class diagram [Class-diagram](Class-Diagramm.png)
