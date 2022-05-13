@@ -21,7 +21,7 @@
                <menus>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
-                        <MenuItem fx:id="showHelp" mnemonicParsing="false" onAction="#showHelp" text="Show Help">
+                        <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Show Help">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
                            </accelerator>
@@ -66,7 +66,7 @@
             </Label>
             <HBox alignment="TOP_CENTER" prefHeight="34.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="providedGraph" mnemonicParsing="false" onAction="#providedGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Provided graph">
+                  <Button mnemonicParsing="false" onAction="#providedGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Provided graph">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -74,7 +74,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="drawGraph" mnemonicParsing="false" onAction="#drawOwnGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Draw own graph">
+                  <Button mnemonicParsing="false" onAction="#drawOwnGraph" prefHeight="40.0" prefWidth="130.0" stylesheets="@buttons.css" text="Draw own graph">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
