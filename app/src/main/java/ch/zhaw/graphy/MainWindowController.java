@@ -229,6 +229,7 @@ public class MainWindowController {
         }
         model.getSelectedVertex().clear();
         vertexGuiBiMap.inverse().get(model.getSelectedVertex().get(0)).setColor(Color.PURPLE);
+        feedBackLabel.setStyle("-fx-text-fill: black");
         feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
 
@@ -252,6 +253,7 @@ public class MainWindowController {
 
         weightCounter = changePathColor(weightCounter, path);
         model.getSelectedVertex().clear();
+        feedBackLabel.setStyle("-fx-text-fill: black");
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
         }
 
@@ -288,6 +290,7 @@ public class MainWindowController {
             }
         }
         model.getSelectedVertex().clear();
+        feedBackLabel.setStyle("-fx-text-fill: black");
         feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
     }
 
