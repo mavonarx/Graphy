@@ -33,7 +33,8 @@ import javafx.stage.Stage;
 public class MainWindowController {
 
     GraphHandler handler;
-    OwnBiMap guiVertexMap = new OwnBiMap();
+    private BiMap<EdgeGui, Edge> edgeGuiBiMap = HashBiMap.create();
+    private BiMap<VertexGui, Vertex> vertexGuiBiMap = HashBiMap.create();
     private Stage stage;
     private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
@@ -205,7 +206,7 @@ public class MainWindowController {
                 }
             }
         }
-        guiVertexMap.getCircleVertexList().inverse().get(model.selectedVertex.get(0)).setFill(Color.PURPLE);
+        vertexGuiBiMap.inverse().get(model.getSelectedVertex().get(0)).setColor(Color.PURPLE);
         feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
 
@@ -221,8 +222,8 @@ public class MainWindowController {
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
         for (Vertex vertex : path.keySet()){
-            guiVertexMap.getCircleVertexList().inverse().get(vertex).setFill(Color.ORANGE);
-            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
+            vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
+            for (Edge edge : edgeGuiBiMap.inverse().keySet()){
                 if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
                     changeEdgeColor(edge, Color.GREEN);
                     weightCounter+=edge.getWeight();
@@ -523,8 +524,5 @@ public class MainWindowController {
     public Stage getStage(){
         return stage;
     }
-
-    private BiMap<EdgeGui, Edge> edgeGuiBiMap = HashBiMap.create();
-    private BiMap<VertexGui, Vertex> vertexGuiBiMap = HashBiMap.create();
 }
 
