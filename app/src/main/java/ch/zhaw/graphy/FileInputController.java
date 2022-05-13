@@ -32,12 +32,6 @@ public class FileInputController {
     private static final String PROMPT = "Drag a graph file below";
 
     @FXML
-    private Button close;
-
-    @FXML
-    private Button goBack;
-
-    @FXML
     private Button launch;
 
     @FXML
@@ -106,8 +100,9 @@ public class FileInputController {
         }
         textArea.setText("The chosen file is: \n" + files.get(0).getPath());
         launchFile = files.get(0);
+
         try {
-            new GraphHandler(launchFile);
+            new GraphHandler(null, launchFile);
         } catch (IOException e) {
             textArea.setText(e.getMessage());
             launch.setDisable(true);
