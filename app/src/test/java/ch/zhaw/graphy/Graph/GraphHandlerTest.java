@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphHandlerTest {
 
-    GraphHandler handler = new GraphHandler();
+    GraphHandler handler = new GraphHandler(null);
 
     @Mock
     private Vertex mockVertex1;
