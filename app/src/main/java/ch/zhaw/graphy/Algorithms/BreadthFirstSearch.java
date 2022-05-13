@@ -18,7 +18,7 @@ public class BreadthFirstSearch {
         // Mark all the vertices as not visited(By default set as false)
         Set<Vertex> visited = new HashSet<>();
         Map<Vertex, Integer> distances = new HashMap<>();
-        Map<Vertex,Vertex> predecessor = new HashMap<>(); //TODO remove or use for visualisation!
+        Map<Vertex,Vertex> predecessor = new HashMap<>();
 
         for (Vertex v : graph.getGraph().keySet()){
             distances.put(v,-1);

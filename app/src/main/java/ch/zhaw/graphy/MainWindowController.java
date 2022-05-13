@@ -33,15 +33,16 @@ import javafx.stage.Stage;
 public class MainWindowController {
 
     GraphHandler handler;
-
+    OwnBiMap guiVertexMap = new OwnBiMap();
     private Stage stage;
     private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
-
     private Color stdVertexColor = Color.RED;
     private static final Color stdVertexSelectedColor = Color.BLUE;
     private static final Color stdLineColor = Color.LIGHTGRAY;
     private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
+
+    private static final int VERTEX_SIZE = 12;
 
     @FXML
     private Pane paintArea;
@@ -77,7 +78,6 @@ public class MainWindowController {
     private TextField vertexName;
     @FXML
     private CheckBox bidirectional;
-
     @FXML
     private CheckBox selectMode;
 
@@ -148,20 +148,7 @@ public class MainWindowController {
         });
     }
 
-    @FXML
-    void addEdge(ActionEvent event) {
 
-    }
-
-    @FXML
-    void addEdgeWeight(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addVertexName(ActionEvent event) {
-
-    }
     @FXML
     void colorize(ActionEvent event) {
         int min = 0;
@@ -200,6 +187,10 @@ public class MainWindowController {
 
     @FXML
     void executeBfs(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("No source vertex has been selected");
+        }
         algorithmSelectionMenu.setText("BFS");
         if (!model.hasSelectedVertex()) {
             throw new IllegalArgumentException("Pls select a vertex to start from");
@@ -214,32 +205,41 @@ public class MainWindowController {
                 }
             }
         }
-
-        vertexGuiBiMap.inverse().get(model.getSelectedVertex().get(0)).setColor(Color.PURPLE);
+        guiVertexMap.getCircleVertexList().inverse().get(model.selectedVertex.get(0)).setFill(Color.PURPLE);
+        feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
 
     @FXML
     void executeDijkstra(ActionEvent event) {
+        int weightCounter =0;
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("Select 2 vertices for dijkstra");
+        }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
-
-        for (int i =0; i<path.keySet().size();i++){
-            for (Vertex vertex : vertexGuiBiMap.inverse().keySet()){
-                if (vertex.equals(path.get(i))){
-                    changeVertexColor(vertex, Color.ORANGE);
+        for (Vertex vertex : path.keySet()){
+            guiVertexMap.getCircleVertexList().inverse().get(vertex).setFill(Color.ORANGE);
+            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                    weightCounter+=edge.getWeight();
                 }
             }
-            for (Edge lineEdge : edgeGuiBiMap.inverse().keySet()){
-                if (lineEdge.getStart().equals(path.get(i)) && lineEdge.getEnd().equals(path.get(i+1)));
-                changeEdgeColor(lineEdge, Color.GREEN);
-            }
         }
-    }
+        feedBackLabel.setText("Minimum path cost is: " + weightCounter);
+        }
+
+
 
     @FXML
     void executeSpanningTree(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("No source vertex has been selected");
+        }
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
         Set<Edge> chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
@@ -250,6 +250,7 @@ public class MainWindowController {
                 }
             }
         }
+        feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
     }
 
     @FXML
@@ -286,6 +287,10 @@ public class MainWindowController {
 
     @FXML
     void remove(ActionEvent event) {
+        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+            feedBackLabel.setStyle("-fx-text-fill: blue");
+            feedBackLabel.setText("No vertex or Edge has been selected");
+        }
         //first we remove the selected edges from the paint area and from the LineEdgeMap
         for (Edge modelEdge : model.getSelectedEdge()){
 
@@ -362,6 +367,7 @@ public class MainWindowController {
         @Override
         public void onClearSelectedVertex() {
             changeVertexColor(stdVertexColor);
+            changeEdgeColor(Color.BLACK);
         }
 
         @Override
@@ -512,8 +518,8 @@ public class MainWindowController {
         EdgeGui edgeGui = new EdgeGui(edge, edgeClick);
         edgeGuiBiMap.put(edgeGui, edge);
         paintArea.getChildren().addAll(0, edgeGui.getNodes());
-
     }
+
     public Stage getStage(){
         return stage;
     }
