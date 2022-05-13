@@ -111,6 +111,14 @@ public class EdgeGui {
         return this;
     }
 
+    /**
+     * Calculates a point in the middle of the two vertices where the line should curve to.
+     * @param xStart x-coordinate of start point
+     * @param xEnd x-coordinate of the end Point
+     * @param yStart y-coordinate of the start point
+     * @param yEnd y-coordinate of the end point
+     * @return a point representing the curving point
+     */
     private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
         final double CURVE_ROUNDING = 30.0/200;
         final double MAXFACTOR = 200;
@@ -131,6 +139,17 @@ public class EdgeGui {
         return new Point(x,y);
     }
 
+    /**
+     * Method to calculate an arrow leg of an edge. Because an edge is slightly curved -
+     * the arrow legs are rotated correspondingly
+     * @param xStart x-coordinate of start point
+     * @param xEnd x-coordinate of end point
+     * @param yStart y-coordinate of end point
+     * @param yEnd y-coorinate of end point
+     * @param up boolean if the leg is the upper or lower leg.
+     * @return returns {@ArrowInfo} which is a quadruple of int values representing 2 points start and endpoint of the
+     * arrow leg.
+     */
     private ArrowInfo findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
         int vertexSize = VertexGui.VERTEX_SIZE;
         int x = xEnd-xStart;
