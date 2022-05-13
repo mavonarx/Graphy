@@ -26,14 +26,21 @@ public class Vertex implements GraphObject {
         this.position = position;
     }
 
+    /**
+     * New equals. A vertex is equal if the position is equal
+     *
+     * @param other another object (preferably a vertex)
+     * @return's a boolean true if the other object is a non-null vertex
+     * and the position of the other vertex is the same
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
+    public boolean equals(Object other) {
+        if (this == other)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (other == null || getClass() != other.getClass())
             return false;
 
-        Vertex vertex = (Vertex) o;
+        Vertex vertex = (Vertex) other;
 
         return position.equals(vertex.position);
     }

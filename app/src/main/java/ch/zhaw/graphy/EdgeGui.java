@@ -33,6 +33,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Constructor for EdgeGui
+     *
      * @param edge that will be represented by the EdgeGui
      * @param event clickEvent that is triggered when the EdgeGui object gets clicked
      */
@@ -74,6 +75,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Sets the color of the EdgeGui object
+     *
      * @param color to set.
      */
     public void setColor(Color color){
@@ -105,6 +107,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Returns if this object is colored
+     *
      * @return true if this object is not colored in standart color.
      */
     @Override
@@ -114,6 +117,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Gets the nodes of an EdgeGui object.
+     *
      * @return all nodes that graphically represents an Edge
      */
     public List<Node> getNodes(){
@@ -128,6 +132,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Gets an Instance of the current EdgeGui
+     *
      * @return this instance
      */
     private EdgeGui getMe(){
@@ -136,6 +141,7 @@ public class EdgeGui implements GraphGuiObject {
 
     /**
      * Calculates a point in the middle of the two vertices where the line should curve to.
+     *
      * @param xStart x-coordinate of start point
      * @param xEnd x-coordinate of the end Point
      * @param yStart y-coordinate of the start point
@@ -165,6 +171,7 @@ public class EdgeGui implements GraphGuiObject {
     /**
      * Method to calculate an arrow leg of an edge. Because an edge is slightly curved -
      * the arrow legs are rotated correspondingly
+     *
      * @param xStart x-coordinate of start point
      * @param xEnd x-coordinate of end point
      * @param yStart y-coordinate of end point

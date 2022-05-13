@@ -41,6 +41,7 @@ public class PreWindowController {
 
     /**
      * If the user wants to draw a graph on his own, this method opens the MainWindow and closes the PreWindow.
+     *
      * @param event
      */
     @FXML
@@ -53,6 +54,7 @@ public class PreWindowController {
 
     /**
      * If the user wants to provide a graph from a file, this method opens the FileInput-Window and closes the PreWindow.
+     *
      * @param event
      */
     @FXML
@@ -63,7 +65,8 @@ public class PreWindowController {
     }
 
     /**
-     * Opens HelpWindow and shows helping informations.
+     * Opens HelpWindow and shows helping information.
+     *
      * @param event
      */
     @FXML
@@ -74,6 +77,7 @@ public class PreWindowController {
 
     /**
      * Returns the stage of the PreWindow.
+     *
      * @return current stage
      */
     public Stage getStage() {

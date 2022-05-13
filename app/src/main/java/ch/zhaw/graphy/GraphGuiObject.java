@@ -6,6 +6,7 @@ package ch.zhaw.graphy;
 public interface GraphGuiObject {
     /**
      * Returns if this object is colored
+     *
      * @return true if this object is not colored in standart color.
      */
     boolean isColored();

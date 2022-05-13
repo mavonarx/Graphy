@@ -19,6 +19,7 @@ public class Edge implements Comparable<Edge>, GraphObject {
 
     /**
      * Constructor for an edge.
+     *
      * @param start the start vertex
      * @param end the end vertex
      * @param weight the weight of the edge
@@ -36,6 +37,7 @@ public class Edge implements Comparable<Edge>, GraphObject {
 
     /**
      * constructor for edge with the default edge weight.
+     *
      * @param start start vertex
      * @param end end vertex
      */
@@ -44,6 +46,7 @@ public class Edge implements Comparable<Edge>, GraphObject {
     }
 
     /**
+     * Compares 2 edges by their weight
      *
      * @param other the object to be compared.
      * @return >0 if this edge-weight is bigger than the other edge-weight, 0 if equal weights,
@@ -56,6 +59,7 @@ public class Edge implements Comparable<Edge>, GraphObject {
 
     /**
      * equal iff the positions are equal.
+     *
      * @param o
      * @return
      */
@@ -68,8 +72,9 @@ public class Edge implements Comparable<Edge>, GraphObject {
     }
 
     /**
-     * genereated hashcode
-     * @return
+     * generated hashcode
+     *
+     * @return a new hashcode int
      */
     @Override
     public int hashCode() {
