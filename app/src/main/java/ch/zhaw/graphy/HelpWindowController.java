@@ -72,7 +72,7 @@ public class HelpWindowController {
             textArea.setText("You can choose between the two following options:" + System.lineSeparator()
                     + System.lineSeparator()
                     + "Provided Graph:" + System.lineSeparator()
-                    + "You have to provide a graph file. Then the graph will be created using this file."
+                    + "You have to provide a CSV-File. Then the graph will be created using this file."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Draw own Graph:" + System.lineSeparator()
                     + "You can draw your own graph in the following window."
@@ -80,39 +80,47 @@ public class HelpWindowController {
                     + "The help button in the following window has more informations about how the tool exactly works.");
         } else {
             textArea.setText("If you provided the graph from a CSV-File, the graph is shown." + System.lineSeparator()
-                    + "Otherwise you can now create the graph by hand. A mouseclick adds a vertex."
+                    + "Otherwise you can now create the graph by hand. A mouseclick adds a vertex." + System.lineSeparator() 
+                    + "If you want to name the vertex you can write the name into the text field 'Vertex name' before you create the vertex with a mouse click." + System.lineSeparator() 
+                    + "As soon as you select two vertices an edge will be drawn between them. The drawn edge has a random weight." + System.lineSeparator()
+                    + "If you want to add an own weight, you can fill in the number into the text field 'Edge Weight' before you select the two vertices." + System.lineSeparator()
+                    + "There are two check boxes. If you select 'Bidirectional' the edge will be drawn in both directions, not only one." + System.lineSeparator()
+                    + "If you select 'Select mode' you can't draw any edges and vertices, only select them."
                     + System.lineSeparator()
-                    + "With the described functions below you can customise the graph as you like. "
-                    + System.lineSeparator() + "As soon as the graph is complete you can execute different alogrithms."
-                    + System.lineSeparator() + "All functions are described below." + System.lineSeparator()
-                    + System.lineSeparator() + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "Add edge:" + System.lineSeparator()
-                    + "Adds an edge between the two selected vertices."
+                    + "As soon as the graph is complete you can execute different alogrithms."
+                    + System.lineSeparator() + "With the buttons you can customise the graph as you like. All functions of the buttons are described below."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Clear all:" + System.lineSeparator()
                     + "Removes the whole graph."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Remove:" + System.lineSeparator()
-                    + "Removes only the vertices that are selected"
+                    + "Removes only the vertices and edges that are selected."
                     + System.lineSeparator() + System.lineSeparator()
-                    + "Change color:" + System.lineSeparator()
-                    + "Changes the color of the selected edges."
+                    + "Colorize:" + System.lineSeparator()
+                    + "Colorizes all edges from red(large weight) to green(small weight) depending on the weight."
+                    + System.lineSeparator() + System.lineSeparator() + System.lineSeparator() 
+                    + "Select alogrithm: You can select one of the following algorithms." + System.lineSeparator()
+                    + System.lineSeparator()
+                    + "Dijkstra:" + System.lineSeparator()
+                    + "Illustrates the shortest path for weighted graphs from the start vertex (the first selected vertex) to the end vertex (the second select vertex)."
                     + System.lineSeparator() + System.lineSeparator()
-                    + "Select alogrithm:" + System.lineSeparator()
-                    + "You can selected one of the following algorithms." + System.lineSeparator()
-                    + System.lineSeparator()
-                    + "Dijkstra: Illustrates the shortest path for weighted graphs from the selected start vertex to the selected end vertex."
-                    + System.lineSeparator()
-                    + "BFS: Illustrates the shortest path for unweighted graphs from the selected start vertex to the selected end vertex."
-                    + System.lineSeparator()
-                    + "Spanning Tree: Illustrates the minimum spanning tree over the graph."
+                    + "BFS:" + System.lineSeparator()
+                    + "Illustrates the shortest path from the selected start vertex to all other vertices."
                     + System.lineSeparator() + System.lineSeparator()
-                    + "Print to CSV:" + System.lineSeparator()
-                    + "Export the displayed graph as a CSV-File."
+                    + "Spanning Tree:" + System.lineSeparator()
+                    + "Illustrates the minimum spanning tree over the graph."
+                    + System.lineSeparator() + System.lineSeparator()
+                    + "Dijkstra via:" + System.lineSeparator()
+                    + "Illustrates the shortest path for weighted graphs from the start vertex via a specific vertex to the end vertex."
+                    + System.lineSeparator() + System.lineSeparator() + System.lineSeparator() 
+                    + "Save as CSV:" + System.lineSeparator()
+                    + "Exports the displayed graph as a CSV-File into an output folder. In the textfield next to this button you can name the file."
+                    + System.lineSeparator() + System.lineSeparator()
+                    + "Back to start:" + System.lineSeparator()
+                    + "Closes this window and goes back to the start. The designed graph will be removed."
                     + System.lineSeparator() + System.lineSeparator()
                     + "Close:" + System.lineSeparator()
-                    + "Close the window and leave the tool."
+                    + "Closes the window and leaves the tool."
                     + System.lineSeparator() + System.lineSeparator());
         }
     }
