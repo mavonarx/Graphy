@@ -537,8 +537,8 @@ public class MainWindowController {
         int xEnd = edge.getEnd().getX();
         int yStart = edge.getStart().getY();
         int yEnd = edge.getEnd().getY();
-        Point pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
-        Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
+        ArrowInfo pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
+        ArrowInfo pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
 
 
         Point curve1 = findCurve(xStart,xEnd,yStart,yEnd);
@@ -548,8 +548,8 @@ public class MainWindowController {
         curve.setStroke(stdLineColor);
         curve.setOnMouseClicked(edgeClick);
         //Line line = new Line(xStart, yStart,xEnd, yEnd);
-        Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
-        Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
+        Line arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
+        Line arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
         arrowline1.setStrokeWidth(2);
         arrowline2.setStrokeWidth(2);
         arrowline1.setFill(stdLineColor);
@@ -570,6 +570,9 @@ public class MainWindowController {
 
 
 
+    record ArrowInfo (int x, int y, int xEnd, int yEnd){
+
+    }
 
     private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
         final double CURVE_ROUNDING = 30.0/200;
@@ -593,7 +596,7 @@ public class MainWindowController {
 
 
 
-    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
+    private ArrowInfo findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
         int x = xEnd-xStart;
         int y = yEnd-yStart;
         double twoNorm =  Math.sqrt(x*x + y*y);
@@ -612,7 +615,7 @@ public class MainWindowController {
             x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
             y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
         }
-        return new Point(x,y);
+        return new ArrowInfo(x,y,(int)(xEnd-VERTEX_SIZE*xNorm),(int)(yEnd-VERTEX_SIZE*yNorm));
     }
 
 
