@@ -113,6 +113,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
                       <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeDijkstraVia" text="Dijkstra-Via" />
                         <MenuItem mnemonicParsing="false" onAction="#executeSpanningTree" text="Spanning Tree" />
                     </items>
                      <font>
