@@ -40,8 +40,6 @@ public class MainWindowController {
     private Stage oldStage;
     private Color stdVertexColor = Color.RED;
     private static final Color stdVertexSelectedColor = Color.BLUE;
-    private static final Color stdLineColor = Color.LIGHTGRAY;
-    private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
 
     private static final int VERTEX_SIZE = 12;
 
@@ -343,7 +341,7 @@ public class MainWindowController {
         @Override
         public void onClearSelectedVertex() {
             changeVertexColor(stdVertexColor);
-            changeEdgeColor(EdgeGui.stdLineColor);
+            changeEdgeColor(EdgeGui.stdEdgeColor);
         }
 
         @Override
@@ -353,12 +351,12 @@ public class MainWindowController {
 
         @Override
         public void onSelectEdge(Edge changeEdge){
-            changeEdgeColor(changeEdge, stdLineSelectedColor);
+            changeEdgeColor(changeEdge, EdgeGui.stdLineSelectedColor);
         }
 
         @Override
         public void onClearSelectedEdge(){
-            changeEdgeColor(stdLineColor);
+            changeEdgeColor(EdgeGui.stdEdgeColor);
         }
 
         @Override

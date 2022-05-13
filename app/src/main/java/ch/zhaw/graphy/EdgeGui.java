@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdgeGui {
-    private static final Color stdLineColor = Color.LIGHTGRAY;
-    private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
-    private static final Color stdTextColor = Color.BLACK;
+    private record ArrowInfo(int x, int y, int xEnd, int yEnd){}
+    public static final Color stdEdgeColor = Color.BLACK;
+    public static final Color stdLineSelectedColor = Color.AQUA;
     private static final int curveWidth = 3;
     private static final int stdPadding = 5;
     private EdgeClickEvent onEdgeClick;
@@ -87,28 +87,30 @@ public class EdgeGui {
         curve = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
         curve.setFill(null);
         curve.setStrokeWidth(curveWidth);
-        curve.setStroke(stdLineColor);
+        curve.setStroke(stdEdgeColor);
 
         clickArea = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
         clickArea.setFill(null);
-        clickArea.setStrokeWidth(curveWidth + stdPadding);
+        clickArea.setStrokeWidth(curveWidth + VertexGui.VERTEX_SIZE);
         clickArea.setStroke(Color.TRANSPARENT);
         clickArea.setOnMouseClicked(curveClick);
 
         arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
         arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
-        arrowline1.setStrokeWidth(2);
-        arrowline2.setStrokeWidth(2);
+        arrowline1.setStrokeWidth(curveWidth);
+        arrowline2.setStrokeWidth(curveWidth);
         arrowline1.setPickOnBounds(false);
         arrowline2.setPickOnBounds(false);
 
         name = new Label(String.valueOf(edge.getWeight()));
-        name.setTextFill(stdTextColor);
+        name.setTextFill(stdEdgeColor);
         name.relocate(curve1.x(), curve1.y());
     }
 
     public void setColor(Color color){
         curve.setStroke(color);
+        arrowline1.setStroke(color);
+        arrowline2.setStroke(color);
         name.setTextFill(color);
     }
 
