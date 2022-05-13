@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public class VertexGui {
         name.setPrefWidth(100);
         name.setPrefHeight(20);
         name.setAlignment(Pos.CENTER);
+        name.setFont(new Font("Arial", 16));
         name.relocate(node.getCenterX() - (name.getPrefWidth() / 2), node.getCenterY() - (VERTEX_SIZE + name.getPrefHeight()));
     }
 

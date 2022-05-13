@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +105,7 @@ public class EdgeGui {
 
         name = new Label(String.valueOf(edge.getWeight()));
         name.setTextFill(stdEdgeColor);
+        name.setFont(new Font("Arial" ,16));
         name.relocate(curve1.x(), curve1.y());
     }
 
