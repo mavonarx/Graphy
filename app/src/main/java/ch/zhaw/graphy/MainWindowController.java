@@ -405,13 +405,6 @@ public class MainWindowController {
         }
     }
 
-    /**
-     * Clears all visual parts in the paint area.
-     */
-    private void clearPaintArea() {
-        paintArea.getChildren().removeAll();
-    }
-
         /**
      * Creates a new vertex at the given position.
      * @param position given position
