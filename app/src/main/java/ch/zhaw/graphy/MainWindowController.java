@@ -225,11 +225,11 @@ public class MainWindowController {
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
 
         for (int i =0; i<path.keySet().size();i++){
-            for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
+            for (Vertex vertex : vertexGuiBiMap.inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
                 }
@@ -476,7 +476,7 @@ public class MainWindowController {
                             }
                         }
                         break;
-                    default: model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
+                    default: model.addSelectedVertex(vertexGuiBiMap.get(vertexGui));
                 }
             }
     };
