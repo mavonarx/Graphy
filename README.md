@@ -77,13 +77,6 @@ filename in the text field next to the save button (optionally with or without .
 If no name is provided the default name is taken (graph.csv) .
 
 
-## Classdiagramm
-
-Here is a link to the class diagram [Class-diagram](C:\Users\Nicolas\Documents\GitHub\Team6-The_Bacon_magicians-Projekt2-Graphy\Class-Diagramm.png)
-
-
-
-
 ## Our work structure
 
 - From the beginning we all assigned us in the groups different tasks we would work on. 
@@ -92,15 +85,23 @@ For each problem we add an issue, a single task can solve/work on multiple issue
 - For our branching model: We create branches for any task that is more than a simple small addition.
 These branches are well documented, commented and maintained.
 - Directed commits to the main are ok if the commit is small and doesn't require an individual branch. 
-- The most important rule is that the main branch is always functional.
+- The most important rule is that the main branch is always functional. 
+- In GitHub we made 3 issue templates: documentation, feature and bug. We use these along the different labels
+to clarify our task-documentation.
+- When a pull request is created a different team member has to approve it, 
+- only then may the owner merge it into the main branch.
 
 ### Teamwork
 
 - We meet regularly every 2-4 day depending on how the days fit.
 - We keep in touch, discuss and solve problems, which we will encounter inevitably, together
-and work together towards a satisfying end product.
+and work towards a satisfying end product.
+- Everyone creates branches and issues for their tasks, 
+if more than one are working on the same issue they use the same GitHub issue.
 
 
 
-   
 
+## Classdiagramm
+
+Here is a link to the class diagram [Class-diagram](C:\Users\Nicolas\Documents\GitHub\Team6-The_Bacon_magicians-Projekt2-Graphy\Class-Diagramm.png)
