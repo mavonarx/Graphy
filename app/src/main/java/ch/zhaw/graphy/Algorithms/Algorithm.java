@@ -15,6 +15,7 @@ public abstract class Algorithm {
 
     /**
      * Constructor for algorithm.
+     *
      * @param bfs given bfs algorithm
      */
     public Algorithm(BreadthFirstSearch bfs){
@@ -23,13 +24,14 @@ public abstract class Algorithm {
 
     /**
      * Uses a BFS algorithm to check if the graph is connected from that source
-     * e.g if all vertices are reachable from the source
+     * e.g. if all vertices are reachable from the source
+     *
      * @param graph a graphHandler containing a graph map
      * @param source the vertex from which all other vertices should be reachable
      */
     void checkIfConnected(GraphHandler graph, Vertex source) {
 
-        if (bfs.executeBFS(graph, source).size() != graph.getGraph().size() - 1) { //TODO might run into problems when graph is only 1 Vertex
+        if (bfs.executeBFS(graph, source).size() != graph.getGraph().size() - 1) {
             throw new IllegalArgumentException("The graph for this source vertex isn't fully connected. " +
                     "MinimumSpanningTree can only be used on fully connected graphs");
         }

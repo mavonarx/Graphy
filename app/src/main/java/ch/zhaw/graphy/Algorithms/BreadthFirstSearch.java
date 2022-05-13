@@ -38,6 +38,7 @@ public class BreadthFirstSearch {
         // Create a queue for BFS
         Queue<Vertex> queue = new LinkedList<>();
         distances.put(source, 0);
+
         // Mark the current node as visited and enqueue it
         visited.add(source);
         queue.add(source);
