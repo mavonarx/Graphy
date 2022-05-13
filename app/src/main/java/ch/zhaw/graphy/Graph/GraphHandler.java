@@ -1,5 +1,6 @@
 package ch.zhaw.graphy.Graph;
 
+import ch.zhaw.graphy.MainWindowModel;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleMapProperty;
@@ -62,7 +63,10 @@ public class GraphHandler {
      * @throws IOException           if the file has not the correct format - the
      *                               messages displays more information
      */
-    public GraphHandler(File file) throws FileNotFoundException, IOException {
+    public GraphHandler(MainWindowModel model, File file) throws FileNotFoundException, IOException {
+        if(model != null){
+            model.registerListener(modelListener);
+        }
         LOGGER.fine("stared graphHandler constructor with file");
 
         // the .csv extension is required
@@ -93,7 +97,8 @@ public class GraphHandler {
     /**
      * constructor if no file is provided.
      */
-    public GraphHandler() {
+    public GraphHandler(MainWindowModel model) {
+        model.registerListener(modelListener);
     }
 
     /**
@@ -414,7 +419,61 @@ public class GraphHandler {
         return adjacentList;
     }
 
+    /**
+     * Returns the graph
+     * @return ObservableMap that represents the graph
+     */
     public ObservableMap<Vertex, SimpleSetProperty<Edge>> getGraph() {
         return graph.get();
     }
+
+    /**
+     * Listener that gets notifies when the model changes.
+     */
+    private MainWindowModel.MainWindowModelListener modelListener = new MainWindowModel.MainWindowModelListener() {
+        @Override
+        public void onAddVertex(Vertex newVertex) {
+            addVertex(newVertex);
+        }
+
+        @Override
+        public void onSelectVertex(Vertex selectedVertex) {
+
+        }
+
+        @Override
+        public void onClearVertex() {
+            getGraph().clear();
+        }
+
+        @Override
+        public void onClearSelectedVertex() {
+
+        }
+
+        @Override
+        public void onAddEdge(Edge newEdge) {
+            getGraph().get(newEdge.getStart()).add(newEdge);
+        }
+
+        @Override
+        public void onSelectEdge(Edge selectedEdge) {
+
+        }
+
+        @Override
+        public void onClearSelectedEdge() {
+
+        }
+
+        @Override
+        public void onRemoveSelectedVertex(List<Vertex> selectedVertex) {
+            getGraph().remove(selectedVertex);
+        }
+
+        @Override
+        public void onRemoveSelectedEdge(List<Edge> selectedEdges) {
+
+        }
+    };
 }

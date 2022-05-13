@@ -16,20 +16,11 @@ import java.util.List;
  */
 public class MainWindowModel {
 
-    private GraphHandler handler;
     private List<MainWindowModelListener> mainWindowModelListeners = new ArrayList<>();
     private List<Vertex> displayVertex = new ArrayList<>();
     private List<Vertex> selectedVertex = new ArrayList<>();
     private List<Edge> displayEdges = new ArrayList<>();
     private List<Edge> selectedEdge = new ArrayList<>();
-
-    /**
-     * Constructor for MainWindowModel. 
-     * @param handler given handler
-     */
-    public MainWindowModel(GraphHandler handler) {
-        this.handler = handler;
-    }
 
     /**
      * Verifies if the selected vertex isn't empty.
@@ -72,7 +63,7 @@ public class MainWindowModel {
      * @param edge to display.
      */
     public void addDisplayEdge(Edge edge){
-        handler.getGraph().get(edge.getStart()).add(edge);
+        //handler.getGraph().get(edge.getStart()).add(edge);
         displayEdges.add(edge);
         notifyOnAddEdge(edge);
     }
@@ -96,7 +87,7 @@ public class MainWindowModel {
      * @param vertex to display.
      */
     public void addDisplayVertex(Vertex vertex) {
-        handler.addVertex(vertex);
+        //handler.addVertex(vertex);
         displayVertex.add(vertex);
         notifyOnAddVertex(vertex);
     }
@@ -133,7 +124,7 @@ public class MainWindowModel {
      * Register a new listener on the model.
      * @param listener that will be notified.
      */
-    public void registerVertexListener(MainWindowModelListener listener) {
+    public void registerListener(MainWindowModelListener listener) {
         mainWindowModelListeners.add(listener);
     }
 
@@ -232,6 +223,7 @@ public class MainWindowModel {
         displayEdges.clear();
         selectedVertex.clear();
         selectedEdge.clear();
+        notifyOnClearVertex();
     }
 
     /**
@@ -253,7 +245,7 @@ public class MainWindowModel {
     /**
      * Listener that notifies about changes in the model.
      */
-    interface MainWindowModelListener {
+    public interface MainWindowModelListener {
         /**
          * Notifies about added Vertex
          * @param newVertex added Vertex
