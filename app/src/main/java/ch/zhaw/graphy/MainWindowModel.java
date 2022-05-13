@@ -11,6 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class models all the data which is needed for the communication between
+ * the GraphHandler and MainWindowController.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class MainWindowModel {
 
     private GraphHandler handler;
@@ -20,12 +27,27 @@ public class MainWindowModel {
     private List<Edge> displayEdges = new ArrayList<>();
     private List<Edge> selectedEdge = new ArrayList<>();
 
+    /**
+     * Constructor for MainWindowModel. 
+     * @param handler given handler
+     */
+    public MainWindowModel(GraphHandler handler) {
+        this.handler = handler;
+    }
 
-
-    public boolean hasSelectedVertex(){
+    /**
+     * Verifies if the selected vertex isn't empty.
+     * @return true, if vertex isn't empty
+     */
+    public boolean hasSelectedVertex() {
         return !selectedVertex.isEmpty();
     }
-    public boolean hasSelectedEdge(){
+
+    /**
+     * Verifies if the selected edge isn't empty.
+     * @return true, if edge isn't empty
+     */
+    public boolean hasSelectedEdge() {
         return !selectedEdge.isEmpty();
     }
 
@@ -45,81 +67,82 @@ public class MainWindowModel {
         displayEdges.add(edge);
         notifyOnAddEdge(edge);
     }
-    public void addSelectedEdge(Edge edge){
+
+    public void addSelectedEdge(Edge edge) {
         selectedEdge.add(edge);
         notifyOnSelectEdge(edge);
     }
+
     public void clearSelectedEdge(){
         selectedEdge.clear();
         notifyOnClearSelectedEdge();
     }
 
-    public MainWindowModel(GraphHandler handler){
-        this.handler = handler;
-    }
-
-    public void addDisplayVertex(Vertex vertex){
+    public void addDisplayVertex(Vertex vertex) {
         handler.addVertex(vertex);
         displayVertex.add(vertex);
         notifyOnAddVertex(vertex);
     }
 
-    public void addSelectedVertex(Vertex vertex){
+    public void addSelectedVertex(Vertex vertex) {
         selectedVertex.add(vertex);
         notifyOnSelectVertex(vertex);
     }
-    public void clearDisplayVertex(){
+
+    public void clearDisplayVertex() {
         displayVertex.clear();
         selectedVertex.clear();
         notifyOnClearVertex();
     }
-    public void clearSelectedVertex(){
+
+    public void clearSelectedVertex() {
         selectedVertex.clear();
         notifyOnClearSelectedVertex();
     }
 
-    public void registerVertexListener(VertexListener listener){
+
+    public void registerVertexListener(VertexListener listener) {
         vertexListeners.add(listener);
     }
 
-    private void notifyOnAddVertex(Vertex newVertex){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnAddVertex(Vertex newVertex) {
+        for (VertexListener listener : vertexListeners) {
             listener.onAddVertex(newVertex);
         }
     }
 
-    private void notifyOnSelectVertex(Vertex selectVertex){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnSelectVertex(Vertex selectVertex) {
+        for (VertexListener listener : vertexListeners) {
             listener.onSelectVertex(selectVertex);
         }
     }
 
-    private void notifyOnClearVertex(){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnClearVertex() {
+        for (VertexListener listener : vertexListeners) {
             listener.onClearVertex();
         }
     }
 
-    private void notifyOnClearSelectedVertex(){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnClearSelectedVertex() {
+        for (VertexListener listener : vertexListeners) {
             listener.onClearSelectedVertex();
         }
     }
 
-    private void notifyOnAddEdge(Edge newEdge){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnAddEdge(Edge newEdge) {
+        for (VertexListener listener : vertexListeners) {
             listener.onAddEdge(newEdge);
         }
     }
 
-    private void notifyOnSelectEdge(Edge newEdge){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnSelectEdge(Edge newEdge) {
+        for (VertexListener listener : vertexListeners) {
             listener.onSelectEdge(newEdge);
         }
     }
 
-    private void notifyOnClearSelectedEdge(){
-        for (VertexListener listener : vertexListeners){
+    private void notifyOnClearSelectedEdge() {
+        for (VertexListener listener : vertexListeners) {
             listener.onClearSelectedEdge();
         }
     }
@@ -155,20 +178,29 @@ public class MainWindowModel {
         void onRemoveSelectedEdge(List<Edge> selectedEdges);
     }
 
+    /**
+     * Returns a list of the selected vertices.
+     * @return selected vertex list
+     */
     public List<Vertex> getSelectedVertex() {
         return selectedVertex;
     }
 
+    /**
+     * Returns a list of the selected edges.
+     * @return selected edges list
+     */
     public List<Edge> getSelectedEdge() {
         return selectedEdge;
     }
 
     /*
-    public Map<Edge, Line> getEdgeToLineMap() {
-        return edgeToLineMap;
-    }
-
-    public Map<Vertex, Circle> getVertexToCircleMap() {
-        return vertexToCircleMap;
-    }*/
+     * public Map<Edge, Line> getEdgeToLineMap() {
+     * return edgeToLineMap;
+     * }
+     * 
+     * public Map<Vertex, Circle> getVertexToCircleMap() {
+     * return vertexToCircleMap;
+     * }
+     */
 }

@@ -6,13 +6,17 @@ import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
+/**
+ * Represents the Spanning Tree algorithm.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class MinimumSpanningTree extends Algorithm{
 
     public MinimumSpanningTree(BreadthFirstSearch bfs){
         super(bfs);
     }
-
-
 
     public Set<Edge> executeMST(GraphHandler graph, Vertex start){
         //Use BFS to make sure the graph is fully connected

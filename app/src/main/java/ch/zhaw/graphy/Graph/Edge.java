@@ -7,6 +7,9 @@ import java.util.Objects;
 /**
  * This class represents an edge in the graph. It has a start and an end vertex. And a weight.
  * if no weight is given a default value of 0 is taken.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
  */
 public class Edge implements Comparable<Edge>, graphObject {
     private final Vertex start;
@@ -40,18 +43,6 @@ public class Edge implements Comparable<Edge>, graphObject {
         this( start, end, 0);
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public Vertex getEnd() {
-        return end;
-    }
-
-    public Vertex getStart() {
-        return start;
-    }
-
     /**
      *
      * @param other the object to be compared.
@@ -83,6 +74,18 @@ public class Edge implements Comparable<Edge>, graphObject {
     @Override
     public int hashCode() {
         return Objects.hash(end, weight);
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public Vertex getEnd() {
+        return end;
+    }
+
+    public Vertex getStart() {
+        return start;
     }
 }
 

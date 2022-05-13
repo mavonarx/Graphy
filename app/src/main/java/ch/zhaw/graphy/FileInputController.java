@@ -28,7 +28,7 @@ import java.util.List;
 public class FileInputController {
     private Stage stage;
     private Stage oldStage;
-    File lauchFile;
+    File launchFile;
     private static final String PROMPT = "Drag a graph file below";
 
     @FXML
@@ -105,9 +105,9 @@ public class FileInputController {
             throw new IllegalArgumentException("The file is null");
         }
         textArea.setText("The chosen file is: \n" + files.get(0).getPath());
-        lauchFile = files.get(0);
+        launchFile = files.get(0);
         try {
-            new GraphHandler(lauchFile);
+            new GraphHandler(launchFile);
         } catch (IOException e) {
             textArea.setText(e.getMessage());
             launch.setDisable(true);
@@ -123,7 +123,7 @@ public class FileInputController {
      */
     @FXML
     void launch(ActionEvent event) {
-        MainWindowController mainWindowController = new MainWindowController(stage, lauchFile);
+        MainWindowController mainWindowController = new MainWindowController(stage, launchFile);
         mainWindowController.getStage().show();
         close(event);
     }

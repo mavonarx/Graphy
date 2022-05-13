@@ -30,6 +30,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * This class is responsible for the logic in the MainWindow.
+ * It listens to changes from the gui and the model and applies its logic and
+ * finally updates
+ * the gui or the model.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class MainWindowController {
 
     GraphHandler handler;
@@ -40,6 +49,8 @@ public class MainWindowController {
     private Stage oldStage;
     private Color stdVertexColor = Color.RED;
     private static final Color stdVertexSelectedColor = Color.BLUE;
+    private static final Color stdLineColor = Color.LIGHTGRAY;
+    private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
 
     private static final int VERTEX_SIZE = 12;
 
@@ -81,9 +92,16 @@ public class MainWindowController {
     private CheckBox selectMode;
 
     private MainWindowModel model;
-    public MainWindowController(Stage oldStage){
+
+    /**
+     * Constructor for MainWindowController. Fills in the scene. Sets up, configures
+     * and shows the stage.
+     * 
+     * @param oldStage given stage
+     */
+    public MainWindowController(Stage oldStage) {
         this.oldStage = oldStage;
-        try{
+        try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler();
             mainLoader.setController(this);
@@ -95,15 +113,21 @@ public class MainWindowController {
             mainStage.setMinHeight(250);
             this.stage = mainStage;
             mainStage.show();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    public MainWindowController(Stage oldStage, File file){
-        this.oldStage=oldStage;
-        try{
+    /**
+     * Constructor for MainWindowController if a file is given. Fills in the scene.
+     * Sets up, configures and shows the stage.
+     * 
+     * @param oldStage given stage
+     * @param file     given file
+     */
+    public MainWindowController(Stage oldStage, File file) {
+        this.oldStage = oldStage;
+        try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler(file);
             mainLoader.setController(this);
@@ -115,7 +139,7 @@ public class MainWindowController {
             mainStage.setMinHeight(250);
             this.stage = mainStage;
             mainStage.show();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         for (Vertex vertex: handler.getGraph().keySet()){
@@ -127,8 +151,12 @@ public class MainWindowController {
         numberOfDrawnUnnamedVertex = handler.getGraph().size();
     }
 
+    /**
+     * Called to initialize the MainWindowController after its root element has been
+     * completely processed.
+     */
     @FXML
-    void initialize(){
+    void initialize() {
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
         algorithmSelectionMenu.setText("Choose Algorithm");
@@ -139,7 +167,7 @@ public class MainWindowController {
         edgeWeight.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
+                    String newValue) {
                 if (!newValue.matches("\\d*")) {
                     edgeWeight.setText(newValue.replaceAll("[^\\d]", ""));
                 }
@@ -147,7 +175,12 @@ public class MainWindowController {
         });
     }
 
-
+    /**
+     * Colorizes all edges from red(large weight) to green(small weight) depending
+     * on the weight.
+     * 
+     * @param event
+     */
     @FXML
     void colorize(ActionEvent event) {
         int min = 0;
@@ -157,10 +190,11 @@ public class MainWindowController {
             if (edge.getWeight() > max){
                 max = edge.getWeight();
             }
-            if (edge.getWeight() < min){
+            if (edge.getWeight() < min) {
                 min = edge.getWeight();
             }
         }
+
         double difference = (max-min);
         for (Edge edge : edgeGuiBiMap.inverse().keySet()){
             double percent = edge.getWeight()/difference;
@@ -168,6 +202,11 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Clears the all parts in the paintArea from the gui and the logic.
+     * 
+     * @param event
+     */
     @FXML
     void clearAll(ActionEvent event) {
         model.clear();
@@ -177,13 +216,21 @@ public class MainWindowController {
         vertexGuiBiMap.clear();
     }
 
-
+    /**
+     * Closes the MainWindow.
+     * 
+     * @param event
+     */
     @FXML
     void close(ActionEvent event) {
         stage.close();
     }
 
-
+    /**
+     * Executes the bfs algorithm on the graph from the selected start vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeBfs(ActionEvent event) {
         if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
@@ -208,6 +255,11 @@ public class MainWindowController {
         feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
 
+    /**
+     * Executes the dijkstra algorithm on the graph from the selected start vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeDijkstra(ActionEvent event) {
         int weightCounter =0;
@@ -217,6 +269,7 @@ public class MainWindowController {
         }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
+
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
         for (Vertex vertex : path.keySet()){
@@ -233,6 +286,12 @@ public class MainWindowController {
 
 
 
+    /**
+     * Executes the spanning tree algorithm on the graph from the selected start
+     * vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeSpanningTree(ActionEvent event) {
         if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
@@ -252,30 +311,42 @@ public class MainWindowController {
         feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
     }
 
+    /**
+     * Prints the drawn graph to a CSV-File.
+     * 
+     * @param event
+     */
     @FXML
     void printToCsv(ActionEvent event) {
         try {
             giveFeedback(handler.convertToCSV(fileName.getText()));
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
     }
 
-    private void giveFeedback(boolean isSavedAsCSV){
-        if(isSavedAsCSV){
+    /**
+     * Gives a feedback if file has been saved or not.
+     * 
+     * @param isSavedAsCSV true, if there is a graph to print
+     */
+    private void giveFeedback(boolean isSavedAsCSV) {
+        if (isSavedAsCSV) {
             feedBackLabel.setStyle("-fx-text-fill: green");
             feedBackLabel.setText("File has been saved in the output directory");
-        }
-       else {
-           feedBackLabel.setStyle("-fx-text-fill: red");
-           feedBackLabel.setText("File not saved because the graph is empty");
+        } else {
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("File not saved because the graph is empty");
         }
     }
 
-    
+    /**
+     * Goes back to the PreWindow and closes the MainWindow.
+     * 
+     * @param event
+     */
     @FXML
     void backToStart(ActionEvent event) {
         clearAll(event);
@@ -284,6 +355,11 @@ public class MainWindowController {
         close(event);
     }
 
+    /**
+     * Removes the selected vertices and edges from the paint area.
+     * 
+     * @param event
+     */
     @FXML
     void remove(ActionEvent event) {
         if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
@@ -294,28 +370,55 @@ public class MainWindowController {
         model.removeSelectedDisplayEdge();
     }
 
+    /**
+     * Opens HelpWindow and shows helping informations.
+     * 
+     * @param event
+     */
     @FXML
     void showHelp(ActionEvent event) {
         HelpWindowController helpWindowController = new HelpWindowController(false);
         helpWindowController.getStage().show();
     }
 
+    /**
+     * Changes the color of a vertex.
+     * 
+     * @param changeVertex the vertex to be changed
+     * @param color        the new color to be set
+     */
     private void changeVertexColor(Vertex changeVertex, Color color){
         VertexGui vertexGui = vertexGuiBiMap.inverse().get(changeVertex);
         vertexGui.setColor(color);
     }
 
+    /**
+     * Changes the color of an edge.
+     * 
+     * @param changeEdge the edge to be changed
+     * @param color      the new color to be set
+     */
     private void changeEdgeColor(Edge changeEdge, Color color){
         EdgeGui edgeGui =  edgeGuiBiMap.inverse().get(changeEdge);
         edgeGui.setColor(color);
     }
 
+    /**
+     * Changes the color of all edges.
+     * 
+     * @param color the new color to be set
+     */
     private void changeEdgeColor(Color color){
         for (EdgeGui edgeGui : edgeGuiBiMap.keySet()){
             edgeGui.setColor(color);
         }
     }
 
+    /**
+     * Changes the color of all vertices.
+     * 
+     * @param color the new color to be set
+     */
     private void changeVertexColor(Color color){
         for (VertexGui vertexGui : vertexGuiBiMap.keySet()){
             vertexGui.setColor(color);
@@ -341,7 +444,7 @@ public class MainWindowController {
         @Override
         public void onClearSelectedVertex() {
             changeVertexColor(stdVertexColor);
-            changeEdgeColor(EdgeGui.stdEdgeColor);
+            changeEdgeColor(Color.BLACK);
         }
 
         @Override
@@ -350,13 +453,13 @@ public class MainWindowController {
         }
 
         @Override
-        public void onSelectEdge(Edge changeEdge){
-            changeEdgeColor(changeEdge, EdgeGui.stdLineSelectedColor);
+        public void onSelectEdge(Edge changeEdge) {
+            changeEdgeColor(changeEdge, stdLineSelectedColor);
         }
 
         @Override
-        public void onClearSelectedEdge(){
-            changeEdgeColor(EdgeGui.stdEdgeColor);
+        public void onClearSelectedEdge() {
+            changeEdgeColor(stdLineColor);
         }
 
         @Override
@@ -394,10 +497,16 @@ public class MainWindowController {
         }
     };
 
-    private void clearPaintArea(){
+    /**
+     * Clears all visual parts in the paint area.
+     */
+    private void clearPaintArea() {
         paintArea.getChildren().removeAll();
     }
 
+    /**
+     * Invoked when a mouse click to clear everything happens.
+     */
     private EventHandler<MouseEvent> clearAllClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
@@ -406,36 +515,46 @@ public class MainWindowController {
         }
     };
 
+    /**
+     * Invoked when a mouse click in the paint area happens.
+     */
     private EventHandler<MouseEvent> paintAreaClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            if(event.getX() < 0 || event.getY() < 0){
+            if (event.getX() < 0 || event.getY() < 0) {
                 return;
             }
-                switch (clickAction){
-                    case PaintAreaClick:
-                        if(model.hasSelectedVertex() || model.hasSelectedEdge()){
-                            if(model.hasSelectedVertex()){
-                                model.clearSelectedVertex();
-                            }
-                            if(model.hasSelectedEdge()){
-                                model.clearSelectedEdge();
-                            }
+            switch (clickAction) {
+                case PaintAreaClick:
+                    if (model.hasSelectedVertex() || model.hasSelectedEdge()) {
+                        if (model.hasSelectedVertex()) {
+                            model.clearSelectedVertex();
+                        }
+                        if (model.hasSelectedEdge()) {
+                            model.clearSelectedEdge();
                         }
                         else {
 
                             if(!selectMode.isSelected()) {
                                 createVertex(new Point((int) event.getX(), (int) event.getY()));
                             }
+                      }
+                    } else {
+                        if (!selectMode.isSelected()) {
+                            createVertex(new Point((int) event.getX(), (int) event.getY()));
                         }
-                        break;
-                    default:
-                        clickAction = ClickAction.PaintAreaClick;
-                        break;
-                }
+                    }
+                    break;
+                default:
+                    clickAction = ClickAction.PaintAreaClick;
+                    break;
+            }
         }
     };
 
+    /**
+     * Invoked when a mouse click on a vertex happens.
+     */
     private VertexClickEvent vertexClick = new VertexClickEvent() {
         @Override
         public void handle(VertexGui vertexGui) {
@@ -458,11 +577,13 @@ public class MainWindowController {
                                 }
                             }
                             if (!selectMode.isSelected()) {
-                                Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1), weight);
+                                Edge newEdge = new Edge(model.getSelectedVertex().get(0),
+                                        model.getSelectedVertex().get(1), weight);
 
                                 model.addDisplayEdge(newEdge);
                                 if (bidirectional.isSelected()) {
-                                    newEdge = new Edge(model.getSelectedVertex().get(1), model.getSelectedVertex().get(0), weight);
+                                    newEdge = new Edge(model.getSelectedVertex().get(1),
+                                            model.getSelectedVertex().get(0), weight);
                                     model.addDisplayEdge(newEdge);
                                 }
                                 model.clearSelectedVertex();
@@ -474,6 +595,9 @@ public class MainWindowController {
             }
     };
 
+     /**
+     * Invoked when a mouse click on an edge happens.
+     */
     private EdgeClickEvent edgeClick = new EdgeClickEvent() {
         @Override
         public void handle(EdgeGui edge) {
@@ -484,15 +608,22 @@ public class MainWindowController {
 
     private ClickAction clickAction = ClickAction.PaintAreaClick;
 
-    private enum ClickAction{
+    /**
+     * Contains the different types of click actions.
+     */
+    private enum ClickAction {
         PaintAreaClick,
         VertexClick,
         EdgeClick
     }
 
-    private void createVertex(Point position){
+    /**
+     * Creates a new vertex at the given position.
+     * @param position given position
+     */
+    private void createVertex(Point position) {
         String name = vertexName.getText();
-        if(vertexName.getText().isBlank()){
+        if (vertexName.getText().isBlank()) {
             name = String.valueOf(++numberOfDrawnUnnamedVertex);
         }
         Vertex newVertex = new Vertex(name, position);
@@ -510,8 +641,12 @@ public class MainWindowController {
         paintArea.getChildren().addAll(0, edgeGui.getNodes());
     }
 
+     /**
+     * Returns the stage of the MainWindow.
+     * 
+     * @return current stage
+     */
     public Stage getStage(){
         return stage;
     }
 }
-

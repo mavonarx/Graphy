@@ -6,16 +6,19 @@ import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
+/**
+ * Represents the Dijkstra algorithm. The Dijkstra shows the
+ * shortest path on a weighted graph from a start to an end point.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class Dijkstra{
 
     private final Map<Vertex, Integer> distances = new HashMap<>();
     private final PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
     private final Map <Vertex, Vertex> predecessors = new HashMap<>();
     private final Set<Vertex> visited = new HashSet<>();
-    //private LinkedList<Vertex> resultPath = new LinkedList<>();
-    private Vertex endVertex;
-
-
 
     /**
      * Executes a dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges
@@ -80,9 +83,6 @@ public class Dijkstra{
             throw new IllegalArgumentException("The given vertices are not connected");
         }
 
-        for (Vertex vertex: resultMap.keySet()){
-            System.out.println(resultMap.get(vertex));
-        }
     return resultMap;
     }
 }
