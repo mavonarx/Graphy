@@ -593,12 +593,6 @@ public class MainWindowController {
                         if (model.hasSelectedEdge()) {
                             model.clearSelectedEdge();
                         }
-                        else {
-
-                            if(!selectMode.isSelected()) {
-                                createVertex(new Point((int) event.getX(), (int) event.getY()));
-                            }
-                      }
                     } else {
                         if (!selectMode.isSelected()) {
                             createVertex(new Point((int) event.getX(), (int) event.getY()));
