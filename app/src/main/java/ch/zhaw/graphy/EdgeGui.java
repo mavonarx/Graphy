@@ -22,6 +22,7 @@ public class EdgeGui implements GraphGuiObject {
     private static final Color STD_EDGE_COLOR = Color.LIGHTGRAY;
     private static final Color STD_EDGE_SELECTED_COLOR = Color.AQUA;
     private static final int CURVE_WIDTH = 3;
+    private static final int CLICK_WIDTH = 20;
     private EdgeClickEvent onEdgeClick;
 
     private QuadCurve clickArea;
@@ -52,7 +53,7 @@ public class EdgeGui implements GraphGuiObject {
 
         clickArea = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
         clickArea.setFill(null);
-        clickArea.setStrokeWidth(CURVE_WIDTH + VertexGui.VERTEX_SIZE);
+        clickArea.setStrokeWidth(CLICK_WIDTH);
         clickArea.setStroke(Color.TRANSPARENT);
         clickArea.setOnMouseClicked(curveClick);
 
