@@ -154,6 +154,7 @@ public class MainWindowController {
                 }
             }
         });
+        fileName.setText("Enter a filename here");
     }
 
     @FXML
