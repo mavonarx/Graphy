@@ -203,6 +203,12 @@ public class MainWindowController {
      */
     @FXML
     void clearAll(ActionEvent event) {
+        clearAlLMethod();
+
+    }
+
+    private void clearAlLMethod(){
+        numberOfDrawnUnnamedVertex = 0;
         model.clear();
         paintArea.getChildren().clear();
         handler.getGraph().clear();
@@ -343,7 +349,7 @@ public class MainWindowController {
      */
     @FXML
     void backToStart(ActionEvent event) {
-        clearAll(event);
+        clearAlLMethod();
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
