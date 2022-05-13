@@ -468,7 +468,9 @@ public class GraphHandler {
 
         @Override
         public void onRemoveSelectedVertex(List<Vertex> selectedVertex) {
-            getGraph().remove(selectedVertex);
+            for (Vertex vertex : selectedVertex){
+                getGraph().remove(vertex);
+            }
         }
 
         @Override
