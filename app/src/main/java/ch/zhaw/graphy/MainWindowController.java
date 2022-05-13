@@ -532,6 +532,7 @@ public class MainWindowController {
                         }
                         if (model.hasSelectedEdge()) {
                             model.clearSelectedEdge();
+                        }
                         else {
 
                             if(!selectMode.isSelected()) {

@@ -19,8 +19,6 @@ public class Dijkstra{
     private final PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
     private final Map <Vertex, Vertex> predecessors = new HashMap<>();
     private final Set<Vertex> visited = new HashSet<>();
-    //private LinkedList<Vertex> resultPath = new LinkedList<>();
-    private Vertex endVertex;
 
     /**
      * Executes a dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges
@@ -85,9 +83,6 @@ public class Dijkstra{
             throw new IllegalArgumentException("The given vertices are not connected");
         }
 
-        for (Vertex vertex: resultMap.keySet()){
-            System.out.println(resultMap.get(vertex));
-        }
     return resultMap;
     }
 }
