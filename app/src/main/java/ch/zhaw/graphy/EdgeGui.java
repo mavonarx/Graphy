@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdgeGui {
-    private static final Color stdLineColor = Color.LIGHTGRAY;
+    public static final Color stdLineColor = Color.LIGHTGRAY;
     private static final Color stdLineSelectedColor = Color.LIGHTBLUE;
     private static final Color stdTextColor = Color.BLACK;
     private static final int curveWidth = 3;
@@ -83,7 +83,7 @@ public class EdgeGui {
 
         clickArea = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
         clickArea.setFill(null);
-        clickArea.setStrokeWidth(curveWidth + stdPadding);
+        clickArea.setStrokeWidth(curveWidth + VertexGui.VERTEX_SIZE);
         clickArea.setStroke(Color.TRANSPARENT);
         clickArea.setOnMouseClicked(curveClick);
 
@@ -103,6 +103,7 @@ public class EdgeGui {
 
     public void setColor(Color color){
         curve.setStroke(color);
+        name.setTextFill(color);
     }
 
     private EventHandler<MouseEvent> curveClick = new EventHandler<MouseEvent>() {

@@ -33,6 +33,7 @@ public class VertexGui {
     };
     public void setColor(Color color){
         node.setFill(color);
+        name.setTextFill(color);
     }
 
     public VertexGui(Vertex vertex, VertexClickEvent clickEvent){
