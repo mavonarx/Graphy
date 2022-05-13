@@ -1,5 +1,7 @@
 package ch.zhaw.graphy.Graph;
 
+import ch.zhaw.graphy.graphObject;
+
 import java.util.Objects;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Objects;
  * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
  * @version 13.05.2022
  */
-public class Edge implements Comparable<Edge>{
+public class Edge implements Comparable<Edge>, graphObject {
     private final Vertex start;
     private final Vertex end;
     private final int weight;

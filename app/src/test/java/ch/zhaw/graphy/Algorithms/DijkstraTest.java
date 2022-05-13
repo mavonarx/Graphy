@@ -149,7 +149,6 @@ class DijkstraTest{
     @Test
     void backwardsRouteOnDirectedGraph(){
         Dijkstra dijkstra = new Dijkstra();
-
         assertThrows(IllegalArgumentException.class, ()-> dijkstra.executeDijkstra(mockHandler, mockVertex3, mockVertex1));
     }
 }

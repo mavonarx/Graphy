@@ -390,13 +390,13 @@ public class GraphHandler {
      */
     private File initializeDirectoryStructure(String fileName) {
 
-        File output = new File("../output");
-        if (output.mkdirs()) {
+        File output = new File("./output");
+        if (output.mkdirs()){
             LOGGER.info("created output directory");
         }
         ;
 
-        return new File("../output/" + fileName);
+        return new File("./output/" + fileName);
     }
 
     /**

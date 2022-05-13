@@ -20,10 +20,10 @@ import java.util.Map;
  */
 public class MainWindowModel {
 
-    GraphHandler handler;
-    List<VertexListener> vertexListeners = new ArrayList<>();
-    List<Vertex> displayVertex = new ArrayList<>();
-    List<Vertex> selectedVertex = new ArrayList<>();
+    private GraphHandler handler;
+    private List<VertexListener> vertexListeners = new ArrayList<>();
+    private List<Vertex> displayVertex = new ArrayList<>();
+    private List<Vertex> selectedVertex = new ArrayList<>();
     private List<Edge> displayEdges = new ArrayList<>();
     private List<Edge> selectedEdge = new ArrayList<>();
 
@@ -51,7 +51,18 @@ public class MainWindowModel {
         return !selectedEdge.isEmpty();
     }
 
-    public void addDisplayEdge(Edge edge) {
+    public void removeSelectedDisplayVertex(){
+        displayVertex.removeAll(selectedVertex);
+        notifyOnRemoveSelectedVertex(selectedVertex);
+        selectedVertex.clear();
+    }
+    public void removeSelectedDisplayEdge(){
+        displayEdges.removeAll(selectedEdge);
+        notifyOnRemoveSelectedEdge(selectedEdge);
+        selectedEdge.clear();
+    }
+
+    public void addDisplayEdge(Edge edge){
         handler.getGraph().get(edge.getStart()).add(edge);
         displayEdges.add(edge);
         notifyOnAddEdge(edge);
@@ -62,15 +73,7 @@ public class MainWindowModel {
         notifyOnSelectEdge(edge);
     }
 
-
-    public void clearDisplayEdge() {
-        displayEdges.clear();
-        selectedEdge.clear();
-        notifyOnClearVertex();
-    }
-
-
-    public void clearSelectedEdge() {
+    public void clearSelectedEdge(){
         selectedEdge.clear();
         notifyOnClearSelectedEdge();
     }
@@ -144,7 +147,26 @@ public class MainWindowModel {
         }
     }
 
-    interface VertexListener {
+    private void notifyOnRemoveSelectedVertex(List<Vertex> removeVertex){
+        for (VertexListener listener : vertexListeners){
+            listener.onRemoveSelectedVertex(removeVertex);
+        }
+    }
+
+    private void notifyOnRemoveSelectedEdge(List<Edge> removeEdges){
+        for (VertexListener listener : vertexListeners){
+            listener.onRemoveSelectedEdge(removeEdges);
+        }
+    }
+
+    public void clear(){
+        displayVertex.clear();
+        displayEdges.clear();
+        selectedVertex.clear();
+        selectedEdge.clear();
+    }
+
+    interface VertexListener{
         void onAddVertex(Vertex newVertex);
         void onSelectVertex(Vertex selectedVertex);
         void onClearVertex();
@@ -152,6 +174,8 @@ public class MainWindowModel {
         void onAddEdge(Edge newEdge);
         void onSelectEdge(Edge selectedEdge);
         void onClearSelectedEdge();
+        void onRemoveSelectedVertex(List<Vertex> selectedVertex);
+        void onRemoveSelectedEdge(List<Edge> selectedEdges);
     }
 
     /**

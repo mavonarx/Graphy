@@ -19,7 +19,7 @@ public class Dijkstra{
     private final PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
     private final Map <Vertex, Vertex> predecessors = new HashMap<>();
     private final Set<Vertex> visited = new HashSet<>();
-    private LinkedList<Vertex> resultPath = new LinkedList<>();
+    //private LinkedList<Vertex> resultPath = new LinkedList<>();
     private Vertex endVertex;
 
     /**
@@ -27,11 +27,11 @@ public class Dijkstra{
      * @param graph
      * @param startVertex
      */
-    public LinkedList<Vertex> executeDijkstra(GraphHandler graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
-
+    public Map<Vertex,Vertex> executeDijkstra(GraphHandler graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
+        HashMap<Vertex,Vertex> resultMap = new HashMap<>();
+        resultMap.put(startVertex,null);
         if (startVertex.equals(finalVertex)){
-            resultPath.add(startVertex);
-            return resultPath;
+           return resultMap;
         }
 
         // initializing all vertices with a distance of -1 (represent infinite distance)
@@ -57,38 +57,38 @@ public class Dijkstra{
 
                 // add edge to finalized list (visited)
                 visited.add(currentStart);
-
                 for (Edge edge : graph.getGraph().get(currentStart)) {
 
                 /*
                 if the distance is infinite or the distance stored is higher than the
                 new calculated distance update the distance and predecessor
                 */
-                    if (distances.get(currentEnd) == -1 || distances.get(currentEnd) > distances.get(currentStart) + edge.getWeight()) {
-                        distances.put(edge.getEnd(), edge.getWeight() + distances.get(currentStart));
-                        predecessors.put(currentEnd, currentStart);
+                    if (distances.get(edge.getEnd()) == -1 || distances.get(edge.getEnd()) > distances.get(edge.getStart()) + edge.getWeight()) {
+                        distances.put(edge.getEnd(), edge.getWeight() + distances.get(edge.getStart()));
+                        predecessors.put(edge.getEnd(), edge.getStart());
                     }
                 }
 
                 // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
-                if (currentEnd.equals(finalVertex) && (this.endVertex == null || distances.get(this.endVertex) > distances.get(currentEnd))) {
-                    this.endVertex = currentEnd;
-                }
+
                 prioQueue.addAll(graph.getGraph().get(currentEnd));
             }
 
-
         // fill the list with all predecessors to the endpoint
-        Vertex pointer = this.endVertex;
+        Vertex pointer = finalVertex;
         while (pointer !=null){
-            resultPath.addFirst(pointer);
+            resultMap.put(pointer,predecessors.get(pointer));
             pointer = predecessors.get(pointer);
         }
 
-        if (resultPath.isEmpty()){
+        if (resultMap.size()==1){
             throw new IllegalArgumentException("The given vertices are not connected");
         }
-        return resultPath;
+
+        for (Vertex vertex: resultMap.keySet()){
+            System.out.println(resultMap.get(vertex));
+        }
+    return resultMap;
     }
 }
 
