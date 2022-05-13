@@ -4,7 +4,22 @@
 
 Graphy is a tool to draw graphs by yourself. It should help you get a feeling for abstract graphs. 
 With graphy you can create your own graph and execute various algorithms on your own graph. You will get a visual 
-feedback what happened. 
+feedback what happened.
+
+### Prototype
+
+This version of graphy is only the first prototype. In which 4 algorithms are available, graphs are drawable
+and colorable by the weight of the edges, next to drawing graphs graphy can read CSV files with the correct 
+format and print the drawn graphs into such files. 
+All in all this tool is designed to be as intuitive to use as we could make it.
+
+#### Future
+As mentioned before this is only a prototype, and we built this tool in a way it should be quite easy to update.
+- Algorithms have a superclass which can hold methods like the (checkIfConnected())
+which could be used by multiple algorithms.
+- EdgeGui and VertexGui are their own class which makes them easy to use or alter.
+- Edge,Vertex and the GraphHandler are also in a way that it should be easy to change them.
+
 
 ## How to use the tool
 If you launch the app you will start in the welcoming-Window. Here you can choose to either draw a graph directly
@@ -64,8 +79,26 @@ If no name is provided the default name is taken (graph.csv) .
 
 ## Classdiagramm
 
-Here is a link to the class diagramm
+Here is a link to the class diagram [Class-diagram](C:\Users\Nicolas\Documents\GitHub\Team6-The_Bacon_magicians-Projekt2-Graphy\Class-Diagramm.png)
 
+
+
+
+## Our work structure
+
+- From the beginning we all assigned us in the groups different tasks we would work on. 
+A task should be a single logical issue/function or a well documented collective (e.g. Algorithms).
+For each problem we add an issue, a single task can solve/work on multiple issues though.
+- For our branching model: We create branches for any task that is more than a simple small addition.
+These branches are well documented, commented and maintained.
+- Directed commits to the main are ok if the commit is small and doesn't require an individual branch. 
+- The most important rule is that the main branch is always functional.
+
+### Teamwork
+
+- We meet regularly every 2-4 day depending on how the days fit.
+- We keep in touch, discuss and solve problems, which we will encounter inevitably, together
+and work together towards a satisfying end product.
 
 
 

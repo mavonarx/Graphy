@@ -104,7 +104,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Gets an Instance of the current VertexGui
-     * 
+     *
      * @return this instance
      */
     private VertexGui getMe(){
