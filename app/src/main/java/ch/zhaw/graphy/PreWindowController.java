@@ -9,7 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/* 
+/**
  * This class is responsible for the logic in the PreWindow.
  * It listens to changes from the gui and applies its logic and finally updates the gui.
  * 

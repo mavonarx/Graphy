@@ -37,6 +37,15 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 
+/**
+ * This class is responsible for the logic in the MainWindow.
+ * It listens to changes from the gui and the model and applies its logic and
+ * finally updates
+ * the gui or the model.
+ * 
+ * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
+ * @version 13.05.2022
+ */
 public class MainWindowController {
 
     GraphHandler handler;
@@ -90,9 +99,16 @@ public class MainWindowController {
     private CheckBox selectMode;
 
     private MainWindowModel model;
-    public MainWindowController(Stage oldStage){
+
+    /**
+     * Constructor for MainWindowController. Fills in the scene. Sets up, configures
+     * and shows the stage.
+     * 
+     * @param oldStage given stage
+     */
+    public MainWindowController(Stage oldStage) {
         this.oldStage = oldStage;
-        try{
+        try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler();
             mainLoader.setController(this);
@@ -104,14 +120,21 @@ public class MainWindowController {
             mainStage.setMinHeight(250);
             this.stage = mainStage;
             mainStage.show();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public MainWindowController(Stage oldStage, File file){
-        this.oldStage=oldStage;
-        try{
+    /**
+     * Constructor for MainWindowController if a file is given. Fills in the scene.
+     * Sets up, configures and shows the stage.
+     * 
+     * @param oldStage given stage
+     * @param file     given file
+     */
+    public MainWindowController(Stage oldStage, File file) {
+        this.oldStage = oldStage;
+        try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
             handler = new GraphHandler(file);
             mainLoader.setController(this);
@@ -123,19 +146,23 @@ public class MainWindowController {
             mainStage.setMinHeight(250);
             this.stage = mainStage;
             mainStage.show();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        for (Vertex vertex: handler.getGraph().keySet()){
+        for (Vertex vertex : handler.getGraph().keySet()) {
             drawVertex(vertex);
-            for (Edge edge : handler.getGraph().get(vertex)){
+            for (Edge edge : handler.getGraph().get(vertex)) {
                 drawEdge(edge);
             }
         }
     }
 
+    /**
+     * Called to initialize the MainWindowController after its root element has been
+     * completely processed.
+     */
     @FXML
-    void initialize(){
+    void initialize() {
         model = new MainWindowModel(handler);
         model.registerVertexListener(vertexListener);
         algorithmSelectionMenu.setText("Choose Algorithm");
@@ -146,7 +173,7 @@ public class MainWindowController {
         edgeWeight.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
+                    String newValue) {
                 if (!newValue.matches("\\d*")) {
                     edgeWeight.setText(newValue.replaceAll("[^\\d]", ""));
                 }
@@ -169,34 +196,46 @@ public class MainWindowController {
     void addVertexName(ActionEvent event) {
 
     }
+
+    /**
+     * Colorizes all edges from red(large weight) to green(small weight) depending
+     * on the weight.
+     * 
+     * @param event
+     */
     @FXML
     void colorize(ActionEvent event) {
         int min = 0;
         int max = 0;
 
-        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-            if (edge.getWeight() > max){
+        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+            if (edge.getWeight() > max) {
                 max = edge.getWeight();
             }
-            if (edge.getWeight() < min){
+            if (edge.getWeight() < min) {
                 min = edge.getWeight();
             }
         }
-        double difference = (max-min);
-        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-            double percent = edge.getWeight()/difference;
-            changeEdgeColor(edge, Color.rgb((int) Math.round(255*percent), (int) Math.round(255-255*percent), 0));
+        double difference = (max - min);
+        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+            double percent = edge.getWeight() / difference;
+            changeEdgeColor(edge, Color.rgb((int) Math.round(255 * percent), (int) Math.round(255 - 255 * percent), 0));
         }
     }
 
+    /**
+     * Clears the all parts in the paintArea from the gui and the logic.
+     * 
+     * @param event
+     */
     @FXML
     void clearAll(ActionEvent event) {
-        model.clearDisplayVertex(); //TODO update
-        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
+        model.clearDisplayVertex(); // TODO update
+        for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
             paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(edge));
         }
 
-        for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
+        for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()) {
             paintArea.getChildren().remove(guiVertexMap.getCircleVertexList().inverse().get(vertex));
         }
 
@@ -207,25 +246,33 @@ public class MainWindowController {
         guiVertexMap.getCircleVertexList().clear();
     }
 
-
+    /**
+     * Closes the MainWindow.
+     * 
+     * @param event
+     */
     @FXML
     void close(ActionEvent event) {
         stage.close();
     }
 
-
+    /**
+     * Executes the bfs algorithm on the graph from the selected start vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeBfs(ActionEvent event) {
         algorithmSelectionMenu.setText("BFS");
-        if (model.selectedVertex.isEmpty()){
+        if (model.selectedVertex.isEmpty()) {
             throw new IllegalArgumentException("Pls select a vertex to start from");
         }
         BreadthFirstSearch bfs = new BreadthFirstSearch();
         bfs.executeBFS(handler, model.selectedVertex.get(0));
-        for (Vertex vertex : bfs.getVisualMap().keySet()){
+        for (Vertex vertex : bfs.getVisualMap().keySet()) {
             guiVertexMap.getCircleVertexList().inverse().get(vertex).setFill(Color.ORANGE);
-            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-                if (edge.getEnd().equals(vertex) && edge.getStart().equals(bfs.getVisualMap().get(vertex))){
+            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(bfs.getVisualMap().get(vertex))) {
                     changeEdgeColor(edge, Color.GREEN);
                 }
             }
@@ -234,62 +281,87 @@ public class MainWindowController {
         guiVertexMap.getCircleVertexList().inverse().get(model.selectedVertex.get(0)).setFill(Color.PURPLE);
     }
 
+    /**
+     * Executes the dijkstra algorithm on the graph from the selected start vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
-        for (int i =0; i<path.size()-1;i++){
-            for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
-                if (vertex.equals(path.get(i))){
+        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0),
+                model.selectedVertex.get(1));
+        for (int i = 0; i < path.size() - 1; i++) {
+            for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()) {
+                if (vertex.equals(path.get(i))) {
                     changeVertexColor(vertex, Color.ORANGE);
                 }
             }
-            for (Edge lineEdge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-                if (lineEdge.getStart().equals(path.get(i)) && lineEdge.getEnd().equals(path.get(i+1)));
+            for (Edge lineEdge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+                if (lineEdge.getStart().equals(path.get(i)) && lineEdge.getEnd().equals(path.get(i + 1)))
+                    ;
                 changeEdgeColor(lineEdge, Color.GREEN);
             }
         }
     }
 
+    /**
+     * Executes the spanning tree algorithm on the graph from the selected start
+     * vertex.
+     * 
+     * @param event
+     */
     @FXML
     void executeSpanningTree(ActionEvent event) {
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
         Set<Edge> chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
-        for (Edge mstEdge : chosenEdges){
-            for (Edge lineEdge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-                if (mstEdge.equals(lineEdge)){
+        for (Edge mstEdge : chosenEdges) {
+            for (Edge lineEdge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+                if (mstEdge.equals(lineEdge)) {
                     changeEdgeColor(lineEdge, Color.GREEN);
                 }
             }
         }
     }
 
+    /**
+     * Prints the drawn graph to a CSV-File.
+     * 
+     * @param event
+     */
     @FXML
     void printToCsv(ActionEvent event) {
         try {
             giveFeedback(handler.convertToCSV(fileName.getText()));
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("an Exception has occurred");
         }
     }
 
-    private void giveFeedback(boolean isSavedAsCSV){
-        if(isSavedAsCSV){
+    /**
+     * Gives a feedback if file has been saved or not.
+     * 
+     * @param isSavedAsCSV true, if there is a graph to print
+     */
+    private void giveFeedback(boolean isSavedAsCSV) {
+        if (isSavedAsCSV) {
             feedBackLabel.setStyle("-fx-text-fill: green");
             feedBackLabel.setText("File has been saved in the output directory");
-        }
-       else {
-           feedBackLabel.setStyle("-fx-text-fill: red");
-           feedBackLabel.setText("File not saved because the graph is empty");
+        } else {
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("File not saved because the graph is empty");
         }
     }
 
-    
+    /**
+     * Goes back to the PreWindow and closes the MainWindow.
+     * 
+     * @param event
+     */
     @FXML
     void backToStart(ActionEvent event) {
         PreWindowController preWindowController = new PreWindowController(oldStage);
@@ -297,66 +369,99 @@ public class MainWindowController {
         close(event);
     }
 
+    /**
+     * Removes the selected vertices and edges from the paint area.
+     * 
+     * @param event
+     */
     @FXML
     void remove(ActionEvent event) {
-        //first we remove the selected edges from the paint area and from the LineEdgeMap
-        for (Edge modelEdge : model.getSelectedEdge()){
+        // first we remove the selected edges from the paint area and from the
+        // LineEdgeMap
+        for (Edge modelEdge : model.getSelectedEdge()) {
             paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(modelEdge));
             guiVertexMap.getLineEdgeBiMap().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(modelEdge), modelEdge);
 
-            //now we need to remove the edges from the list associated with a vertex
-            for (Vertex vertex : handler.getGraph().keySet()){
-                for (Edge graphEdge : handler.getGraph().get(vertex)){
-                    if (modelEdge.equals(graphEdge)){
+            // now we need to remove the edges from the list associated with a vertex
+            for (Vertex vertex : handler.getGraph().keySet()) {
+                for (Edge graphEdge : handler.getGraph().get(vertex)) {
+                    if (modelEdge.equals(graphEdge)) {
                         handler.getGraph().get(vertex).remove(graphEdge);
                     }
                 }
             }
         }
 
-        //next we remove the selected vertices
-        for (Vertex vertex : model.getSelectedVertex()){
+        // next we remove the selected vertices
+        for (Vertex vertex : model.getSelectedVertex()) {
             paintArea.getChildren().remove(guiVertexMap.getCircleVertexList().inverse().get(vertex));
             handler.getGraph().remove(vertex);
             guiVertexMap.getCircleVertexList().remove(vertex, guiVertexMap.getCircleVertexList().get(vertex));
-            //and all edge connected to this vertex since they would be hanging
-            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()){
-                if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
+            // and all edge connected to this vertex since they would be hanging
+            for (Edge edge : guiVertexMap.getLineEdgeBiMap().inverse().keySet()) {
+                if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)) {
                     paintArea.getChildren().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(edge));
                     guiVertexMap.getLineEdgeBiMap().remove(guiVertexMap.getLineEdgeBiMap().inverse().get(edge), edge);
                     handler.getGraph().get(vertex).remove(edge);
                 }
             }
         }
-        //lastly we clear the selected maps
+        // lastly we clear the selected maps
         model.selectedVertex.clear();
         model.getSelectedEdge().clear();
     }
 
+    /**
+     * Opens HelpWindow and shows helping informations.
+     * 
+     * @param event
+     */
     @FXML
     void showHelp(ActionEvent event) {
         HelpWindowController helpWindowController = new HelpWindowController(false);
         helpWindowController.getStage().show();
     }
 
-    private void changeVertexColor(Vertex changeVertex, Color color){
+    /**
+     * Changes the color of a vertex.
+     * 
+     * @param changeVertex the vertex to be changed
+     * @param color        the new color to be set
+     */
+    private void changeVertexColor(Vertex changeVertex, Color color) {
         Circle circle = guiVertexMap.getCircleVertexList().inverse().get(changeVertex);
         circle.setFill(color);
     }
 
-    private void changeEdgeColor(Edge changeEdge, Color color){
-        QuadCurve curve =  guiVertexMap.getLineEdgeBiMap().inverse().get(changeEdge);
+    /**
+     * Changes the color of an edge.
+     * 
+     * @param changeEdge the edge to be changed
+     * @param color      the new color to be set
+     */
+    private void changeEdgeColor(Edge changeEdge, Color color) {
+        QuadCurve curve = guiVertexMap.getLineEdgeBiMap().inverse().get(changeEdge);
         curve.setStroke(color);
     }
 
-    private void changeEdgeColor(Color color){
-        for (QuadCurve curve : guiVertexMap.getLineEdgeBiMap().keySet()){
+    /**
+     * Changes the color of all edges.
+     * 
+     * @param color the new color to be set
+     */
+    private void changeEdgeColor(Color color) {
+        for (QuadCurve curve : guiVertexMap.getLineEdgeBiMap().keySet()) {
             curve.setStroke(color);
         }
     }
 
-    private void changeVertexColor(Color color){
-        for (Circle circle : guiVertexMap.getCircleVertexList().keySet()){
+    /**
+     * Changes the color of all vertices.
+     * 
+     * @param color the new color to be set
+     */
+    private void changeVertexColor(Color color) {
+        for (Circle circle : guiVertexMap.getCircleVertexList().keySet()) {
             circle.setFill(color);
         }
     }
@@ -383,25 +488,31 @@ public class MainWindowController {
         }
 
         @Override
-        public void onAddEdge(Edge newEdge){
+        public void onAddEdge(Edge newEdge) {
             drawEdge(newEdge);
         }
 
         @Override
-        public void onSelectEdge(Edge changeEdge){
+        public void onSelectEdge(Edge changeEdge) {
             changeEdgeColor(changeEdge, stdLineSelectedColor);
         }
 
         @Override
-        public void onClearSelectedEdge(){
+        public void onClearSelectedEdge() {
             changeEdgeColor(stdLineColor);
         }
     };
 
-    private void clearPaintArea(){
+    /**
+     * Clears all visual parts in the paint area.
+     */
+    private void clearPaintArea() {
         paintArea.getChildren().removeAll();
     }
 
+    /**
+     * Invoked when a mouse click to clear everything happens.
+     */
     private EventHandler<MouseEvent> clearAllClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
@@ -409,47 +520,52 @@ public class MainWindowController {
         }
     };
 
+    /**
+     * Invoked when a mouse click in the paint area happens.
+     */
     private EventHandler<MouseEvent> paintAreaClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            if(event.getX() < 0 || event.getY() < 0){
+            if (event.getX() < 0 || event.getY() < 0) {
                 return;
             }
-                switch (clickAction){
-                    case PaintAreaClick:
-                        if(model.hasSelectedVertex() || model.hasSelectedEdge()){
-                            if(model.hasSelectedVertex()){
-                                model.clearSelectedVertex();
-                            }
-                            if(model.hasSelectedEdge()){
-                                model.clearSelectedEdge();
-                            }
+            switch (clickAction) {
+                case PaintAreaClick:
+                    if (model.hasSelectedVertex() || model.hasSelectedEdge()) {
+                        if (model.hasSelectedVertex()) {
+                            model.clearSelectedVertex();
                         }
-                        else {
-                            if(!selectMode.isSelected()) {
-                                createVertex(new Point((int) event.getX(), (int) event.getY()));
-                            }
+                        if (model.hasSelectedEdge()) {
+                            model.clearSelectedEdge();
                         }
-                        break;
-                    default:
-                        clickAction = ClickAction.PaintAreaClick;
-                        break;
-                }
+                    } else {
+                        if (!selectMode.isSelected()) {
+                            createVertex(new Point((int) event.getX(), (int) event.getY()));
+                        }
+                    }
+                    break;
+                default:
+                    clickAction = ClickAction.PaintAreaClick;
+                    break;
+            }
         }
     };
 
+    /**
+     * Invoked when a mouse click on a vertex happens.
+     */
     private EventHandler<MouseEvent> vertexClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
             clickAction = ClickAction.VertexClick;
-            if(event.getSource() instanceof Circle){
+            if (event.getSource() instanceof Circle) {
                 Circle clickedCircle = (Circle) event.getSource();
-                switch (model.getSelectedVertex().size()){
+                switch (model.getSelectedVertex().size()) {
                     case 0:
                         model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                         break;
                     case 1:
-                        if(model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)) {
+                        if (model.getSelectedVertex().get(0) != guiVertexMap.getCircleVertexList().get(clickedCircle)) {
                             model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                             int weight;
                             if ("".equals(edgeWeight.getText())) {
@@ -462,28 +578,34 @@ public class MainWindowController {
                                 }
                             }
                             if (!selectMode.isSelected()) {
-                                Edge newEdge = new Edge(model.getSelectedVertex().get(0), model.getSelectedVertex().get(1), weight);
+                                Edge newEdge = new Edge(model.getSelectedVertex().get(0),
+                                        model.getSelectedVertex().get(1), weight);
 
                                 model.addDisplayEdge(newEdge);
                                 if (bidirectional.isSelected()) {
-                                    newEdge = new Edge(model.getSelectedVertex().get(1), model.getSelectedVertex().get(0), weight);
+                                    newEdge = new Edge(model.getSelectedVertex().get(1),
+                                            model.getSelectedVertex().get(0), weight);
                                     model.addDisplayEdge(newEdge);
                                 }
                                 model.clearSelectedVertex();
                             }
                         }
                         break;
-                    default: model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
+                    default:
+                        model.addSelectedVertex(guiVertexMap.getCircleVertexList().get(clickedCircle));
                 }
             }
         }
     };
 
+    /**
+     * Invoked when a mouse click on an edge happens.
+     */
     private EventHandler<MouseEvent> edgeClick = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
             clickAction = ClickAction.EdgeClick;
-            if(event.getSource() instanceof QuadCurve){
+            if (event.getSource() instanceof QuadCurve) {
                 QuadCurve clickedLine = (QuadCurve) event.getSource();
                 model.addSelectedEdge(guiVertexMap.getLineEdgeBiMap().get(clickedLine));
             }
@@ -492,24 +614,35 @@ public class MainWindowController {
 
     private ClickAction clickAction = ClickAction.PaintAreaClick;
 
-    private enum ClickAction{
+    /**
+     * Contains the different types of click actions.
+     */
+    private enum ClickAction {
         PaintAreaClick,
         VertexClick,
         EdgeClick
-
     }
 
-    private void createVertex(Point position){
+    /**
+     * Creates a new vertex at the given position.
+     * @param position given position
+     */
+    private void createVertex(Point position) {
         String name = vertexName.getText();
-        if(vertexName.getText().isBlank()){
+        if (vertexName.getText().isBlank()) {
             name = String.valueOf(++numberOfDrawnUnnamedVertex);
         }
         Vertex newVertex = new Vertex(name, position);
         model.addDisplayVertex(newVertex);
     }
+
     private static final int VERTEX_SIZE = 10;
 
-    private void drawVertex(Vertex vertex){
+    /**
+     * Draws a vertex in the paint area.
+     * @param vertex given vertex to be drawn
+     */
+    private void drawVertex(Vertex vertex) {
         Circle circle = new Circle(VERTEX_SIZE, stdVertexColor);
         circle.setCenterX(vertex.getX());
         circle.setCenterY(vertex.getY());
@@ -518,95 +651,112 @@ public class MainWindowController {
         label.setTextFill(Color.BLACK);
         label.setPrefWidth(100);
         label.setPrefHeight(20);
-        //label.setCenterShape(true);
+        // label.setCenterShape(true);
         label.setAlignment(Pos.CENTER);
-        //label.setTextAlignment(TextAlignment.CENTER);
-        label.relocate(circle.getCenterX() - (label.getPrefWidth() / 2), circle.getCenterY() - (VERTEX_SIZE + label.getPrefHeight()));
+        // label.setTextAlignment(TextAlignment.CENTER);
+        label.relocate(circle.getCenterX() - (label.getPrefWidth() / 2),
+                circle.getCenterY() - (VERTEX_SIZE + label.getPrefHeight()));
         paintArea.getChildren().add(circle);
         paintArea.getChildren().add(label);
         guiVertexMap.put(circle, label, vertex);
-        //guiVertexMap.getCircleVertexList().put(circle, vertex);
+        // guiVertexMap.getCircleVertexList().put(circle, vertex);
         guiVertexMap.getCircleVertexList().inverse().put(vertex, circle);
     }
-    private void drawEdge(Edge edge){
+
+    /**
+     * Draws an edge in the paint area.
+     * @param edge given edge to be drawn
+     */
+    private void drawEdge(Edge edge) {
         int xStart = edge.getStart().getX();
         int xEnd = edge.getEnd().getX();
         int yStart = edge.getStart().getY();
         int yEnd = edge.getEnd().getY();
-        Point pUp = findArrow(xStart,xEnd,yStart,yEnd,true);
-        Point pDown = findArrow(xStart,xEnd,yStart,yEnd,false);
+        Point pUp = findArrow(xStart, xEnd, yStart, yEnd, true);
+        Point pDown = findArrow(xStart, xEnd, yStart, yEnd, false);
 
-
-        Point curve1 = findCurve(xStart,xEnd,yStart,yEnd);
-        QuadCurve curve = new QuadCurve(xStart,yStart,curve1.x(),curve1.y(),xEnd,yEnd);
+        Point curve1 = findCurve(xStart, xEnd, yStart, yEnd);
+        QuadCurve curve = new QuadCurve(xStart, yStart, curve1.x(), curve1.y(), xEnd, yEnd);
         curve.setFill(null);
         curve.setStrokeWidth(2);
         curve.setStroke(stdLineColor);
         curve.setOnMouseClicked(edgeClick);
-        //Line line = new Line(xStart, yStart,xEnd, yEnd);
-        Line arrowline1 = new Line(xEnd,yEnd,pUp.x(),pUp.y());
-        Line arrowline2 = new Line(xEnd,yEnd,pDown.x(),pDown.y());
+        // Line line = new Line(xStart, yStart,xEnd, yEnd);
+        Line arrowline1 = new Line(xEnd, yEnd, pUp.x(), pUp.y());
+        Line arrowline2 = new Line(xEnd, yEnd, pDown.x(), pDown.y());
         arrowline1.setStrokeWidth(2);
         arrowline2.setStrokeWidth(2);
         arrowline1.setFill(stdLineColor);
         arrowline2.setFill(stdLineColor);
         arrowline1.setPickOnBounds(false);
         arrowline2.setPickOnBounds(false);
-        paintArea.getChildren().add(0,arrowline1);
-        paintArea.getChildren().add(0,arrowline2);
+        paintArea.getChildren().add(0, arrowline1);
+        paintArea.getChildren().add(0, arrowline2);
 
-
-        //line.setFill(stdLineColor);
-        //line.setStrokeWidth(5);
-        //line.setOnMouseClicked(edgeClick);
+        // line.setFill(stdLineColor);
+        // line.setStrokeWidth(5);
+        // line.setOnMouseClicked(edgeClick);
         paintArea.getChildren().add(0, curve);
 
         guiVertexMap.getLineEdgeBiMap().put(curve, edge);
     }
 
-
-
-
-    private Point findCurve(int xStart, int xEnd, int yStart, int yEnd){
+    /**
+     * Finds the peak point of the curve from the start to end point.
+     * @param xStart given x-coordinate of the starting point
+     * @param xEnd given x-coordinate of the end point
+     * @param yStart given y-coordinate of the starting point
+     * @param yEnd given y-coordinate of the end point
+     * @return the found peak point
+     */
+    private Point findCurve(int xStart, int xEnd, int yStart, int yEnd) {
         final int CURVE_ROUNDING = 30;
-        int x = xEnd-xStart;
-        int y = yEnd-yStart;
-        double twoNorm =  Math.sqrt(x*x + y*y);
-        double xNorm = x/twoNorm;
-        double yNorm = y/twoNorm;
+        int x = xEnd - xStart;
+        int y = yEnd - yStart;
+        double twoNorm = Math.sqrt(x * x + y * y);
+        double xNorm = x / twoNorm;
+        double yNorm = y / twoNorm;
 
-        int halfx = xStart+(xEnd-xStart)/2;
-        int halfy = yStart+(yEnd-yStart)/2;
+        int halfx = xStart + (xEnd - xStart) / 2;
+        int halfy = yStart + (yEnd - yStart) / 2;
 
-
-        x = (int )(halfx-CURVE_ROUNDING*yNorm);
-        y = (int)(halfy +CURVE_ROUNDING*xNorm);
-        return new Point(x,y);
+        x = (int) (halfx - CURVE_ROUNDING * yNorm);
+        y = (int) (halfy + CURVE_ROUNDING * xNorm);
+        return new Point(x, y);
     }
 
+    /**
+     * Finds all necessary informations for the arrow.
+     * @param xStart
+     * @param xEnd
+     * @param yStart
+     * @param yEnd
+     * @param up
+     * @return
+     */
+    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up) {
+        int x = xEnd - xStart;
+        int y = yEnd - yStart;
+        double twoNorm = Math.sqrt(x * x + y * y);
+        double xNorm = x / twoNorm;
+        double yNorm = y / twoNorm;
 
-
-    private Point findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
-        int x = xEnd-xStart;
-        int y = yEnd-yStart;
-        double twoNorm =  Math.sqrt(x*x + y*y);
-        double xNorm = x/twoNorm;
-        double yNorm = y/twoNorm;
-
-        if (up){
-            x = (int )(xEnd -2*VERTEX_SIZE*xNorm +VERTEX_SIZE*yNorm);
-            y = (int)(yEnd-2*VERTEX_SIZE* yNorm -VERTEX_SIZE*xNorm);
+        if (up) {
+            x = (int) (xEnd - 2 * VERTEX_SIZE * xNorm + VERTEX_SIZE * yNorm);
+            y = (int) (yEnd - 2 * VERTEX_SIZE * yNorm - VERTEX_SIZE * xNorm);
+        } else {
+            x = (int) (xEnd - 2 * VERTEX_SIZE * xNorm - VERTEX_SIZE * yNorm);
+            y = (int) (yEnd - 2 * VERTEX_SIZE * yNorm + VERTEX_SIZE * xNorm);
         }
-        else {
-            x = (int )(xEnd -2*VERTEX_SIZE*xNorm -VERTEX_SIZE*yNorm);
-            y = (int)(yEnd-2*VERTEX_SIZE* yNorm +VERTEX_SIZE*xNorm);
-        }
-        return new Point(x,y);
+        return new Point(x, y);
     }
 
-
-
-    public Stage getStage(){
+    /**
+     * Returns the stage of the MainWindow.
+     * 
+     * @return current stage
+     */
+    public Stage getStage() {
         return stage;
     }
 }
