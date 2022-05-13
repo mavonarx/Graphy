@@ -97,7 +97,9 @@ public class MainWindowController {
         this.oldStage = oldStage;
         try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
-            handler = new GraphHandler();
+            model = new MainWindowModel();
+            model.registerListener(modelListener);
+            handler = new GraphHandler(model);
             mainLoader.setController(this);
             Stage mainStage = new Stage();
             Pane rootNode = mainLoader.load();
@@ -123,7 +125,9 @@ public class MainWindowController {
         this.oldStage = oldStage;
         try {
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/ch/zhaw/graphy/MainWindow.fxml"));
-            handler = new GraphHandler(file);
+            model = new MainWindowModel();
+            model.registerListener(modelListener);
+            handler = new GraphHandler(model, file);
             mainLoader.setController(this);
             Stage mainStage = new Stage();
             Pane rootNode = mainLoader.load();
@@ -151,8 +155,6 @@ public class MainWindowController {
      */
     @FXML
     void initialize() {
-        model = new MainWindowModel(handler);
-        model.registerVertexListener(mainWindowModelListener);
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
@@ -210,7 +212,6 @@ public class MainWindowController {
     private void clearAlLMethod(){
         numberOfDrawnUnnamedVertex = 0;
         model.clear();
-        handler.getGraph().clear();
     }
 
     /**
@@ -422,7 +423,7 @@ public class MainWindowController {
         }
     }
 
-    private MainWindowModel.MainWindowModelListener mainWindowModelListener = new MainWindowModel.MainWindowModelListener() {
+    private MainWindowModel.MainWindowModelListener modelListener = new MainWindowModel.MainWindowModelListener() {
         @Override
         public void onAddVertex(Vertex newVertex) {
             createVertex(newVertex);
@@ -483,7 +484,6 @@ public class MainWindowController {
                 VertexGui vertexGui = vertexGuiBiMap.inverse().get(vertex);
                 paintArea.getChildren().removeAll(vertexGui.getNodes());
                 vertexGuiBiMap.remove(vertexGui, vertex);
-                handler.getGraph().remove(vertex);
                 Iterator<Edge> edgeIterator = edgeGuiBiMap.inverse().keySet().iterator();
                 while (edgeIterator.hasNext()){
                     Edge edge = edgeIterator.next();
@@ -500,7 +500,7 @@ public class MainWindowController {
      * Clears all visual parts in the paint area.
      */
     private void clearPaintArea() {
-        paintArea.getChildren().removeAll();
+        paintArea.getChildren().clear();
     }
 
     /**
