@@ -16,10 +16,10 @@ import java.util.List;
 /**
  * A class that represents a Vertex in the GUI
  */
-public class VertexGui {
+public class VertexGui implements GraphGuiObject {
     public static final int VERTEX_SIZE = 10;
-    public static final Color STD_VERTEX_COLOR = Color.RED;
-    public static final Color STD_VERTEX_SELECTED_COLOR = Color.BLUE;
+    private static final Color STD_VERTEX_COLOR = Color.RED;
+    private static final Color STD_VERTEX_SELECTED_COLOR = Color.BLUE;
     private Circle node;
     private Circle clickArea;
     private Label name;
@@ -60,6 +60,15 @@ public class VertexGui {
     }
 
     /**
+     * Returns if this object is colored
+     * @return true if this object is not colored in standart color.
+     */
+    @Override
+    public boolean isColored() {
+        return node.getFill() != STD_VERTEX_COLOR;
+    }
+
+    /**
      * Gets the nodes of an VertexGui object.
      * @return all nodes that graphically represents an Vertex
      */
@@ -69,6 +78,24 @@ public class VertexGui {
         nodes.add(name);
         nodes.add(clickArea);
         return nodes;
+    }
+
+    /**
+     * Sets the color of this VertexGui object to standart color.
+     */
+    @Override
+    public void setStdColor(){
+        node.setFill(STD_VERTEX_COLOR);
+        name.setTextFill(STD_VERTEX_COLOR);
+    }
+
+    /**
+     * Sets the color of this VertexGui object to selected color.
+     */
+    @Override
+    public void setSelectedColor(){
+        node.setFill(STD_VERTEX_SELECTED_COLOR);
+        name.setTextFill(STD_VERTEX_SELECTED_COLOR);
     }
 
     /**

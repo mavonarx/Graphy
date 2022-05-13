@@ -432,20 +432,14 @@ public class MainWindowController {
         EdgeGui edgeGui =  edgeGuiBiMap.inverse().get(changeEdge);
         edgeGui.setColor(color);
     }
-
-    /**
-     * Changes the color of all edges.
-     * 
-     * @param color the new color to be set
-     */
-    private void changeEdgeColor(Color color){
-        for (EdgeGui edgeGui : edgeGuiBiMap.keySet()){
-            edgeGui.setColor(color);
+    private void setVertexColorStd(){
+        for (VertexGui vertexGui : vertexGuiBiMap.keySet()){
+            vertexGui.setStdColor();
         }
     }
     private void setEdgeColorStd(){
         for (EdgeGui edgeGui : edgeGuiBiMap.keySet()){
-            edgeGui.setStdEdgeColor();
+            edgeGui.setStdColor();
         }
     }
 
@@ -492,7 +486,7 @@ public class MainWindowController {
 
         @Override
         public void onSelectVertex(Vertex selectedVertex) {
-            changeVertexColor(selectedVertex, VertexGui.STD_VERTEX_SELECTED_COLOR);
+            vertexGuiBiMap.inverse().get(selectedVertex).setSelectedColor();
         }
 
         @Override
@@ -504,7 +498,7 @@ public class MainWindowController {
 
         @Override
         public void onClearSelectedVertex() {
-            changeVertexColor(VertexGui.STD_VERTEX_COLOR);
+            setVertexColorStd();
             setEdgeColorStd();
         }
 
@@ -515,7 +509,7 @@ public class MainWindowController {
 
         @Override
         public void onSelectEdge(Edge changeEdge) {
-            changeEdgeColor(changeEdge, EdgeGui.STD_EDGE_SELECTED_COLOR);
+            edgeGuiBiMap.inverse().get(changeEdge).setSelectedColor();
         }
 
         @Override
@@ -565,6 +559,24 @@ public class MainWindowController {
     }
 
     /**
+     * CHecks if a GraphGuiObject is colored.
+     * @return true if at least one GraphGuiObject of the GUI is not colored standart color.
+     */
+    private Boolean isGraphColored(){
+        for (VertexGui vertex : vertexGuiBiMap.keySet()) {
+            if(vertex.isColored()){
+                return true;
+            }
+        }
+        for (EdgeGui edge : edgeGuiBiMap.keySet()){
+            if(edge.isColored()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Invoked when a mouse click to clear everything happens.
      */
     private EventHandler<MouseEvent> clearAllClick = new EventHandler<MouseEvent>() {
@@ -593,7 +605,12 @@ public class MainWindowController {
                         if (model.hasSelectedEdge()) {
                             model.clearSelectedEdge();
                         }
-                    } else {
+                    }
+                    else if(isGraphColored()){
+                        setVertexColorStd();
+                        setEdgeColorStd();
+                    }
+                    else {
                         if (!selectMode.isSelected()) {
                             createVertex(new Point((int) event.getX(), (int) event.getY()));
                         }
