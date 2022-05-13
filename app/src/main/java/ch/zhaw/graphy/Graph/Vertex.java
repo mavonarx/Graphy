@@ -1,12 +1,14 @@
 package ch.zhaw.graphy.Graph;
 
 
+import ch.zhaw.graphy.graphObject;
+
 import java.util.Objects;
 
 /**
  *This class represents a vertex of a graph. It has a position and a name.
  */
-public class Vertex {
+public class Vertex implements graphObject {
 
     private Point position;
     private String name;

@@ -1,12 +1,14 @@
 package ch.zhaw.graphy.Graph;
 
+import ch.zhaw.graphy.graphObject;
+
 import java.util.Objects;
 
 /**
  * This class represents an edge in the graph. It has a start and an end vertex. And a weight.
  * if no weight is given a default value of 0 is taken.
  */
-public class Edge implements Comparable<Edge>{
+public class Edge implements Comparable<Edge>, graphObject {
     private final Vertex start;
     private final Vertex end;
     private final int weight;
