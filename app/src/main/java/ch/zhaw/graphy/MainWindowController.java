@@ -41,12 +41,10 @@ import javax.swing.*;
 public class MainWindowController {
 
     GraphHandler handler;
-
     OwnBiMap guiVertexMap = new OwnBiMap();
     private Stage stage;
     private static int numberOfDrawnUnnamedVertex = 0;
     private Stage oldStage;
-
     private Color stdVertexColor = Color.RED;
     private static final Color stdVertexSelectedColor = Color.BLUE;
     private static final Color stdLineColor = Color.LIGHTGRAY;
@@ -88,7 +86,6 @@ public class MainWindowController {
     private TextField vertexName;
     @FXML
     private CheckBox bidirectional;
-
     @FXML
     private CheckBox selectMode;
 
@@ -158,20 +155,7 @@ public class MainWindowController {
         });
     }
 
-    @FXML
-    void addEdge(ActionEvent event) {
 
-    }
-
-    @FXML
-    void addEdgeWeight(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addVertexName(ActionEvent event) {
-
-    }
     @FXML
     void colorize(ActionEvent event) {
         int min = 0;
@@ -554,6 +538,7 @@ public class MainWindowController {
         //guiVertexMap.getCircleVertexList().put(circle, vertex);
         guiVertexMap.getCircleVertexList().inverse().put(vertex, circle);
     }
+
     private void drawEdge(Edge edge){
         int xStart = edge.getStart().getX();
         int xEnd = edge.getEnd().getX();
@@ -569,7 +554,7 @@ public class MainWindowController {
         curve.setStrokeWidth(2);
         curve.setStroke(stdLineColor);
         curve.setOnMouseClicked(edgeClick);
-        //Line line = new Line(xStart, yStart,xEnd, yEnd);
+
         Line arrowline1 = new Line(pUp.xEnd,pUp.yEnd,pUp.x,pUp.y);
         Line arrowline2 = new Line(pDown.xEnd,pDown.yEnd,pDown.x,pDown.y);
         arrowline1.setStrokeWidth(2);
@@ -581,10 +566,6 @@ public class MainWindowController {
         paintArea.getChildren().add(0,arrowline1);
         paintArea.getChildren().add(0,arrowline2);
 
-
-        //line.setFill(stdLineColor);
-        //line.setStrokeWidth(5);
-        //line.setOnMouseClicked(edgeClick);
         paintArea.getChildren().add(0, curve);
 
         try {
@@ -621,8 +602,6 @@ public class MainWindowController {
         return new Point(x,y);
     }
 
-
-
     private ArrowInfo findArrow(int xStart, int xEnd, int yStart, int yEnd, boolean up){
         int x = xEnd-xStart;
         int y = yEnd-yStart;
@@ -644,8 +623,6 @@ public class MainWindowController {
         }
         return new ArrowInfo(x,y,(int)(xEnd-VERTEX_SIZE*xNorm),(int)(yEnd-VERTEX_SIZE*yNorm));
     }
-
-
 
     public Stage getStage(){
         return stage;
