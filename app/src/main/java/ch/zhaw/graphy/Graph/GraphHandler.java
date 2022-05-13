@@ -98,7 +98,9 @@ public class GraphHandler {
      * constructor if no file is provided.
      */
     public GraphHandler(MainWindowModel model) {
-        model.registerListener(modelListener);
+        if(model != null){
+            model.registerListener(modelListener);
+        }
     }
 
     /**
