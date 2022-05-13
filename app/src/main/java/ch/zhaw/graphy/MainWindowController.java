@@ -599,6 +599,10 @@ public class MainWindowController {
         double twoNorm =  Math.sqrt(x*x + y*y);
         double xNorm = x/twoNorm;
         double yNorm = y/twoNorm;
+        final int ANGEL_GRAD = -12;
+        final double ANGEL_RAD = ANGEL_GRAD*Math.PI/180;
+        xNorm = xNorm*Math.cos(ANGEL_RAD)-yNorm*Math.sin(ANGEL_RAD);
+        yNorm = yNorm*Math.cos(ANGEL_RAD)+xNorm*Math.sin(ANGEL_RAD);
 
         if (up){
             x = (int )(xEnd -2*VERTEX_SIZE*xNorm +VERTEX_SIZE*yNorm);
