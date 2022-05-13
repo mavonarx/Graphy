@@ -292,31 +292,6 @@ public class MainWindowController {
             feedBackLabel.setStyle("-fx-text-fill: blue");
             feedBackLabel.setText("No vertex or Edge has been selected");
         }
-        //first we remove the selected edges from the paint area and from the LineEdgeMap
-        for (Edge modelEdge : model.getSelectedEdge()){
-
-            //now we need to remove the edges from the list associated with a vertex
-            for (Vertex vertex : handler.getGraph().keySet()){
-                for (Edge graphEdge : handler.getGraph().get(vertex)){
-                    if (modelEdge.equals(graphEdge)){
-                        handler.getGraph().get(vertex).remove(graphEdge);
-                    }
-                }
-            }
-        }
-
-        //next we remove the selected vertices
-        for (Vertex vertex : model.getSelectedVertex()){
-            handler.getGraph().remove(vertex);
-            Iterator<Edge> edgeIterator = edgeGuiBiMap.inverse().keySet().iterator();
-            while (edgeIterator.hasNext()){
-                Edge edge = edgeIterator.next();
-                if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
-                    paintArea.getChildren().removeAll(edgeGuiBiMap.inverse().get(edge).getNodes());
-                    edgeIterator.remove();
-                }
-            }
-        }
         model.removeSelectedDisplayVertex();
         model.removeSelectedDisplayEdge();
     }
@@ -392,6 +367,13 @@ public class MainWindowController {
                 EdgeGui edgeGui = edgeGuiBiMap.inverse().get(edge);
                 paintArea.getChildren().removeAll(edgeGui.getNodes());
                 edgeGuiBiMap.remove(edgeGui, edge);
+                for (Vertex vertex : handler.getGraph().keySet()){
+                    for (Edge graphEdge : handler.getGraph().get(vertex)){
+                        if (edge.equals(graphEdge)){
+                            handler.getGraph().get(vertex).remove(graphEdge);
+                        }
+                    }
+                }
             }
         }
 
@@ -401,6 +383,15 @@ public class MainWindowController {
                 VertexGui vertexGui = vertexGuiBiMap.inverse().get(vertex);
                 paintArea.getChildren().removeAll(vertexGui.getNodes());
                 vertexGuiBiMap.remove(vertexGui, vertex);
+                handler.getGraph().remove(vertex);
+                Iterator<Edge> edgeIterator = edgeGuiBiMap.inverse().keySet().iterator();
+                while (edgeIterator.hasNext()){
+                    Edge edge = edgeIterator.next();
+                    if (edge.getEnd().equals(vertex) || edge.getStart().equals(vertex)){
+                        paintArea.getChildren().removeAll(edgeGuiBiMap.inverse().get(edge).getNodes());
+                        edgeIterator.remove();
+                    }
+                }
             }
         }
     };
