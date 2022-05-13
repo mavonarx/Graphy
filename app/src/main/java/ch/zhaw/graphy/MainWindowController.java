@@ -8,6 +8,7 @@ import ch.zhaw.graphy.Graph.Edge;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
@@ -238,10 +239,10 @@ public class MainWindowController {
     void executeDijkstra(ActionEvent event) {
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
-        LinkedList<Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.selectedVertex.get(0), model.selectedVertex.get(1));
 
 
-        for (int i =0; i<path.size()-2;i++){
+        for (int i =0; i<path.keySet().size();i++){
             for (Vertex vertex : guiVertexMap.getCircleVertexList().inverse().keySet()){
                 if (vertex.equals(path.get(i))){
                     changeVertexColor(vertex, Color.ORANGE);
