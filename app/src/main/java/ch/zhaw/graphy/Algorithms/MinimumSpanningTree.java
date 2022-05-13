@@ -16,6 +16,7 @@ public class MinimumSpanningTree extends Algorithm{
 
     /**
      * The constructor for a mst (extending Algorithm superClass)
+     *
      * @param bfs a {@link BreadthFirstSearch} most of the time uses a new object
      */
     public MinimumSpanningTree(BreadthFirstSearch bfs){

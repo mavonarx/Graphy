@@ -60,6 +60,7 @@ public class MainWindowModel {
 
     /**
      * Adds a new Edge to display and notifies all listeners about the add of the display edge.
+     *
      * @param edge to display.
      */
     public void addDisplayEdge(Edge edge){
@@ -70,6 +71,7 @@ public class MainWindowModel {
 
     /**
      * Adds a new Edge to display selected and notifies all listeners about the add of the selected edge.
+     *
      * @param edge to select.
      */
     public void addSelectedEdge(Edge edge) {
@@ -87,6 +89,7 @@ public class MainWindowModel {
 
     /**
      * Adds a new Vertex to display and notifies all listeners about the add of the display vertex.
+     *
      * @param vertex to display.
      */
     public void addDisplayVertex(Vertex vertex) {
@@ -97,6 +100,7 @@ public class MainWindowModel {
 
     /**
      * Adds a new Vertex to display selected and notifies all listeners about the add of the selected vertex.
+     *
      * @param vertex to select.
      */
     public void addSelectedVertex(Vertex vertex) {
@@ -125,6 +129,7 @@ public class MainWindowModel {
 
     /**
      * Register a new listener on the model.
+     *
      * @param listener that will be notified.
      */
     public void registerListener(MainWindowModelListener listener) {
@@ -133,6 +138,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a new vertex is added
+     *
      * @param newVertex to notify about
      */
     private void notifyOnAddVertex(Vertex newVertex) {
@@ -143,6 +149,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a vertex is selected
+     *
      * @param selectVertex to notify about
      */
     private void notifyOnSelectVertex(Vertex selectVertex) {
@@ -171,6 +178,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a new edge is added
+     *
      * @param newEdge to notify about
      */
     private void notifyOnAddEdge(Edge newEdge) {
@@ -181,6 +189,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a new edge is selected
+     *
      * @param selectEdge to notify about
      */
     private void notifyOnSelectEdge(Edge selectEdge) {
@@ -200,6 +209,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a list of selected vertex are removed
+     *
      * @param removeVertex vertex to unselect
      */
     private void notifyOnRemoveSelectedVertex(List<Vertex> removeVertex){
@@ -210,6 +220,7 @@ public class MainWindowModel {
 
     /**
      * Notifies all listeners that a list of selected edges are removed
+     *
      * @param removeEdges edges to unselect
      */
     private void notifyOnRemoveSelectedEdge(List<Edge> removeEdges){
@@ -231,6 +242,7 @@ public class MainWindowModel {
 
     /**
      * Returns a list of the selected vertices.
+     *
      * @return selected vertex list
      */
     public List<Vertex> getSelectedVertex() {
@@ -239,6 +251,7 @@ public class MainWindowModel {
 
     /**
      * Returns a list of the selected edges.
+     *
      * @return selected edges list
      */
     public List<Edge> getSelectedEdge() {
@@ -251,11 +264,13 @@ public class MainWindowModel {
     public interface MainWindowModelListener {
         /**
          * Notifies about added Vertex
+         *
          * @param newVertex added Vertex
          */
         void onAddVertex(Vertex newVertex);
         /**
          * Notifies about selected Vertex
+         *
          * @param selectedVertex selected Vertex
          */
         void onSelectVertex(Vertex selectedVertex);
@@ -269,11 +284,13 @@ public class MainWindowModel {
         void onClearSelectedVertex();
         /**
          * Notifies about added Edge
+         *
          * @param newEdge added Edge
          */
         void onAddEdge(Edge newEdge);
         /**
          * Notifies about selected Edge
+         *
          * @param selectedEdge selected Edge
          */
         void onSelectEdge(Edge selectedEdge);
@@ -283,11 +300,13 @@ public class MainWindowModel {
         void onClearSelectedEdge();
         /**
          * Notifies about remove of selected vertex
+         *
          * @param selectedVertex vertex to remove
          */
         void onRemoveSelectedVertex(List<Vertex> selectedVertex);
         /**
          * Notifies about remove of selected edge
+         *
          * @param selectedEdges edge to remove
          */
         void onRemoveSelectedEdge(List<Edge> selectedEdges);

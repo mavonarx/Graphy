@@ -18,6 +18,7 @@ public class BreadthFirstSearch {
 
     /**
      * From the given source gives the distance in amount of edges mapped to the vertex.
+     *
      * @param graph a graphHandler containing the graph map
      * @param source the start vertex
      * @return's a map with the vertices for the path and the corresponding predecessor

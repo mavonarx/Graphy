@@ -17,6 +17,7 @@ public class Dijkstra{
 
     /**
      * Executes a Dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges
+     *
      * @param graph a graphHandler containing the graph map
      * @param source the vertex from which the dijkstra starts
      * @param finalVertex the vertex to which we path

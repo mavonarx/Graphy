@@ -26,6 +26,7 @@ public class HelpWindowController {
 
     /**
      * Constructor for FileInputController. Fills in the scene. Sets up, configures and shows the stage.
+     *
      * @param isPreWindow true, if the PreWindow loads the HelpWindow.
      */
     public HelpWindowController(boolean isPreWindow) {
@@ -57,6 +58,7 @@ public class HelpWindowController {
 
     /**
      * Closes the HelpWindow.
+     *
      * @param event
      */
     @FXML
@@ -127,6 +129,7 @@ public class HelpWindowController {
 
     /**
      * Returns the stage of the HelpWindow.
+     *
      * @return current stage
      */
     public Stage getStage() {

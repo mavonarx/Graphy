@@ -297,7 +297,7 @@ public class MainWindowController {
     /**
      * Uses dijkstra twice to get from a source vertex (first in {model.getSelectedVertex})
      * to a destination vertex (third in {model.getSelectedVertex}) via
-     *  a pass through vertex (second in {model.getSelectedVertex})
+     * a pass through vertex (second in {model.getSelectedVertex})
      *
      * @param event on dijkstraVia button press
      */
@@ -454,8 +454,9 @@ public class MainWindowController {
         }
     }
 
-        /**
+    /**
      * Creates a new vertex at the given position.
+     *
      * @param position given position
      */
     private void createVertex(Point position) {
@@ -467,11 +468,22 @@ public class MainWindowController {
         model.addDisplayVertex(newVertex);
     }
 
+    /**
+     * Creates a given vertex on the canvas
+     *
+     * @param vertex the given vertex
+     */
     private void createVertex(Vertex vertex){
         VertexGui vertexGui = new VertexGui(vertex, vertexClick);
         vertexGuiBiMap.put(vertexGui, vertex);
         paintArea.getChildren().addAll(vertexGui.getNodes());
     }
+
+    /**
+     * Creates a given edge on the canvas
+     *
+     * @param edge the given edge
+     */
     private void createEdge(Edge edge){
         EdgeGui edgeGui = new EdgeGui(edge, edgeClick);
         edgeGuiBiMap.put(edgeGui, edge);
@@ -559,7 +571,8 @@ public class MainWindowController {
     }
 
     /**
-     * CHecks if a GraphGuiObject is colored.
+     * Checks if a GraphGuiObject is colored.
+     *
      * @return true if at least one GraphGuiObject of the GUI is not colored standart color.
      */
     private Boolean isGraphColored(){

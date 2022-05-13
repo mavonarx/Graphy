@@ -27,6 +27,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Constructor for VertexGui
+     *
      * @param vertex that will be represented by the VertexGui
      * @param clickEvent clickEvent that is triggered when the VertexGui object gets clicked
      */
@@ -52,6 +53,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Sets the color of the VertexGui object
+     *
      * @param color to set.
      */
     public void setColor(Color color){
@@ -61,6 +63,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Returns if this object is colored
+     *
      * @return true if this object is not colored in standart color.
      */
     @Override
@@ -70,6 +73,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Gets the nodes of an VertexGui object.
+     *
      * @return all nodes that graphically represents an Vertex
      */
     public List<Node> getNodes(){
@@ -100,6 +104,7 @@ public class VertexGui implements GraphGuiObject {
 
     /**
      * Gets an Instance of the current VertexGui
+     * 
      * @return this instance
      */
     private VertexGui getMe(){
