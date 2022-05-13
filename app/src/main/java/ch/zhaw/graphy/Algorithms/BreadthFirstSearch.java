@@ -13,9 +13,15 @@ import ch.zhaw.graphy.Graph.Vertex;
  * @version 13.05.2022
  */
 public class BreadthFirstSearch {
+    // This map is used in the visualisation of the BFS and is set after executing a BFS
     private Map<Vertex, Vertex> visualMap = new HashMap<>();
 
-    // prints BFS traversal from a given source s
+    /**
+     * From the given source gives the distance in amount of edges mapped to the vertex.
+     * @param graph a graphHandler containing the graph map
+     * @param source the start vertex
+     * @return's a map with the vertices for the path and the corresponding predecessor
+     */
     public Map<Vertex, Integer> executeBFS(GraphHandler graph, Vertex source) {
 
         Map<Vertex, Integer> result = new HashMap<>();
@@ -59,7 +65,6 @@ public class BreadthFirstSearch {
 
     /**
      * Returns a map with the visual vertices.
-     * 
      * @return visual map
      */
     public Map<Vertex, Vertex> getVisualMap() {

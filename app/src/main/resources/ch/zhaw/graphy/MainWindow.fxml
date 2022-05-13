@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
    <children>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -61,12 +61,12 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <Button fx:id="addEdge" mnemonicParsing="false"  prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Add edge">
+                  <Button fx:id="addEdge" mnemonicParsing="false" prefHeight="35.0" prefWidth="90.0" stylesheets="@buttons.css" text="Add edge">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="edgeWeight"  prefHeight="35.0" prefWidth="110.0" promptText="Edge Weight" style="-fx-background-color: azure;">
+                  <TextField fx:id="edgeWeight" prefHeight="35.0" prefWidth="110.0" promptText="Edge Weight" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -74,7 +74,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="vertexName"  prefHeight="35.0" prefWidth="110.0" promptText="Vertex name" style="-fx-background-color: azure;">
+                  <TextField fx:id="vertexName" prefHeight="35.0" prefWidth="110.0" promptText="Vertex name" style="-fx-background-color: azure;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -119,6 +119,7 @@
                       <MenuItem fx:id="executeDijkstra" mnemonicParsing="false" onAction="#executeDijkstra" text="Dijkstra" />
                       <MenuItem mnemonicParsing="false" onAction="#executeBfs" text="BFS" />
                         <MenuItem fx:id="executeSpanningTree" mnemonicParsing="false" onAction="#executeSpanningTree" text="Spanning Tree" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeDijkstraVia" text="Dijkstra-Via" />
                     </items>
                      <font>
                         <Font name="System Bold" size="14.0" />

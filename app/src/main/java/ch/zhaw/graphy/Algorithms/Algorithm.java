@@ -5,6 +5,7 @@ import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
 
 /**
+ * A algorithm superClass mostly for future use in algorithm with overlapping needs
  * @author Tanja Aeberhardt, Nicolas Balke, Lukas Gruber, Matthias von Arx
  * @version 13.05.2022
  */
@@ -20,10 +21,16 @@ public abstract class Algorithm {
         this.bfs = bfs;
     }
 
-    void checkIfConnected(GraphHandler graph, Vertex start) {
+    /**
+     * Uses a BFS algorithm to check if the graph is connected from that source
+     * e.g if all vertices are reachable from the source
+     * @param graph a graphHandler containing a graph map
+     * @param source the vertex from which all other vertices should be reachable
+     */
+    void checkIfConnected(GraphHandler graph, Vertex source) {
 
-        if (bfs.executeBFS(graph, start).size() != graph.getGraph().size() - 1) { //TODO might run into problems when graph is only 1 Vertex
-            throw new IllegalArgumentException("The graph for this start vertex isn't fully connected. " +
+        if (bfs.executeBFS(graph, source).size() != graph.getGraph().size() - 1) { //TODO might run into problems when graph is only 1 Vertex
+            throw new IllegalArgumentException("The graph for this source vertex isn't fully connected. " +
                     "MinimumSpanningTree can only be used on fully connected graphs");
         }
     }

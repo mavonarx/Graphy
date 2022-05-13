@@ -233,9 +233,10 @@ public class MainWindowController {
      */
     @FXML
     void executeBfs(ActionEvent event) {
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("No source vertex has been selected");
+            return;
         }
         algorithmSelectionMenu.setText("BFS");
         if (!model.hasSelectedVertex()) {
@@ -251,6 +252,7 @@ public class MainWindowController {
                 }
             }
         }
+        model.getSelectedVertex().clear();
         vertexGuiBiMap.inverse().get(model.getSelectedVertex().get(0)).setColor(Color.PURPLE);
         feedBackLabel.setText("BFS successful with " + bfs.getVisualMap().size() + " steps");
     }
@@ -263,9 +265,10 @@ public class MainWindowController {
     @FXML
     void executeDijkstra(ActionEvent event) {
         int weightCounter =0;
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 2){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("Select 2 vertices for dijkstra");
+            return;
         }
         algorithmSelectionMenu.setText("Dijkstra");
         Dijkstra dijkstra = new Dijkstra();
@@ -281,6 +284,7 @@ public class MainWindowController {
                 }
             }
         }
+        model.getSelectedVertex().clear();
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
         }
 
@@ -294,9 +298,10 @@ public class MainWindowController {
      */
     @FXML
     void executeSpanningTree(ActionEvent event) {
-        if (model.getSelectedVertex().isEmpty() && model.getSelectedEdge().isEmpty()){
+        if (model.getSelectedVertex().size() != 1){
             feedBackLabel.setStyle("-fx-text-fill: red");
             feedBackLabel.setText("No source vertex has been selected");
+            return;
         }
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
@@ -308,7 +313,49 @@ public class MainWindowController {
                 }
             }
         }
+        model.getSelectedVertex().clear();
         feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    void executeDijkstraVia(ActionEvent event){
+        int weightCounter =0;
+        if (model.getSelectedVertex().size() != 3){
+            feedBackLabel.setStyle("-fx-text-fill: red");
+            feedBackLabel.setText("Select 3 vertices for dijkstra-Via");
+            return;
+        }
+        algorithmSelectionMenu.setText("Dijkstra");
+        Dijkstra dijkstra = new Dijkstra();
+        Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
+
+        for (Vertex vertex : path.keySet()){
+            vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
+            for (Edge edge : edgeGuiBiMap.inverse().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                    weightCounter+=edge.getWeight();
+                }
+            }
+        }
+        path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(1), model.getSelectedVertex().get(2));
+
+        for (Vertex vertex : path.keySet()){
+            vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
+            for (Edge edge : edgeGuiBiMap.inverse().keySet()){
+                if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
+                    changeEdgeColor(edge, Color.GREEN);
+                    weightCounter+=edge.getWeight();
+                }
+            }
+        }
+        model.getSelectedVertex().size();
+        changeVertexColor(model.getSelectedVertex().get(1), Color. GREY);
+        feedBackLabel.setText("Minimum path cost is: " + weightCounter);
     }
 
     /**

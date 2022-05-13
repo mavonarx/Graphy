@@ -15,20 +15,21 @@ import ch.zhaw.graphy.Graph.Vertex;
  */
 public class Dijkstra{
 
-    private final Map<Vertex, Integer> distances = new HashMap<>();
-    private final PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
-    private final Map <Vertex, Vertex> predecessors = new HashMap<>();
-    private final Set<Vertex> visited = new HashSet<>();
-
     /**
-     * Executes a dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges
-     * @param graph
-     * @param startVertex
+     * Executes a Dijsktra algorithm, this searches for a shortest path in regards to the weights of the given edges
+     * @param graph a graphHandler containing the graph map
+     * @param source the vertex from which the dijkstra starts
+     * @param finalVertex the vertex to which we path
      */
-    public Map<Vertex,Vertex> executeDijkstra(GraphHandler graph, Vertex startVertex, Vertex finalVertex) throws IllegalArgumentException{
+    public static Map<Vertex,Vertex> executeDijkstra(GraphHandler graph, Vertex source, Vertex finalVertex) throws IllegalArgumentException{
+          Map<Vertex, Integer> distances = new HashMap<>();
+          PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
+          Map <Vertex, Vertex> predecessors = new HashMap<>();
+          Set<Vertex> visited = new HashSet<>();
+
         HashMap<Vertex,Vertex> resultMap = new HashMap<>();
-        resultMap.put(startVertex,null);
-        if (startVertex.equals(finalVertex)){
+        resultMap.put(source,null);
+        if (source.equals(finalVertex)){
            return resultMap;
         }
 
@@ -38,11 +39,11 @@ public class Dijkstra{
         }
 
         // the source vertex has distance zero to itself and no predecessor
-        distances.put(startVertex,0);
-        predecessors.put(startVertex,null);
+        distances.put(source,0);
+        predecessors.put(source,null);
 
         // first add source to PriorityQueue
-        prioQueue.addAll(graph.getGraph().get(startVertex));
+        prioQueue.addAll(graph.getGraph().get(source));
 
             while (!prioQueue.isEmpty()) {
 
@@ -64,33 +65,21 @@ public class Dijkstra{
                     if (distances.get(edge.getEnd()) == -1 || distances.get(edge.getEnd()) > distances.get(edge.getStart()) + edge.getWeight()) {
                         distances.put(edge.getEnd(), edge.getWeight() + distances.get(edge.getStart()));
                         predecessors.put(edge.getEnd(), edge.getStart());
-                        System.out.println(edge.getStart());
-                        System.out.println(edge.getEnd() + " : " +predecessors.get(edge.getEnd()));
                     }
                     prioQueue.addAll(graph.getGraph().get(edge.getEnd()));
                 }
-
-                // if the vertex is an endVertex and is cheaper than the current endVertex update the cheapest endVertex
-
-               // prioQueue.addAll(graph.getGraph().get(currentEnd));
             }
 
         // fill the list with all predecessors to the endpoint
         Vertex pointer = finalVertex;
-        while (pointer !=null){
-            System.out.println(pointer);
+        while (pointer !=null && !(predecessors.get(finalVertex) == null)){
             resultMap.put(pointer,predecessors.get(pointer));
             pointer = predecessors.get(pointer);
 
         }
-        for (Vertex vertex : resultMap.keySet()){
-            System.out.println(vertex +" : " + resultMap.get(vertex));
-        }
-
         if (resultMap.size()==1){
             throw new IllegalArgumentException("The given vertices are not connected");
         }
-
     return resultMap;
     }
 }

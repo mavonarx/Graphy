@@ -94,11 +94,11 @@ class DijkstraTest{
     void dijkstraMockedTest(){
         Dijkstra dijkstra = new Dijkstra();
 
-        LinkedList<Vertex> expected = new LinkedList<>();
-        expected.add(mockVertex1);
-        expected.add(mockVertex4);
-        expected.add(mockVertex2);
-        expected.add(mockVertex3);
+        Map<Vertex, Vertex> expected = new HashMap();
+        expected.put(mockVertex1, null);
+        expected.put(mockVertex4, mockVertex1);
+        expected.put(mockVertex2, mockVertex4);
+        expected.put(mockVertex3, mockVertex2);
 
         assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex3));
     }
@@ -114,8 +114,8 @@ class DijkstraTest{
     void startEqualsEndVertex(){
         Dijkstra dijkstra = new Dijkstra();
 
-        LinkedList<Vertex> expected = new LinkedList<>();
-        expected.add(mockVertex1);
+        Map<Vertex, Vertex> expected = new HashMap();
+        expected.put(mockVertex1, null);
 
         assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
@@ -127,8 +127,8 @@ class DijkstraTest{
         MapProperty<Vertex, SimpleSetProperty<Edge>> mockMap = new SimpleMapProperty<>(FXCollections.observableHashMap());
         mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
 
-        LinkedList<Vertex> expected = new LinkedList<>();
-        expected.add(mockVertex1);
+        Map<Vertex, Vertex> expected = new HashMap();
+        expected.put(mockVertex1, null);
 
         assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
@@ -141,8 +141,8 @@ class DijkstraTest{
         mockMap.put(mockVertex1, new SimpleSetProperty<>(FXCollections.observableSet()));
         mockMap.put(mockVertex5, new SimpleSetProperty<>(FXCollections.observableSet()));
 
-        LinkedList<Vertex> expected = new LinkedList<>();
-        expected.add(mockVertex1);
+        Map<Vertex, Vertex> expected = new HashMap();
+        expected.put(mockVertex1, null);
         assertEquals(expected, dijkstra.executeDijkstra(mockHandler, mockVertex1, mockVertex1));
     }
 
