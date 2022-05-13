@@ -134,7 +134,7 @@ public class MainWindowController {
     @FXML
     void initialize() {
         model = new MainWindowModel(handler);
-        model.registerVertexListener(vertexListener);
+        model.registerVertexListener(mainWindowModelListener);
         algorithmSelectionMenu.setText("Choose Algorithm");
         paintArea.setOnMouseClicked(paintAreaClick);
         clearAll.setOnMouseClicked(clearAllClick);
@@ -185,11 +185,14 @@ public class MainWindowController {
      */
     @FXML
     void clearAll(ActionEvent event) {
+        clearAlLMethod();
+
+    }
+
+    private void clearAlLMethod(){
+        numberOfDrawnUnnamedVertex = 0;
         model.clear();
-        paintArea.getChildren().clear();
         handler.getGraph().clear();
-        edgeGuiBiMap.clear();
-        vertexGuiBiMap.clear();
     }
 
     /**
@@ -325,7 +328,7 @@ public class MainWindowController {
      */
     @FXML
     void backToStart(ActionEvent event) {
-        clearAll(event);
+        clearAlLMethod();
         PreWindowController preWindowController = new PreWindowController(oldStage);
         preWindowController.getStage().show();
         close(event);
@@ -431,8 +434,9 @@ public class MainWindowController {
         edgeGuiBiMap.put(edgeGui, edge);
         paintArea.getChildren().addAll(0, edgeGui.getNodes());
     }
+  
+    private MainWindowModel.MainWindowModelListener mainWindowModelListener = new MainWindowModel.MainWindowModelListener() {
 
-    private MainWindowModel.VertexListener vertexListener = new MainWindowModel.VertexListener() {
         @Override
         public void onAddVertex(Vertex newVertex) {
             createVertex(newVertex);
@@ -446,6 +450,8 @@ public class MainWindowController {
         @Override
         public void onClearVertex() {
             clearPaintArea();
+            vertexGuiBiMap.clear();
+            edgeGuiBiMap.clear();
         }
 
         @Override

@@ -3,13 +3,9 @@ package ch.zhaw.graphy;
 import ch.zhaw.graphy.Graph.Edge;
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Vertex;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class models all the data which is needed for the communication between
@@ -21,7 +17,7 @@ import java.util.Map;
 public class MainWindowModel {
 
     private GraphHandler handler;
-    private List<VertexListener> vertexListeners = new ArrayList<>();
+    private List<MainWindowModelListener> mainWindowModelListeners = new ArrayList<>();
     private List<Vertex> displayVertex = new ArrayList<>();
     private List<Vertex> selectedVertex = new ArrayList<>();
     private List<Edge> displayEdges = new ArrayList<>();
@@ -51,23 +47,40 @@ public class MainWindowModel {
         return !selectedEdge.isEmpty();
     }
 
+    /**
+     * Removes all selected Vertex
+     * clears the selected Vertex list and notifies all Listeners about the remove of selected Vertex.
+     */
     public void removeSelectedDisplayVertex(){
         displayVertex.removeAll(selectedVertex);
         notifyOnRemoveSelectedVertex(selectedVertex);
         selectedVertex.clear();
     }
+
+    /**
+     * Removes all selected Edges
+     * clears the selected Edge list and notifies all Listeners about the remove of selected Edges.
+     */
     public void removeSelectedDisplayEdge(){
         displayEdges.removeAll(selectedEdge);
         notifyOnRemoveSelectedEdge(selectedEdge);
         selectedEdge.clear();
     }
 
+    /**
+     * Adds a new Edge to display and notifies all listeners about the add of the display edge.
+     * @param edge to display.
+     */
     public void addDisplayEdge(Edge edge){
         handler.getGraph().get(edge.getStart()).add(edge);
         displayEdges.add(edge);
         notifyOnAddEdge(edge);
     }
 
+    /**
+     * Adds a new Edge to display selected and notifies all listeners about the add of the selected edge.
+     * @param edge to select.
+     */
     public void addSelectedEdge(Edge edge) {
         selectedEdge.add(edge);
         notifyOnSelectEdge(edge);
@@ -78,104 +91,147 @@ public class MainWindowModel {
         notifyOnClearSelectedEdge();
     }
 
+    /**
+     * Adds a new Vertex to display and notifies all listeners about the add of the display vertex.
+     * @param vertex to display.
+     */
     public void addDisplayVertex(Vertex vertex) {
         handler.addVertex(vertex);
         displayVertex.add(vertex);
         notifyOnAddVertex(vertex);
     }
 
+    /**
+     * Adds a new Vertex to display selected and notifies all listeners about the add of the selected vertex.
+     * @param vertex to select.
+     */
     public void addSelectedVertex(Vertex vertex) {
         selectedVertex.add(vertex);
         notifyOnSelectVertex(vertex);
     }
 
+    /**
+     * Clears all display vertex and edges.
+     * Notifies about the clear of the display vertex list.
+     */
     public void clearDisplayVertex() {
         displayVertex.clear();
         selectedVertex.clear();
         notifyOnClearVertex();
     }
 
+    /**
+     * Clears all selected vertex.
+     * Notifies about the clear of the selected vertex list.
+     */
     public void clearSelectedVertex() {
         selectedVertex.clear();
         notifyOnClearSelectedVertex();
     }
 
-
-    public void registerVertexListener(VertexListener listener) {
-        vertexListeners.add(listener);
+    /**
+     * Register a new listener on the model.
+     * @param listener that will be notified.
+     */
+    public void registerVertexListener(MainWindowModelListener listener) {
+        mainWindowModelListeners.add(listener);
     }
 
+    /**
+     * Notifies all listeners that a new vertex is added
+     * @param newVertex to notify about
+     */
     private void notifyOnAddVertex(Vertex newVertex) {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onAddVertex(newVertex);
         }
     }
 
+    /**
+     * Notifies all listeners that a vertex is selected
+     * @param selectVertex to notify about
+     */
     private void notifyOnSelectVertex(Vertex selectVertex) {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onSelectVertex(selectVertex);
         }
     }
 
+    /**
+     * Notifies all listeners that all vertex are removed
+     */
     private void notifyOnClearVertex() {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onClearVertex();
         }
     }
 
+    /**
+     * Notifies all listeners that all selected vertex are removed
+     */
     private void notifyOnClearSelectedVertex() {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onClearSelectedVertex();
         }
     }
 
+    /**
+     * Notifies all listeners that a new edge is added
+     * @param newEdge to notify about
+     */
     private void notifyOnAddEdge(Edge newEdge) {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onAddEdge(newEdge);
         }
     }
 
-    private void notifyOnSelectEdge(Edge newEdge) {
-        for (VertexListener listener : vertexListeners) {
-            listener.onSelectEdge(newEdge);
+    /**
+     * Notifies all listeners that a new edge is selected
+     * @param selectEdge to notify about
+     */
+    private void notifyOnSelectEdge(Edge selectEdge) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
+            listener.onSelectEdge(selectEdge);
         }
     }
 
+    /**
+     * Notifies all listeners that all selected edges are removed
+     */
     private void notifyOnClearSelectedEdge() {
-        for (VertexListener listener : vertexListeners) {
+        for (MainWindowModelListener listener : mainWindowModelListeners) {
             listener.onClearSelectedEdge();
         }
     }
 
+    /**
+     * Notifies all listeners that a list of selected vertex are removed
+     * @param removeVertex vertex to unselect
+     */
     private void notifyOnRemoveSelectedVertex(List<Vertex> removeVertex){
-        for (VertexListener listener : vertexListeners){
+        for (MainWindowModelListener listener : mainWindowModelListeners){
             listener.onRemoveSelectedVertex(removeVertex);
         }
     }
 
+    /**
+     * Notifies all listeners that a list of selected edges are removed
+     * @param removeEdges edges to unselect
+     */
     private void notifyOnRemoveSelectedEdge(List<Edge> removeEdges){
-        for (VertexListener listener : vertexListeners){
+        for (MainWindowModelListener listener : mainWindowModelListeners){
             listener.onRemoveSelectedEdge(removeEdges);
         }
     }
 
+    /**
+     * Clears all lists the model handles.
+     */
     public void clear(){
         displayVertex.clear();
         displayEdges.clear();
         selectedVertex.clear();
         selectedEdge.clear();
-    }
-
-    interface VertexListener{
-        void onAddVertex(Vertex newVertex);
-        void onSelectVertex(Vertex selectedVertex);
-        void onClearVertex();
-        void onClearSelectedVertex();
-        void onAddEdge(Edge newEdge);
-        void onSelectEdge(Edge selectedEdge);
-        void onClearSelectedEdge();
-        void onRemoveSelectedVertex(List<Vertex> selectedVertex);
-        void onRemoveSelectedEdge(List<Edge> selectedEdges);
     }
 
     /**
@@ -194,13 +250,51 @@ public class MainWindowModel {
         return selectedEdge;
     }
 
-    /*
-     * public Map<Edge, Line> getEdgeToLineMap() {
-     * return edgeToLineMap;
-     * }
-     * 
-     * public Map<Vertex, Circle> getVertexToCircleMap() {
-     * return vertexToCircleMap;
-     * }
+    /**
+     * Listener that notifies about changes in the model.
      */
+    interface MainWindowModelListener {
+        /**
+         * Notifies about added Vertex
+         * @param newVertex added Vertex
+         */
+        void onAddVertex(Vertex newVertex);
+        /**
+         * Notifies about selected Vertex
+         * @param selectedVertex selected Vertex
+         */
+        void onSelectVertex(Vertex selectedVertex);
+        /**
+         * Notifies about clear of all vertex
+         */
+        void onClearVertex();
+        /**
+         * Notifies about clear of all selected vertex
+         */
+        void onClearSelectedVertex();
+        /**
+         * Notifies about added Edge
+         * @param newEdge added Edge
+         */
+        void onAddEdge(Edge newEdge);
+        /**
+         * Notifies about selected Edge
+         * @param selectedEdge selected Edge
+         */
+        void onSelectEdge(Edge selectedEdge);
+        /**
+         * Notifies about clear of all selected Edges
+         */
+        void onClearSelectedEdge();
+        /**
+         * Notifies about remove of selected vertex
+         * @param selectedVertex vertex to remove
+         */
+        void onRemoveSelectedVertex(List<Vertex> selectedVertex);
+        /**
+         * Notifies about remove of selected edge
+         * @param selectedEdges edge to remove
+         */
+        void onRemoveSelectedEdge(List<Edge> selectedEdges);
+    }
 }
