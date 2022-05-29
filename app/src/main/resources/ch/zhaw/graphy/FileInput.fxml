@@ -50,7 +50,15 @@
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#close" prefHeight="35.0" prefWidth="80.0" stylesheets="@buttons.css" text="Close">
                      <font>
                         <Font name="System Bold" size="14.0" />
-                     </font></Button>
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Button mnemonicParsing="false" onAction="#choseFile" prefHeight="35.0" stylesheets="@buttons.css" text="Choose a File">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
 
                </children>
                <opaqueInsets>

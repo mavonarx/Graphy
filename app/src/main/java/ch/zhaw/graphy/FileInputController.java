@@ -11,10 +11,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +41,31 @@ public class FileInputController {
 
     @FXML
     private TextArea textArea;
+
+    @FXML
+    void choseFile(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose a file to be opened");
+
+        chooser.setInitialDirectory(new File("Examples"));
+        File file = chooser.showOpenDialog(stage);
+
+        if (file == null) {
+            throw new IllegalArgumentException("The file is null");
+        }
+        textArea.setText("The chosen file is: \n" + file.getPath());
+        launchFile = file;
+
+        try {
+            new GraphHandler(null, launchFile);
+        } catch (IOException e) {
+            textArea.setText(e.getMessage());
+            launch.setDisable(true);
+            return;
+        }
+        launch.setDisable(false);
+
+    }
 
     /**
      * Constructor for FileInputController. Fills in the scene. Sets up, configures
