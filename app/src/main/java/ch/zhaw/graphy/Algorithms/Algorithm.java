@@ -28,6 +28,7 @@ public abstract class Algorithm {
      *
      * @param graph a graphHandler containing a graph map
      * @param source the vertex from which all other vertices should be reachable
+     * @throws IllegalArgumentException if the graph from this source is not connected
      */
     void checkIfConnected(GraphHandler graph, Vertex source) {
 

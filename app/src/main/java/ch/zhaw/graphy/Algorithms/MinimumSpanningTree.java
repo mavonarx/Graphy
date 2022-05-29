@@ -42,22 +42,23 @@ public class MinimumSpanningTree extends Algorithm{
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
 
         priorityQueue.addAll(graph.getGraph().get(source));
-        Edge current = priorityQueue.peek();
 
-        while (!visited.contains(current.getStart()) || !visited.contains(current.getEnd())){
-            current = priorityQueue.poll();
+        while (visited.size()< graph.getGraph().size()){
+            Edge current = priorityQueue.poll();
+
             if (current==null){
                 throw new IllegalStateException("chosen Edge is null");
             }
-
-                chosenEdges.add(current);
-                visited.add(current.getEnd());
-                for(Edge edge : graph.getGraph().get(current.getEnd())){
-                    if (!visited.contains(edge.getEnd()) && (!priorityQueue.contains(edge))){
-                        priorityQueue.add(edge);
-                    }
+            if (visited.contains(current.getEnd())){
+                continue;
+            }
+            chosenEdges.add(current);
+            visited.add(current.getEnd());
+            for(Edge edge : graph.getGraph().get(current.getEnd())){
+                if ( (!priorityQueue.contains(edge)) ){
+                    priorityQueue.add(edge);
                 }
-
+            }
         }
         return chosenEdges;
     }
