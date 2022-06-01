@@ -22,13 +22,13 @@ public class Dijkstra{
      * @param source the vertex from which the dijkstra starts
      * @param finalVertex the vertex to which we path
      */
-    public static Map<Vertex,Vertex> executeDijkstra(GraphHandler graph, Vertex source, Vertex finalVertex) throws IllegalArgumentException{
+    public static LinkedHashMap<Vertex,Vertex> executeDijkstra(GraphHandler graph, Vertex source, Vertex finalVertex) throws IllegalArgumentException{
           Map<Vertex, Integer> distances = new HashMap<>();
           PriorityQueue<Edge> prioQueue = new PriorityQueue<>();
           Map <Vertex, Vertex> predecessors = new HashMap<>();
           Set<Vertex> visited = new HashSet<>();
 
-        HashMap<Vertex,Vertex> resultMap = new HashMap<>();
+        LinkedHashMap<Vertex,Vertex> resultMap = new LinkedHashMap<>();
         resultMap.put(source,null);
         if (source.equals(finalVertex)){
            return resultMap;

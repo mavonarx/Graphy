@@ -8,8 +8,6 @@ import ch.zhaw.graphy.Graph.Edge;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
@@ -254,7 +252,8 @@ public class MainWindowController {
 
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
-        weightCounter = changePathColor(weightCounter, path);
+        weightCounter = calculateWeight(weightCounter, path);
+        changeColor(path);
         model.getSelectedVertex().clear();
         feedBackLabel.setStyle("-fx-text-fill: black");
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
@@ -323,10 +322,12 @@ public class MainWindowController {
         Dijkstra dijkstra = new Dijkstra();
         Map<Vertex,Vertex> path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(0), model.getSelectedVertex().get(1));
 
-        weightCounter = changePathColor(weightCounter, path);
+        weightCounter = calculateWeight(weightCounter, path);
+        changeColor(path);
         path = dijkstra.executeDijkstra(handler, model.getSelectedVertex().get(1), model.getSelectedVertex().get(2));
 
-        weightCounter = changePathColor(weightCounter, path);
+        weightCounter = calculateWeight(weightCounter, path);
+        changeColor(path);
         changeVertexColor(model.getSelectedVertex().get(1), Color. GREY);
         feedBackLabel.setText("Minimum path cost is: " + weightCounter);
     }
@@ -338,17 +339,39 @@ public class MainWindowController {
      * @param path a map created by a dijkstra
      * @return this int is the new weight counter in the buttons
      */
-    private int changePathColor(int weightCounter, Map<Vertex, Vertex> path) {
+    private int calculateWeight(int weightCounter, Map<Vertex, Vertex> path) {
         for (Vertex vertex : path.keySet()){
             vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
             for (Edge edge : edgeGuiBiMap.inverse().keySet()){
                 if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))){
-                    changeEdgeColor(edge, Color.GREEN);
                     weightCounter+=edge.getWeight();
                 }
             }
         }
         return weightCounter;
+    }
+
+    private void changeColor(Map<Vertex,Vertex> path){
+
+        List<Vertex> reverseOrder = new ArrayList<>(path.keySet());
+        Collections.reverse(reverseOrder);
+
+        Thread t  = new Thread(()-> {
+            for (Vertex vertex : reverseOrder) {
+                vertexGuiBiMap.inverse().get(vertex).setColor(Color.ORANGE);
+                for (Edge edge : edgeGuiBiMap.inverse().keySet()) {
+                    if (edge.getEnd().equals(vertex) && edge.getStart().equals(path.get(vertex))) {
+                        Platform.runLater(() -> changeEdgeColor(edge, Color.GREEN));
+                        try {
+                            Thread.sleep(600);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        });
+        t.start();
     }
 
     /**
