@@ -31,13 +31,13 @@ public class MinimumSpanningTree extends Algorithm{
      * @param source a vertex from which you would like the mst to start
      * @return the set of edges connecting all vertices
      */
-    public Set<Edge> executeMST(GraphHandler graph, Vertex source){
+    public List<Edge> executeMST(GraphHandler graph, Vertex source){
 
         //Use BFS to make sure the graph is fully connected e.g. if all vertices are reachable from the given source
         checkIfConnected(graph, source);
 
         Set<Vertex> visited= new HashSet<>();
-        Set<Edge> chosenEdges = new HashSet<>();
+        List<Edge> chosenEdges = new LinkedList<>();
         visited.add(source);
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
 

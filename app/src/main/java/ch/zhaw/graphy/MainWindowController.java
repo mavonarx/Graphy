@@ -8,12 +8,15 @@ import ch.zhaw.graphy.Graph.Edge;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 import ch.zhaw.graphy.Graph.GraphHandler;
 import ch.zhaw.graphy.Graph.Point;
 import ch.zhaw.graphy.Graph.Vertex;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -274,7 +277,7 @@ public class MainWindowController {
         }
         algorithmSelectionMenu.setText("Spanning Tree");
         MinimumSpanningTree mst = new MinimumSpanningTree(new BreadthFirstSearch());
-        Set<Edge> chosenEdges = new HashSet<>();
+        List<Edge> chosenEdges;
         try {
             chosenEdges = mst.executeMST(handler, model.getSelectedVertex().get(0));
         }catch (IllegalArgumentException e){
@@ -282,13 +285,20 @@ public class MainWindowController {
             feedBackLabel.setText("The graph isn't connected to the source");
             return;
         }
+        Thread t = new Thread(()->{
         for (Edge mstEdge : chosenEdges){
             for (Edge lineEdge : edgeGuiBiMap.inverse().keySet()){
                 if (mstEdge.equals(lineEdge)){
-                    changeEdgeColor(lineEdge, Color.GREEN);
+                    Platform.runLater(() -> changeEdgeColor(lineEdge, Color.GREEN));
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        }
+        }});
+        t.start();
         model.getSelectedVertex().clear();
         feedBackLabel.setStyle("-fx-text-fill: black");
         feedBackLabel.setText("MST needs " + chosenEdges.size() + " edges to reach all vertices");
